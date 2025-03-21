@@ -1100,5 +1100,59 @@
     </div>
   </div>
 </div>
+
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  // Procurar o botão específico pelo texto "Entre em contato"
+  const contactButtons = document.querySelectorAll('a span');
+  
+  contactButtons.forEach(function(span) {
+    if (span.textContent.trim() === 'Entre em contato') {
+      const button = span.closest('a');
+      
+      if (button) {
+        console.log('Botão de contato encontrado:', button);
+        
+        // Adicionar evento de clique
+        button.addEventListener('click', function(e) {
+          e.preventDefault();
+          console.log('Botão de contato clicado!');
+          
+          // Mostrar o modal
+          const modal = document.getElementById('contactModal');
+          if (modal) {
+            modal.style.display = 'block';
+            document.body.style.overflow = 'hidden';
+          } else {
+            console.error('Modal não encontrado!');
+            alert('Formulário de contato não disponível. Por favor, envie um email para cici3.tech@gmail.com');
+          }
+        });
+      }
+    }
+  });
+  
+  // Fechar o modal quando clicar no botão de fechar
+  const closeButtons = document.querySelectorAll('.close');
+  closeButtons.forEach(function(button) {
+    button.addEventListener('click', function() {
+      const modal = this.closest('.modal');
+      if (modal) {
+        modal.style.display = 'none';
+        document.body.style.overflow = '';
+      }
+    });
+  });
+  
+  // Fechar o modal quando clicar fora dele
+  window.addEventListener('click', function(e) {
+    if (e.target.classList.contains('modal')) {
+      e.target.style.display = 'none';
+      document.body.style.overflow = '';
+    }
+  });
+});
+</script>
             
 </body></html>
