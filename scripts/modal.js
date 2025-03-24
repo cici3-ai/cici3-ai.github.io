@@ -1,4 +1,7 @@
 document.addEventListener('DOMContentLoaded', function() {
+  // Variável para armazenar a posição original do scroll
+  let scrollPosition = 0;
+
   // Selecionar elementos
   const modal = document.getElementById('contactModal');
   if (!modal) {
@@ -30,14 +33,32 @@ document.addEventListener('DOMContentLoaded', function() {
   
   // Função para abrir o modal
   function openModal() {
+    // Salvar a posição atual do scroll
+    scrollPosition = window.pageYOffset || document.documentElement.scrollTop;
+    
+    // Mostrar o modal
     modal.classList.add('show');
-    document.body.style.overflow = 'hidden'; // Impedir rolagem da página
+    
+    // Fixar o body para prevenir scroll
+    document.body.style.overflow = 'hidden';
+    document.body.style.position = 'fixed';
+    document.body.style.width = '100%';
+    document.body.style.top = `-${scrollPosition}px`;
   }
   
   // Função para fechar o modal
   function closeModal() {
+    // Esconder o modal
     modal.classList.remove('show');
-    document.body.style.overflow = ''; // Restaurar rolagem da página
+    
+    // Restaurar o scroll
+    document.body.style.overflow = '';
+    document.body.style.position = '';
+    document.body.style.width = '';
+    document.body.style.top = '';
+    
+    // Retornar à posição original do scroll
+    window.scrollTo(0, scrollPosition);
   }
   
   // Adicionar evento de clique aos botões de contato
@@ -51,7 +72,10 @@ document.addEventListener('DOMContentLoaded', function() {
   
   // Fechar o modal quando clicar no botão de fechar
   if (closeButton) {
-    closeButton.addEventListener('click', closeModal);
+    closeButton.addEventListener('click', function(e) {
+      e.preventDefault();
+      closeModal();
+    });
   }
   
   // Fechar o modal quando clicar fora dele
@@ -68,9 +92,29 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   });
   
+  // Prevenir que toques no modal afetem a página por trás
+  modal.addEventListener('touchmove', function(e) {
+    if (e.target === modal) {
+      e.preventDefault();
+    }
+  }, { passive: false });
+  
+  // Permitir scroll dentro do conteúdo do modal em dispositivos móveis
+  const modalContent = modal.querySelector('.modal-content') || modal.querySelector('.modal-dialog');
+  if (modalContent) {
+    modalContent.addEventListener('touchmove', function(e) {
+      e.stopPropagation();
+    }, { passive: true });
+  }
+  
   // Envio do formulário com feedback visual
   const contactForm = modal.querySelector('form');
   if (contactForm) {
+    // Permitir scroll dentro do formulário em dispositivos móveis
+    contactForm.addEventListener('touchmove', function(e) {
+      e.stopPropagation();
+    }, { passive: true });
+    
     contactForm.addEventListener('submit', function(e) {
       const submitButton = contactForm.querySelector('button[type="submit"]');
       if (submitButton) {
@@ -93,7 +137,4 @@ document.addEventListener('DOMContentLoaded', function() {
       }
     });
   }
-});
-    }, 1000);
-  });
 });
