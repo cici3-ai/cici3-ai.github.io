@@ -1,1208 +1,2877 @@
-<html lang="en" class="tw-dark"><head>
-    <script>
-       // Corrige problemas de scroll em dispositivos móveis
-       if (/Android|iPhone|iPad|iPod/i.test(navigator.userAgent)) {
-         // Previne comportamentos de scroll indesejados
-         document.addEventListener('DOMContentLoaded', function() {
-           // Previne scroll para o topo ao clicar em links vazios
-           document.addEventListener('click', function(e) {
-             if (e.target.tagName === 'A' && (e.target.getAttribute('href') === '#' || e.target.getAttribute('href') === '')) {
-               e.preventDefault();
-             }
-           }, true);
-           
-           // Desativa animações que podem interferir com o scroll
-           document.querySelectorAll('.reveal-up').forEach(function(el) {
-             el.style.transform = 'none';
-             el.style.opacity = '1';
-             el.style.transition = 'none';
-           });
-         });
-       }
-    </script>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CICI3 - Sua Inteligência de Dados em Português</title>
+    <meta name="description" content="Transforme seus dados em decisões estratégicas com IA conversacional em português. A primeira plataforma de Business Intelligence que entende seu negócio.">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.3/font/bootstrap-icons.min.css">
     
     <style>
-      @media (max-width: 768px) {
-        html, body {
-          scroll-behavior: auto !important;
-          -webkit-overflow-scrolling: touch;
-          overflow-x: hidden;
+        /* ================================ */
+        /* BRAND BOOK 2.3 - VISUAL SYSTEM  */
+        /* ================================ */
+        :root {
+            /* Cores primárias */
+            --oceano-profundo: #0A1628;
+            --ciano-eletrico: #00D4FF;
+            --verde-mint: #4FFFB0;
+            --branco-puro: #FFFFFF;
+            
+            /* Cores de apoio */
+            --ambar-alerta: #FFB020;
+            --coral-urgente: #FF4757;
+            --cinza-equilibrado: #64748B;
+            --cinza-claro: #F8FAFC;
+            --cinza-medio: #E2E8F0;
+            
+            /* Gradientes */
+            --gradient-deep: linear-gradient(135deg, var(--oceano-profundo) 0%, #1E293B 100%);
+            --gradient-success: linear-gradient(135deg, var(--verde-mint) 0%, var(--ciano-eletrico) 100%);
+            --gradient-premium: linear-gradient(135deg, #7C3AED 0%, var(--ciano-eletrico) 100%);
+            
+            /* Shadows */
+            --shadow-soft: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-medium: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --shadow-strong: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
         }
-        
-        /* Fixa o cabeçalho de forma mais compatível com mobile */
-        header.lg\:tw-px-4 {
-          position: sticky !important;
-          top: 0 !important;
-          transform: none !important;
-          width: 100% !important;
+
+        /* ================== */
+        /* BASE & RESET       */
+        /* ================== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
-        
-        /* Desativa animações em dispositivos móveis */
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--branco-puro);
+            color: var(--oceano-profundo);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+        }
+
+        /* ===================== */
+        /* ANIMAÇÕES SIGNATURE  */
+        /* ===================== */
+        @keyframes pulso-pensante {
+            0%, 100% { opacity: 0.7; }
+            50% { opacity: 1; }
+        }
+
+        @keyframes florescer-insight {
+            from { 
+                opacity: 0; 
+                transform: translateY(20px) scale(0.95); 
+            }
+            to { 
+                opacity: 1; 
+                transform: translateY(0) scale(1); 
+            }
+        }
+
+        @keyframes slide-infinito {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
         .reveal-up {
-          opacity: 1 !important;
-          transform: none !important;
+            opacity: 0;
+            transform: translateY(40px);
+            animation: florescer-insight 0.8s ease forwards;
         }
-      }
+
+        .reveal-up.delay-1 { animation-delay: 0.2s; }
+        .reveal-up.delay-2 { animation-delay: 0.4s; }
+        .reveal-up.delay-3 { animation-delay: 0.6s; }
+
+        /* ================= */
+        /* UTILITIES         */
+        /* ================= */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 16px 32px;
+            border: none;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 16px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            white-space: nowrap;
+        }
+
+        .btn-primary {
+            background: var(--gradient-success);
+            color: var(--oceano-profundo);
+            box-shadow: var(--shadow-medium);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-strong);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--ciano-eletrico);
+            border: 2px solid var(--ciano-eletrico);
+        }
+
+        .btn-secondary:hover {
+            background: var(--ciano-eletrico);
+            color: var(--branco-puro);
+            transform: translateY(-2px);
+        }
+
+        .btn-ghost {
+            background: transparent;
+            color: var(--cinza-equilibrado);
+            border: 2px solid var(--cinza-medio);
+        }
+
+        .btn-ghost:hover {
+            color: var(--oceano-profundo);
+            border-color: var(--oceano-profundo);
+        }
+
+        /* ================= */
+        /* HEADER            */
+        /* ================= */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--cinza-medio);
+        }
+
+        .header-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 80px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 28px;
+            font-weight: 800;
+            color: var(--oceano-profundo);
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--gradient-success);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--oceano-profundo);
+            font-weight: 800;
+        }
+
+        /* Logo space for custom image */
+        .logo-custom {
+            width: 40px;
+            height: 40px;
+            border-radius: 12px;
+            object-fit: contain;
+        }
+
+        .nav {
+            display: flex;
+            align-items: center;
+            gap: 32px;
+        }
+
+        .nav-link {
+            color: var(--cinza-equilibrado);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav-link:hover {
+            color: var(--oceano-profundo);
+        }
+
+        /* Mobile menu */
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 24px;
+            color: var(--oceano-profundo);
+            cursor: pointer;
+        }
+
+        .mobile-nav {
+            display: none;
+            position: fixed;
+            top: 80px;
+            left: 0;
+            right: 0;
+            background: var(--branco-puro);
+            border-bottom: 1px solid var(--cinza-medio);
+            padding: 20px;
+            z-index: 999;
+        }
+
+        .mobile-nav.active {
+            display: block;
+        }
+
+        .mobile-nav-link {
+            display: block;
+            color: var(--cinza-equilibrado);
+            text-decoration: none;
+            font-weight: 500;
+            padding: 12px 0;
+            border-bottom: 1px solid var(--cinza-medio);
+        }
+
+        .mobile-nav-link:hover {
+            color: var(--oceano-profundo);
+        }
+
+        /* Dropdown styles - MELHORADO */
+        .nav-dropdown {
+            position: relative;
+        }
+
+        .nav-dropdown-content {
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--branco-puro);
+            border-radius: 16px;
+            box-shadow: var(--shadow-strong);
+            padding: 32px;
+            min-width: 600px;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 1001;
+            margin-top: 16px;
+        }
+
+        .nav-dropdown:hover .nav-dropdown-content {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* Adiciona área de buffer para evitar que o dropdown suma */
+        .nav-dropdown::after {
+            content: '';
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            height: 20px;
+            z-index: 1000;
+        }
+
+        .dropdown-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+        }
+
+        .dropdown-item {
+            display: flex;
+            gap: 16px;
+            padding: 16px;
+            border-radius: 12px;
+            text-decoration: none;
+            color: var(--oceano-profundo);
+            transition: all 0.3s ease;
+        }
+
+        .dropdown-item:hover {
+            background: var(--cinza-claro);
+            transform: translateY(-2px);
+        }
+
+        .dropdown-icon {
+            width: 48px;
+            height: 48px;
+            background: var(--gradient-success);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--oceano-profundo);
+            font-size: 20px;
+            flex-shrink: 0;
+        }
+
+        .dropdown-text h4 {
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .dropdown-text p {
+            color: var(--cinza-equilibrado);
+            font-size: 14px;
+        }
+
+        /* ================= */
+        /* HERO SECTION      */
+        /* ================= */
+        .hero {
+            padding: 160px 0 120px 0;
+            background: var(--gradient-deep);
+            color: var(--branco-puro);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 30% 40%, var(--ciano-eletrico)15, transparent 50%),
+                        radial-gradient(circle at 80% 20%, var(--verde-mint)15, transparent 50%);
+            opacity: 0.1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero h1 {
+            font-size: clamp(3rem, 6vw, 5rem);
+            font-weight: 900;
+            line-height: 1.1;
+            margin-bottom: 24px;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero-subtitle {
+            font-size: 20px;
+            font-weight: 400;
+            color: var(--cinza-claro);
+            margin-bottom: 40px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero-cta {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 60px;
+        }
+
+        /* CTA Hero Melhorado */
+        .cta-hero-box {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 32px;
+            max-width: 500px;
+            margin: 40px auto 60px;
+            backdrop-filter: blur(20px);
+        }
+
+        .cta-hero-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 16px;
+            color: var(--verde-mint);
+        }
+
+        .hero-metrics {
+            display: flex;
+            justify-content: center;
+            gap: 60px;
+            flex-wrap: wrap;
+        }
+
+        .metric {
+            text-align: center;
+        }
+
+        .metric-value {
+            font-size: 32px;
+            font-weight: 800;
+            color: var(--verde-mint);
+            display: block;
+        }
+
+        .metric-label {
+            font-size: 14px;
+            color: var(--cinza-claro);
+            font-weight: 500;
+        }
+
+        /* ===================== */
+        /* VIDEO SECTION         */
+        /* ===================== */
+        .video-section {
+            padding: 80px 0;
+            background: var(--cinza-claro);
+        }
+
+        .video-container {
+            max-width: 800px;
+            margin: 60px auto 0;
+            position: relative;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: var(--shadow-strong);
+        }
+
+        .video-placeholder {
+            width: 100%;
+            height: 450px;
+            background: var(--oceano-profundo);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--branco-puro);
+            font-size: 18px;
+            position: relative;
+        }
+
+        .video-placeholder::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at center, var(--ciano-eletrico)15, transparent 50%);
+            opacity: 0.1;
+        }
+
+        .video-play-btn {
+            width: 80px;
+            height: 80px;
+            background: var(--gradient-success);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--oceano-profundo);
+            font-size: 32px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            z-index: 2;
+        }
+
+        .video-play-btn:hover {
+            transform: scale(1.1);
+        }
+
+        /* ================= */
+        /* SOCIAL PROOF      */
+        /* ================= */
+        .social-proof-section {
+            padding: 80px 0;
+            background: var(--cinza-claro);
+            overflow: hidden;
+        }
+
+        .social-proof-title {
+            text-align: center;
+            font-size: 24px;
+            font-weight: 600;
+            color: var(--cinza-equilibrado);
+            margin-bottom: 60px;
+        }
+
+        .logos-slider-container {
+            overflow: hidden;
+            position: relative;
+        }
+
+        .logos-slider {
+            display: flex;
+            align-items: center;
+            gap: 80px;
+            animation: slide-infinito 30s linear infinite;
+            width: max-content;
+        }
+
+        .logo-item {
+            height: 60px;
+            width: 140px;
+            background: var(--branco-puro);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            color: var(--cinza-equilibrado);
+            box-shadow: var(--shadow-soft);
+            flex-shrink: 0;
+            border: 2px solid var(--cinza-medio);
+            transition: all 0.3s ease;
+            overflow: hidden;
+        }
+
+        .logo-item img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+
+        .logo-item:hover {
+            border-color: var(--ciano-eletrico);
+            transform: scale(1.05);
+        }
+
+        /* ================= */
+        /* USE CASES SECTION */
+        /* ================= */
+        .use-cases-section {
+            padding: 120px 0;
+        }
+
+        .solutions-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 32px;
+            margin-top: 80px;
+            max-width: 1000px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .solutions-row {
+            display: contents;
+        }
+
+        .solution-module {
+            background: var(--branco-puro);
+            border: 2px solid var(--cinza-medio);
+            border-radius: 20px;
+            padding: 40px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            text-align: center;
+        }
+
+        .solution-module:hover {
+            border-color: var(--ciano-eletrico);
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-strong);
+        }
+
+        .module-icon {
+            width: 80px;
+            height: 80px;
+            background: var(--gradient-success);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--oceano-profundo);
+            font-size: 32px;
+            margin: 0 auto 24px;
+        }
+
+        .module-tag {
+            background: var(--gradient-success);
+            color: var(--oceano-profundo);
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            display: inline-block;
+            margin-bottom: 16px;
+        }
+
+        .solution-module h3 {
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            color: var(--oceano-profundo);
+        }
+
+        .solution-module p {
+            color: var(--cinza-equilibrado);
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .module-benefits {
+            list-style: none;
+            text-align: left;
+        }
+
+        .module-benefits li {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 8px;
+            font-size: 14px;
+            color: var(--cinza-equilibrado);
+        }
+
+        .module-benefits .check {
+            color: var(--verde-mint);
+            font-weight: 600;
+        }
+
+        /* ================= */
+        /* PROBLEM SECTION   */
+        /* ================= */
+        .problem-section {
+            padding: 120px 0;
+            background: var(--cinza-claro);
+        }
+
+        .problem-stats {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .big-stat {
+            font-size: 4rem;
+            font-weight: 900;
+            color: var(--coral-urgente);
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .stat-description {
+            font-size: 18px;
+            color: var(--cinza-equilibrado);
+        }
+
+        .problems-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 32px;
+            margin-top: 80px;
+            max-width: 1000px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .problem-card {
+            background: var(--branco-puro);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: var(--shadow-soft);
+            transition: transform 0.3s ease;
+            border-left: 4px solid var(--coral-urgente);
+        }
+
+        .problem-card:hover {
+            transform: translateY(-8px);
+        }
+
+        .problem-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--coral-urgente), var(--ambar-alerta));
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 24px;
+            color: var(--branco-puro);
+            font-size: 24px;
+        }
+
+        .problem-impact {
+            background: linear-gradient(135deg, var(--coral-urgente)10, transparent);
+            padding: 16px;
+            border-radius: 12px;
+            margin-top: 20px;
+        }
+
+        .impact-value {
+            font-size: 24px;
+            font-weight: 800;
+            color: var(--coral-urgente);
+            display: block;
+        }
+
+        .impact-label {
+            font-size: 14px;
+            color: var(--cinza-equilibrado);
+        }
+
+        /* ================= */
+        /* CTA ANALYST SECTION */
+        /* ================= */
+        .cta-analyst-section {
+            padding: 80px 0;
+            background: var(--gradient-deep);
+            color: var(--branco-puro);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-analyst-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 30% 40%, var(--ciano-eletrico)15, transparent 50%),
+                        radial-gradient(circle at 80% 20%, var(--verde-mint)15, transparent 50%);
+            opacity: 0.1;
+        }
+
+        .cta-analyst-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .cta-analyst-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 20px;
+            color: var(--verde-mint);
+        }
+
+        .cta-analyst-subtitle {
+            font-size: 20px;
+            color: var(--cinza-claro);
+            margin-bottom: 40px;
+        }
+
+        .cta-analyst-buttons {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        /* ================= */
+        /* SOLUTION SECTION  */
+        /* ================= */
+        .solution-section {
+            padding: 120px 0;
+        }
+
+        .solution-demo {
+            display: grid;
+            grid-template-columns: 1fr 1.5fr;
+            gap: 60px;
+            margin-top: 80px;
+            align-items: start;
+        }
+
+        .questions-list {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .question-btn {
+            background: var(--branco-puro);
+            border: 2px solid var(--cinza-medio);
+            border-radius: 16px;
+            padding: 20px;
+            text-align: left;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 16px;
+            font-weight: 500;
+        }
+
+        .question-btn:hover,
+        .question-btn.active {
+            border-color: var(--ciano-eletrico);
+            background: linear-gradient(135deg, var(--ciano-eletrico)05, transparent);
+            transform: translateX(8px);
+        }
+
+        .demo-chat {
+            background: var(--oceano-profundo);
+            border-radius: 20px;
+            padding: 40px;
+            min-height: 400px;
+            color: var(--branco-puro);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .demo-chat::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 200px;
+            height: 200px;
+            background: var(--gradient-success);
+            border-radius: 50%;
+            filter: blur(100px);
+            opacity: 0.1;
+        }
+
+        .chat-message {
+            margin-bottom: 20px;
+            animation: florescer-insight 0.5s ease;
+        }
+
+        .chat-user {
+            color: var(--verde-mint);
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .chat-response {
+            color: var(--cinza-claro);
+            line-height: 1.7;
+        }
+
+        .typing-indicator {
+            color: var(--cinza-equilibrado);
+            animation: pulso-pensante 1.5s infinite;
+        }
+
+        /* ================= */
+        /* BENEFITS SECTION  */
+        /* ================= */
+        .benefits-section {
+            padding: 120px 0;
+            background: var(--cinza-claro);
+        }
+
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 40px;
+            margin-top: 80px;
+        }
+
+        .benefit-card {
+            background: var(--branco-puro);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: var(--shadow-soft);
+            transition: transform 0.3s ease;
+        }
+
+        .benefit-card:hover {
+            transform: translateY(-8px);
+        }
+
+        .benefit-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--gradient-success);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 24px;
+            color: var(--oceano-profundo);
+            font-size: 24px;
+        }
+
+        /* ================= */
+        /* PRICING SECTION   */
+        /* ================= */
+        .pricing-section {
+            padding: 120px 0;
+        }
+
+        .pricing-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin: 40px auto 60px;
+            background: var(--cinza-claro);
+            border-radius: 12px;
+            padding: 8px;
+            max-width: 400px;
+        }
+
+        .pricing-tab {
+            flex: 1;
+            padding: 12px 24px;
+            border: none;
+            background: transparent;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: var(--cinza-equilibrado);
+        }
+
+        .pricing-tab.active {
+            background: var(--branco-puro);
+            color: var(--oceano-profundo);
+            box-shadow: var(--shadow-soft);
+        }
+
+        .pricing-content {
+            display: none;
+        }
+
+        .pricing-content.active {
+            display: block;
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 32px;
+            margin-top: 40px;
+            max-width: 1100px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .pricing-card {
+            background: var(--branco-puro);
+            border: 2px solid var(--cinza-medio);
+            border-radius: 24px;
+            padding: 40px;
+            text-align: center;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .pricing-card.popular {
+            border-color: var(--ciano-eletrico);
+            transform: scale(1.05);
+            box-shadow: var(--shadow-strong);
+        }
+
+        .pricing-card.popular::before {
+            content: 'Mais Escolhido';
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--gradient-success);
+            color: var(--oceano-profundo);
+            padding: 8px 24px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .pricing-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-strong);
+        }
+
+        .pricing-card.popular:hover {
+            transform: scale(1.05) translateY(-8px);
+        }
+
+        .pricing-card h3 {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--oceano-profundo);
+            margin-bottom: 8px;
+        }
+
+        .pricing-subtitle {
+            color: var(--cinza-equilibrado);
+            margin-bottom: 24px;
+        }
+
+        .price-container {
+            margin: 20px 0;
+        }
+
+        .price {
+            font-size: 36px;
+            font-weight: 800;
+            color: var(--oceano-profundo);
+        }
+
+        .price-period {
+            font-size: 16px;
+            color: var(--cinza-equilibrado);
+            font-weight: 500;
+        }
+
+        .price-note {
+            font-size: 12px;
+            color: var(--cinza-equilibrado);
+            margin-top: 4px;
+        }
+
+        .features-list {
+            list-style: none;
+            margin: 32px 0;
+            text-align: left;
+        }
+
+        .features-list li {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 12px;
+            color: var(--cinza-equilibrado);
+        }
+
+        .features-list .check {
+            color: var(--verde-mint);
+            font-weight: 600;
+        }
+
+        .features-list .x-mark {
+            color: var(--coral-urgente);
+            font-weight: 600;
+        }
+
+        /* Implementation Grid */
+        .implementation-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 32px;
+            margin-top: 40px;
+        }
+
+        .implementation-card {
+            background: var(--branco-puro);
+            border: 2px solid var(--cinza-medio);
+            border-radius: 20px;
+            padding: 32px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .implementation-card:hover {
+            border-color: var(--ciano-eletrico);
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-medium);
+        }
+
+        .implementation-price {
+            font-size: 28px;
+            font-weight: 800;
+            color: var(--oceano-profundo);
+            margin-bottom: 8px;
+        }
+
+        .implementation-target {
+            background: var(--gradient-success);
+            color: var(--oceano-profundo);
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+            display: inline-block;
+            margin-top: 16px;
+        }
+
+        /* ================= */
+        /* TESTIMONIALS      */
+        /* ================= */
+        .testimonials-section {
+            padding: 120px 0;
+            background: var(--oceano-profundo);
+            color: var(--branco-puro);
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 40px;
+            margin-top: 80px;
+        }
+
+        .testimonial-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 40px;
+            backdrop-filter: blur(20px);
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-top: 24px;
+        }
+
+        .author-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--gradient-success);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--oceano-profundo);
+            font-weight: 600;
+        }
+
+        /* ================= */
+        /* FAQ SECTION       */
+        /* ================= */
+        .faq-section {
+            padding: 120px 0;
+        }
+
+        .faq-list {
+            max-width: 800px;
+            margin: 60px auto 0;
+        }
+
+        .faq-item {
+            border-bottom: 1px solid var(--cinza-medio);
+            padding: 24px 0;
+        }
+
+        .faq-question {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 18px;
+            color: var(--oceano-profundo);
+        }
+
+        .faq-answer {
+            margin-top: 16px;
+            color: var(--cinza-equilibrado);
+            line-height: 1.7;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+
+        .faq-item.active .faq-answer {
+            max-height: 300px;
+        }
+
+        .faq-icon {
+            transition: transform 0.3s ease;
+        }
+
+        .faq-item.active .faq-icon {
+            transform: rotate(45deg);
+        }
+
+
+
+        /* ================= */
+        /* CTA SECTION       */
+        /* ================= */
+        .cta-section {
+            padding: 120px 0;
+            background: var(--gradient-deep);
+            color: var(--branco-puro);
+            text-align: center;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 40px;
+        }
+
+        /* ================= */
+        /* FOOTER            */
+        /* ================= */
+        .footer {
+            background: var(--oceano-profundo);
+            color: var(--cinza-claro);
+            padding: 80px 0 40px 0;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 60px;
+            margin-bottom: 60px;
+        }
+
+        .footer-brand {
+            color: var(--branco-puro);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+
+        .footer-links a {
+            color: var(--cinza-claro);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--ciano-eletrico);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 40px;
+            text-align: center;
+            color: var(--cinza-equilibrado);
+        }
+
+        .footer-legal {
+            margin-top: 20px;
+            font-size: 14px;
+            color: var(--cinza-equilibrado);
+        }
+
+        /* ================= */
+        /* MODAL STYLES      */
+        /* ================= */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            overflow-y: auto;
+        }
+
+        .modal-content {
+            position: relative;
+            background-color: var(--branco-puro);
+            margin: 2% auto;
+            padding: 40px;
+            border-radius: 20px;
+            width: 90%;
+            max-width: 500px;
+            box-shadow: var(--shadow-strong);
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .close {
+            position: absolute;
+            right: 20px;
+            top: 20px;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+            color: var(--cinza-equilibrado);
+        }
+
+        .close:hover {
+            color: var(--oceano-profundo);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--oceano-profundo);
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid var(--cinza-medio);
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--ciano-eletrico);
+            box-shadow: 0 0 0 3px rgba(0, 212, 255, 0.1);
+        }
+
+        /* ================= */
+        /* NEW COMPONENTS    */
+        /* ================= */
+        .roi-highlight {
+            background: var(--gradient-success);
+            color: var(--oceano-profundo);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 14px;
+            display: inline-block;
+            margin-top: 16px;
+        }
+
+        /* Estilos para os cards de planos sem preço fixo */
+        .price-container.custom-value {
+            text-align: left;
+            padding: 16px 0;
+            border-top: 1px solid var(--cinza-claro, #eee);
+            border-bottom: 1px solid var(--cinza-claro, #eee);
+            margin-bottom: 24px;
+        }
+        .price-container.custom-value .price {
+            font-size: 1.5rem; /* 24px */
+            font-weight: 700;
+            color: var(--oceano-profundo, #0b2d4e);
+            line-height: 1.2;
+        }
+        .price-container.custom-value .price-note {
+            font-size: 0.875rem; /* 14px */
+            color: var(--cinza-equilibrado, #555);
+            margin-top: 4px;
+        }
+        .pricing-card h3 {
+            min-height: 3em; /* Garante que os títulos tenham altura similar */
+        }
+
+        /* Estilos para a seção Early Partner */
+        .early-partner-container {
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 48px;
+            background-color: var(--cinza-claro, #f8f9fa);
+            border: 2px solid var(--azul-brilhante, #007bff);
+            border-radius: 16px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.07);
+        }
+        .early-partner-title {
+            font-size: 2.25rem; /* 36px */
+            color: var(--oceano-profundo, #0b2d4e);
+            margin-bottom: 16px;
+        }
+        .early-partner-subtitle {
+            font-size: 1.125rem; /* 18px */
+            color: var(--cinza-equilibrado, #555);
+            margin-bottom: 32px;
+        }
+        .early-partner-benefits {
+            text-align: left;
+            max-width: 500px;
+            margin: 0 auto 32px;
+        }
+        .early-partner-benefits h4 {
+            font-size: 1.25rem; /* 20px */
+            color: var(--oceano-profundo, #0b2d4e);
+            margin-bottom: 16px;
+            text-align: center;
+        }
+        .early-partner-benefits ul {
+            list-style: none;
+            padding: 0;
+        }
+        .early-partner-benefits ul li {
+            font-size: 1rem; /* 16px */
+            color: var(--cinza-escuro, #333);
+            margin-bottom: 12px;
+            display: flex;
+            align-items: flex-start;
+        }
+        .early-partner-benefits ul li .check {
+            color: var(--verde-sucesso, #28a745);
+            margin-right: 12px;
+            font-size: 1.2rem;
+            margin-top: 2px;
+        }
+        .btn-large {
+            padding: 16px 40px;
+            font-size: 1.125rem; /* 18px */
+            font-weight: 700;
+        }
+
+        /* ================= */
+        /* RESPONSIVE        */
+        /* ================= */
+        @media (max-width: 1024px) {
+            .container {
+                padding: 0 20px;
+            }
+
+            .pricing-grid {
+                grid-template-columns: 1fr;
+                max-width: 600px;
+            }
+
+            .pricing-card.popular {
+                transform: none;
+            }
+
+            .benefits-grid {
+                grid-template-columns: 1fr;
+                max-width: 600px;
+                margin-left: auto;
+                margin-right: auto;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 16px;
+            }
+            
+            /* Header mobile */
+            .nav {
+                display: none;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            /* Hero mobile */
+            .hero {
+                padding: 140px 0 80px 0;
+            }
+
+            .hero h1 {
+                font-size: clamp(2rem, 8vw, 3rem);
+            }
+
+            .hero-subtitle {
+                font-size: 18px;
+            }
+
+            .hero-metrics {
+                gap: 30px;
+                flex-direction: column;
+            }
+
+            .metric {
+                padding: 0 20px;
+            }
+
+            .cta-hero-box {
+                padding: 24px;
+                margin: 30px auto 40px;
+            }
+
+            /* Video mobile */
+            .video-container {
+                margin: 40px auto 0;
+            }
+
+            .video-placeholder {
+                height: 250px;
+            }
+
+            .video-play-btn {
+                width: 60px;
+                height: 60px;
+                font-size: 24px;
+            }
+
+            /* Solutions grid mobile */
+            .solution-demo {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .solutions-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .solution-module {
+                padding: 30px 20px;
+            }
+
+            /* Problems grid mobile */
+            .problems-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .problem-card {
+                padding: 30px 20px;
+            }
+
+            /* Benefits mobile */
+            .benefit-card {
+                padding: 30px 20px;
+            }
+
+            /* CTA section mobile */
+            .cta-analyst-title {
+                font-size: 1.8rem;
+            }
+
+            .cta-analyst-subtitle {
+                font-size: 18px;
+            }
+
+            .cta-analyst-buttons,
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .btn {
+                width: 100%;
+                max-width: 300px;
+                justify-content: center;
+            }
+
+            /* Footer mobile */
+            .footer-grid {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            /* Dropdown mobile */
+            .nav-dropdown-content {
+                position: fixed;
+                top: 80px;
+                left: 0;
+                right: 0;
+                min-width: 100%;
+                transform: none;
+                margin-top: 0;
+                border-radius: 0;
+                padding: 20px;
+            }
+
+            .dropdown-grid {
+                grid-template-columns: 1fr;
+            }
+
+            /* Modal mobile */
+            .modal-content {
+                margin: 10px;
+                padding: 30px 20px;
+                width: calc(100% - 20px);
+                max-height: calc(100vh - 20px);
+            }
+
+            .close {
+                right: 15px;
+                top: 15px;
+                font-size: 24px;
+            }
+
+            /* Pricing tabs mobile */
+            .pricing-tabs {
+                flex-direction: column;
+                max-width: 300px;
+            }
+
+            .pricing-tab {
+                padding: 16px 24px;
+            }
+
+            /* Implementation grid mobile */
+            .implementation-grid {
+                grid-template-columns: 1fr;
+            }
+
+            /* Early partner mobile */
+            .early-partner-container {
+                padding: 30px 20px;
+                margin: 30px auto;
+            }
+
+            .early-partner-title {
+                font-size: 1.8rem;
+            }
+
+            .early-partner-subtitle {
+                font-size: 1rem;
+            }
+
+            /* FAQ mobile */
+            .faq-question {
+                font-size: 16px;
+                text-align: left;
+            }
+
+            .faq-answer {
+                font-size: 14px;
+            }
+
+            /* Testimonials mobile */
+            .testimonials-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .testimonial-card {
+                padding: 30px 20px;
+            }
+
+            /* Social proof mobile */
+            .logos-slider {
+                gap: 40px;
+            }
+
+            .logo-item {
+                width: 120px;
+                height: 50px;
+            }
+
+            /* Question buttons mobile */
+            .question-btn {
+                padding: 16px;
+                font-size: 14px;
+            }
+
+            /* Demo chat mobile */
+            .demo-chat {
+                padding: 24px;
+                min-height: 300px;
+            }
+
+            /* Section titles mobile */
+            .section-title {
+                font-size: clamp(1.5rem, 6vw, 2.5rem);
+                margin-bottom: 16px;
+            }
+
+            .section-subtitle {
+                font-size: 16px;
+            }
+
+            /* Stats mobile */
+            .big-stat {
+                font-size: 3rem;
+            }
+
+            .stat-description {
+                font-size: 16px;
+            }
+
+            /* Pricing card mobile */
+            .pricing-card {
+                padding: 30px 20px;
+            }
+
+            .price {
+                font-size: 28px;
+            }
+
+            /* Form mobile improvements */
+            .form-control {
+                font-size: 16px; /* Prevents zoom on iOS */
+                padding: 14px 16px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 12px;
+            }
+
+            .hero {
+                padding: 120px 0 60px 0;
+            }
+
+            .hero h1 {
+                font-size: clamp(1.8rem, 8vw, 2.5rem);
+                line-height: 1.2;
+            }
+
+            .hero-subtitle {
+                font-size: 16px;
+            }
+
+            .section-title {
+                font-size: clamp(1.3rem, 6vw, 2rem);
+            }
+
+            .section-subtitle {
+                font-size: 14px;
+            }
+
+            .cta-hero-box {
+                padding: 20px;
+            }
+
+            .btn {
+                padding: 14px 24px;
+                font-size: 14px;
+            }
+
+            .solution-module,
+            .problem-card,
+            .benefit-card,
+            .testimonial-card {
+                padding: 24px 16px;
+            }
+
+            .modal-content {
+                padding: 24px 16px;
+            }
+
+            .demo-chat {
+                padding: 20px;
+            }
+
+            .pricing-card {
+                padding: 24px 16px;
+            }
+
+            .early-partner-container {
+                padding: 24px 16px;
+            }
+
+            .early-partner-title {
+                font-size: 1.5rem;
+            }
+        }
+
+        /* Fix para scroll issues do modal */
+        body.modal-open {
+            overflow: hidden;
+            position: fixed;
+            width: 100%;
+        }
+
+        /* Melhorias para touchscreen */
+        @media (hover: none) and (pointer: coarse) {
+            .btn:hover,
+            .solution-module:hover,
+            .problem-card:hover,
+            .benefit-card:hover {
+                transform: none;
+            }
+
+            .btn:active {
+                transform: scale(0.98);
+            }
+        }
     </style>
-        <link rel="stylesheet" href="css/modal.css">
-        <script src="scripts/modal.js"></script>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Try cici - Assistente de IA para análise de dados</title>
-        <meta name="description" content="Conecte seus dados com IA">
-        <link rel="shortcut icon" href="./assets/logo/logo.png" type="image/x-icon">
-
-        <!-- Open Graph / Facebook -->
-        <meta property="og:title" content="Assistente de análise de dados para tomadores de decisão">
-        <meta property="og:description" content="Tenha os dados da sua empresa conectados com a IA">
-        <meta property="og:type" content="website">
-        <meta property="og:url" content="">
-        <meta property="og:image" content="">
-
-        <!-- <link rel="stylesheet" href="css/tailwind-runtime.css" /> -->
-        <link rel="stylesheet" href="css/tailwind-build.css">
-        <link rel="stylesheet" href="css/index.css">
-
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.3/font/bootstrap-icons.min.css" integrity="sha512-dPXYcDub/aeb08c63jRq/k6GaKccl256JQy/AnOq7CAnEZ9FzSL9wSbcZkMp4R26vBsMLFYH4kQ67/bbV8XaCQ==" crossorigin="anonymous" referrerpolicy="no-referrer">
-
-        <!-- Google tag (gtag.js) -->
-        <script async="" src="https://www.googletagmanager.com/gtag/js?id=G-"></script>
-        <script>
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-
-            gtag('config', 'G-');
-        </script>
-
-    </head>
-    <body class="tw-flex tw-min-h-[100vh] tw-flex-col tw-bg-[#fcfcfc] tw-text-black dark:tw-bg-black dark:tw-text-white" style="">
-        <!-- <div class="tw-absolute tw-top-0 tw-left-1/2 tw--translate-x-1/2 tw-flex 
-                    tw-h-[100px] tw-w-full tw-max-w-[80%]">
-            <div class="header-gradient tw-h-full tw-w-full "></div>
-        </div> -->
-
-        <header class="lg:tw-px-4 tw-max-w-[100vw] tw-max-w-lg:tw-mr-auto max-lg:tw-top-0 tw-fixed tw-top-4 lg:tw-left-1/2 lg:tw--translate-x-1/2 tw-z-20 tw-flex tw-h-[60px] tw-w-full 
-                    tw-text-gray-700 tw-bg-white dark:tw-text-gray-200 dark:tw-bg-[#17181b] tw-px-[3%] tw-rounded-md lg:tw-max-w-5xl tw-shadow-md dark:tw-shadow-gray-700
-                    lg:tw-justify-around lg:!tw-backdrop-blur-lg lg:tw-opacity-[0.99]">
-            <a class="tw-flex tw-p-[4px] tw-gap-2 tw-place-items-center" href="javascript:void(0);">
-               
-
-                <div class="tw-h-[30px] tw-max-w-[100px]">
-                    <img src="./assets/logo/logo.png" alt="logo" class="tw-object-contain tw-h-full tw-w-full dark:tw-invert">
-                </div>
-                <span class="tw-uppercase tw-text-base tw-font-medium">Cici3</span>
-            </a>
-            <div class="collapsible-header animated-collapse max-lg:tw-shadow-md" id="collapsed-header-items" style="">
-                <nav class="tw-relative tw-flex tw-h-full max-lg:tw-h-max tw-w-max tw-gap-5 tw-text-base max-lg:tw-mt-[30px] max-lg:tw-flex-col 
-                                max-lg:tw-gap-5 lg:tw-mx-auto tw-place-items-center">
-                    
-                    
-                    <a class="header-links" href="javascript:void(0);">Solução</a>
-                   
-                    <div class="tw-relative tw-flex tw-flex-col tw-place-items-center">
-                        <div id="nav-dropdown-toggle-0" class="max-lg:tw-max-w-fit tw-flex header-links tw-gap-1  tw-place-items-center">
-                            <span class=""> Features </span>
-                            <i class="tw-text-sm bi bi-chevron-down"></i>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <a href="#" class="logo">
+                <img src="assets/logo/logo.png" alt="Logo da CICI3" class="logo-custom">
+                    CICI3
+                </a>
+                <nav class="nav">
+                    <div class="nav-dropdown">
+                        <a href="#" class="nav-link">Módulos de IA</a>
+                        <div class="nav-dropdown-content">
+                            <div class="dropdown-grid">
+                                <a href="#modulos" class="dropdown-item">
+                                    <div class="dropdown-icon">
+                                        <i class="bi bi-graph-up-arrow"></i>
+                                    </div>
+                                    <div class="dropdown-text">
+                                        <h4>IA de Vendas</h4>
+                                        <p>Previsões, análise de performance e oportunidades perdidas</p>
+                                    </div>
+                                </a>
+                                <a href="#modulos" class="dropdown-item">
+                                    <div class="dropdown-icon">
+                                        <i class="bi bi-cash-stack"></i>
+                                    </div>
+                                    <div class="dropdown-text">
+                                        <h4>IA Financeira</h4>
+                                        <p>Fluxo de caixa inteligente e análise de rentabilidade</p>
+                                    </div>
+                                </a>
+                                <a href="#modulos" class="dropdown-item">
+                                    <div class="dropdown-icon">
+                                        <i class="bi bi-boxes"></i>
+                                    </div>
+                                    <div class="dropdown-text">
+                                        <h4>IA Operacional</h4>
+                                        <p>Otimização de estoque e prevenção de rupturas</p>
+                                    </div>
+                                </a>
+                                <a href="#modulos" class="dropdown-item">
+                                    <div class="dropdown-icon">
+                                        <i class="bi bi-people"></i>
+                                    </div>
+                                    <div class="dropdown-text">
+                                        <h4>IA de Customer</h4>
+                                        <p>Segmentação avançada e lifetime value</p>
+                                    </div>
+                                </a>
+                            </div>
                         </div>
-                        <nav id="nav-dropdown-list-0" data-open="false" class="tw-scale-0 tw-opacity-0 lg:tw-fixed tw-flex lg:tw-top-[80px] lg:tw-left-1/2 lg:tw--translate-x-1/2 tw-w-[90%] tw-rounded-lg max-lg:tw-h-0 max-lg:tw-w-0 lg:tw-h-[450px] tw-overflow-hidden tw-bg-white dark:tw-bg-[#17181B] tw-duration-300 tw-transition-opacity tw-transition-height tw-shadow-lg tw-p-4">
-                            <div class="tw-grid max-xl:tw-flex max-xl:tw-flex-col tw-justify-around tw-grid-cols-2 tw-w-full">
-                                <a class="<html lang="en" class="tw-dark">er-links tw-flex tw-text-left tw-gap-4 !tw-p-4" href="javascript:void(0);">
-                                    <div class="tw-font-semibold tw-text-3xl">
-                                        <i class="bi bi-list-columns-reverse"></i>
-                                    </div>
-                                    <div class="tw-flex tw-flex-col tw-gap-2">
-                                        <div class="tw-text-lg tw-text-black dark:tw-text-white tw-font-medium">Dados com Perguntas</div>
-                                        <p>Analista de dados em real time com IA</p>
-                                    </div> 
-                                </a>
-
-                                <a class="<html lang="en" class="tw-dark">er-links tw-flex tw-text-left tw-gap-4 !tw-p-4" href="javascript:void(0);">
-                                    <div class="tw-font-semibold tw-text-3xl">
-                                        <i class="bi bi-grid-1x2-fill"></i>
-                                    </div>
-                                    <div class="tw-flex tw-flex-col tw-gap-2">
-                                        <div class="tw-text-lg tw-text-black dark:tw-text-white tw-font-medium">Integração de Dados</div>
-                                        <p class="">Integre seu ERP a cici com ajuda de nossa equipe</p>
-                                    </div> 
-                                </a>
-
-                                <a class="<html lang="en" class="tw-dark">er-links tw-flex tw-text-left tw-gap-4 !tw-p-4" href="javascript:void(0);">
-                                    <div class="tw-font-semibold tw-text-3xl">
-                                        <i class="bi bi-globe"></i>
-                                    </div>
-                                    <div class="tw-flex tw-flex-col tw-gap-2">
-                                        <div class="tw-text-lg tw-text-black dark:tw-text-white tw-font-medium">Histórico de Análises</div>
-                                        <p class="">Tenha o seu histórico de análises caso necessite</p>
-                                    </div> 
-                                </a>
-
-                                <a class="<html lang="en" class="tw-dark">er-links tw-flex tw-text-left tw-gap-4 !tw-p-4" href="javascript:void(0);">
-                                    <div class="tw-font-semibold tw-text-3xl">
-                                        <i class="bi bi-image-fill"></i>
-                                    </div>
-                                    <div class="tw-flex tw-flex-col tw-gap-2">
-                                        <div class="tw-text-lg tw-text-black dark:tw-text-white tw-font-medium">Big Picture</div>
-                                        <p class="">Entenda seus dados com ajuda da IA</p>
-                                    </div> 
-                                </a>
-
-                                <a class="<html lang="en" class="tw-dark">er-links tw-flex tw-text-left tw-gap-4 !tw-p-4" href="javascript:void(0);">
-                                    <div class="tw-font-semibold tw-text-3xl">
-                                        <i class="bi bi-calendar-range"></i>
-                                    </div>
-                                    <div class="tw-flex tw-flex-col tw-gap-2">
-                                        <div class="tw-text-lg tw-text-black dark:tw-text-white tw-font-medium">Gráficos Automáticos</div>
-                                        <p class="">Gere gráficos sobre o seu negócio em poucos cliques</p>
-                                    </div> 
-                                </a>
-
-                                <a class="header-links tw-flex tw-text-left tw-gap-4 !tw-p-4" href="javascript:void(0);">
-                                    <div class="tw-font-semibold tw-text-3xl">
-                                        <i class="bi bi-translate"></i>
-                                    </div>
-                                    <div class="tw-flex tw-flex-col tw-gap-2">
-                                        <div class="tw-text-lg tw-text-black dark:tw-text-white tw-font-medium">
-                                            Multilingual
-                                        </div>
-                                        <p class="">Suporte a várias linguagens</p>
-                                    </div> 
-                                </a>
-                            </div>           
-                        </nav>
                     </div>
-                    <a class="header-links" href="#pricing">Preço</a>
-                    
-                <a class="header-links" href="javascript:void(0);"> Blog </a></nav>
-                <div class="lg:tw-mx-4 tw-flex tw-place-items-center tw-gap-[20px] tw-text-base max-md:tw-w-full 
-                            max-md:tw-flex-col max-md:tw-place-content-center">
-                    <button type="button" onclick="toggleMode()" class="header-links tw-text-gray-600 dark:tw-text-gray-300" title="toggle-theme" id="theme-toggle"> 
-                        <i class="bi bi-moon" id="toggle-mode-icon"></i>
-                    </button>
-                    <a href="javascript:void(0);" aria-label="Try cici Playground" class="btn tw-flex tw-gap-3 tw-px-3 tw-py-2 tw-transition-transform 
-                                    tw-duration-[0.3s] hover:tw-translate-x-2">
-                        <span>Entre em contato</span>
+                    <a href="#precos" class="nav-link">Preços</a>
+                    <a href="#cases" class="nav-link">Cases</a>
+                    <a href="#" class="btn btn-primary" onclick="openContactModal()">
+                        Conectar meus dados
+                        <i class="bi bi-database-check"></i>
+                    </a>
+                </nav>
+                
+                <!-- Mobile menu button -->
+                <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
+                    <i class="bi bi-list"></i>
+                </button>
+            </div>
+            
+            <!-- Mobile navigation -->
+            <nav class="mobile-nav" id="mobileNav">
+                <a href="#modulos" class="mobile-nav-link" onclick="toggleMobileMenu()">Módulos de IA</a>
+                <a href="#precos" class="mobile-nav-link" onclick="toggleMobileMenu()">Preços</a>
+                <a href="#cases" class="mobile-nav-link" onclick="toggleMobileMenu()">Cases</a>
+                <a href="#" class="btn btn-primary" onclick="openContactModal(); toggleMobileMenu();" style="margin-top: 16px;">
+                    Conectar meus dados
+                    <i class="bi bi-database-check"></i>
+                </a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content reveal-up">
+                <h1>Transforme seus dados em<br><span style="color: var(--verde-mint);">decisões estratégicas</span></h1>
+                <p class="hero-subtitle">Pioneiros em IA conversacional especializada em Business Intelligence que entende português brasileiro e seu contexto de negócio.</p>
+                
+                <!-- CTA Hero Box -->
+                <div class="cta-hero-box reveal-up delay-1">
+                    <div class="cta-hero-title">Conecte seus dados agora</div>
+                    <p style="color: var(--cinza-claro); margin-bottom: 24px;">Entre em contato com um especialista</p>
+                    <a href="#" class="btn btn-primary" onclick="openContactModal()">
+                        Quero conectar meus dados
                         <i class="bi bi-arrow-right"></i>
                     </a>
                 </div>
-            </div>
-            <button class="bi bi-list tw-absolute tw-right-3 tw-top-3 tw-z-50 tw-text-3xl tw-text-gray-500 lg:tw-hidden" onclick="toggleHeader()" aria-label="menu" id="collapse-btn"></button>
-        </header>
 
-        <section class="hero-section tw-relative tw-mt-20 tw-flex tw-min-h-[100vh] tw-w-full tw-max-w-[100vw] tw-flex-col tw-overflow-hidden max-lg:tw-mt-[100px]" id="hero-section">
-
-            <!-- video container -->
-            <div class="tw-fixed tw-bg-[#000000af] dark:tw-bg-[#80808085] tw-top-0 tw-left-1/2 tw--translate-x-1/2 tw-z-20 tw-transition-opacity
-                tw-duration-300 tw-scale-0 tw-opacity-0 tw-p-2
-                tw-w-full tw-h-full tw-flex tw-place-content-center tw-place-items-center" id="video-container-bg">
-
-                <div class="tw-max-w-[80vw] max-lg:tw-max-w-full max-lg:tw-w-full tw-scale-0 tw-transition-transform tw-duration-500 tw-p-6 tw-rounded-xl  max-lg:tw-px-2 tw-w-full tw-gap-2 tw-shadow-md 
-                            tw-h-[90vh] max-lg:tw-h-auto max-lg:tw-min-h-[400px] tw-bg-white dark:tw-bg-[#16171A] tw-max-h-full
-                            " id="video-container">
-                    <div class="tw-w-full tw-flex">
-                        <button type="button" onclick="closeVideo()" class="tw-ml-auto tw-text-xl" title="close">
-                            <i class="bi bi-x-circle-fill"></i>
-                        </button>
+                <div class="hero-metrics">
+                    <div class="metric reveal-up delay-1">
+                        <span class="metric-value">50%</span>
+                        <span class="metric-label">Redução no tempo de análise</span>
                     </div>
-                    <div class="tw-flex tw-w-full  tw-rounded-xl tw-px-[5%] max-md:tw-px-2 tw-min-h-[300px] tw-max-h-[90%] tw-h-full">
-
-                        <div class="tw-relative tw-bg-black tw-min-w-full tw-min-h-full tw-overflow-clip tw-rounded-md">
-                            <!-- add your youtube video link here -->
-                            <iframe class="tw-absolute tw-top-[50%] tw--translate-y-[50%] tw-left-[50%] tw--translate-x-[50%] tw-w-full tw-h-full" src="https://www.youtube.com/embed/6j4fPVkA3EA?si=llcTrXPRM-MRXDZB&amp;controls=0&amp;rel=0&amp;showinfo=0&amp;autoplay=1&amp;loop=1&amp;mute=1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen=""></iframe>
-                        </div>
-        
+                    <div class="metric reveal-up delay-2">
+                        <span class="metric-value">54 seg</span>
+                        <span class="metric-label">Tempo médio de resposta</span>
                     </div>
-                </div>  
-            </div>
-
-            <div class="hero-bg-gradient tw-relative tw-flex tw-h-full tw-min-h-[100vh] tw-w-full tw-flex-col tw-place-content-center tw-gap-6 tw-p-[5%] max-xl:tw-place-items-center max-lg:tw-p-4">
-
-                <div class="purple-bg-grad  reveal-up tw-absolute tw-left-1/2 tw--translate-1/2 tw-top-[10%] tw-h-[120px] tw-w-[120px]" style="translate: none; rotate: none; scale: none; transform: translate(0px, 0%); opacity: 1;"></div> 
-
-                <div class="tw-flex tw-flex-col tw-min-h-[60vh] tw-place-content-center tw-items-center">
-                    <h2 class="reveal-up tw-text-center tw-text-7xl tw-font-semibold tw-uppercase tw-leading-[90px] max-lg:tw-text-4xl max-md:tw-leading-snug" style="translate: none; rotate: none; scale: none; transform: translate(0px, 0%); opacity: 1;">
-                        <span class="">Transforme seus dados</span>
-                        <br>
-                        <span class="tw-font-thin tw-font-serif">Em decisões</span>
-                    </h2>
-                    <div class="reveal-up tw-mt-8 tw-max-w-[450px] tw-text-lg max-lg:tw-text-base tw-p-2 tw-text-center
-                         tw-text-gray-800 dark:tw-text-white max-lg:tw-max-w-full" style="translate: none; rotate: none; scale: none; transform: translate(0px, 0%); opacity: 1;">
-                        <!-- Test, Develop and Deploy all your AI models in one place, with cici seamless playground interface -->Conectamos AI aos seus dados vendas, financeiro e estoque para fornecer insights em tempo real.</div>
-
-                    <div class="reveal-up tw-mt-10 max-md:tw-flex-col tw-flex tw-place-items-center tw-gap-4" style="translate: none; rotate: none; scale: none; transform: translate(0px, 0%); opacity: 1;">
-
-                        
-
-                        <a class="btn tw-group max-lg:!tw-w-[160px] tw-flex tw-gap-2 tw-shadow-lg !tw-w-[170px] !tw-rounded-xl !tw-py-4 max-lg:!tw-py-2 tw-transition-transform tw-duration-[0.3s] hover:tw-scale-x-[1.03]" href="javascript:void(0);">
-                            <span>Fale com o time</span>
-                            <i class="bi bi-arrow-right group-hover:tw-translate-x-1 tw-duration-300"></i>
-                        </a>
-                        
+                    <div class="metric reveal-up delay-3">
+                        <span class="metric-value">+30%</span>
+                        <span class="metric-label">Diminuição da possibilidade de Churn de clientes</span>
                     </div>
-                </div>
-                
-                <!-- prompt container -->
-                <div class="reveal-up  tw-relative tw-mt-8 tw-flex tw-w-full tw-place-content-center tw-place-items-center" id="dashboard-container" style="translate: none; rotate: none; scale: none; transform: translate(0px, 0%); opacity: 1;">
-                    <div class="purple-bg-grad  reveal-up tw-absolute tw-left-1/2 tw--translate-x-1/2 tw-top-[5%] tw-h-[200px] tw-w-[200px]" style="translate: none; rotate: none; scale: none; transform: translate(-50%, 0%) translate(0px, 0%); opacity: 1;"></div>    
-
-                    <div class="tw-relative tw-max-w-[80%] tw-bg-white dark:tw-bg-black tw-border-[1px] dark:tw-border-[#36393c] lg:tw-w-[1024px]
-                                lg:tw-h-[650px]  tw-flex tw-shadow-xl max-lg:tw-h-[450px] max-lg:tw-w-full
-                                tw-overflow-hidden
-                                tw-min-w-[320px] md:tw-w-full tw-min-h-[450px] tw-rounded-xl tw-bg-transparent max-md:tw-max-w-full" id="dashboard" style="translate: none; rotate: none; scale: none; transform: perspective(1218.99px);">  
-
-                        <div class="purple-bg-grad tw-max-w-[80%] reveal-up tw-absolute tw-left-1/2 tw--translate-x-1/2 tw-top-[0%] lg:tw-max-w-[1000px] tw-h-full tw-w-full" style="translate: none; rotate: none; scale: none; transform: translate(-50%, 0%) translate(0px, 0%); opacity: 1;"></div> 
-                        <div class="animated-border tw-w-full tw-h-full tw-p-[2px]">
-                            <div class="tw-w-full tw-h-full tw-rounded-xl tw-overflow-hidden tw-flex">
-                                <!-- sign-up pop-up -->
-                                <div class="tw-absolute tw-rounded-xl tw-text-center tw-transition-transform tw-duration-300 tw-scale-0 tw-backdrop-blur-lg tw-flex tw-flex-col tw-p-10 tw-place-items-center 
-                                        tw-gap-4 tw-w-full tw-h-full dark:tw-bg-[#000000b4] tw-bg-[#ffffff6a] firefox:tw-bg-white tw-top-0 tw-left-0 tw-z-20" id="signup-prompt">
-
-                                    <h4 class="tw-mt-6 tw-text-3xl max-md:tw-text-xl">
-                                        Signup to continue your conversation
-                                    </h4>
-
-                                    <div class="tw-flex tw-gap-1 tw-place-items-center">
-                                        <div class="tw-flex tw--space-x-4">
-                                            <img class="tw-z-10 tw-w-10 tw-h-10 tw-object-cover tw-rounded-full tw-border-2 tw-border-white" src="assets/images/people/man.jpg" alt="Avatar 1">
-                                            <img class="tw-z-[4] tw-w-10 tw-h-10 tw-object-cover tw-rounded-full tw-border-2 tw-border-white" src="assets/images/people/women.jpg" alt="Avatar 2">
-                                            <img class="tw-z-[3] tw-w-10 tw-h-10 tw-object-cover tw-rounded-full tw-border-2 tw-border-white" src="assets/images/people/man2.jpg" alt="Avatar 3">
-                                            <img class="tw-z-[2] tw-w-10 tw-h-10 tw-object-cover tw-rounded-full tw-border-2 tw-border-white" src="assets/images/people/man3.jpeg" alt="Avatar 4">
-                                            <img class="tw-z-[1] tw-w-10 tw-h-10 tw-object-cover tw-rounded-full tw-border-2 tw-border-white" src="assets/images/people/women.jpg" alt="Avatar 5">
-                                        </div>
-                                        <p>+20,000</p>
-                                    </div>
-
-                                    <div class="tw-mt-3 tw-text-lg">
-                                        Join Ben and 20,000+ users using cici
-                                    </div>
-
-                                    <a href="javascript:void(0);" class="btn">
-                                        Sign up
-                                    </a>
-
-                                </div>
-
-                                <div class="tw-min-w-[250px] max-lg:tw-hidden tw-p-2 tw-gap-2 tw-flex tw-flex-col tw-bg-gray-100 
-                                            dark:tw-bg-[#171717] tw-h-full">
-                                    <!-- <h3 class="tw-text-xl tw-uppercase">
-                                        cici
-                                    </h3> -->
-                                    <div class="tw-h-[30px] tw-w-fit tw-max-w-[100px]">
-                                        <img src="./assets/logo/logo.png" alt="logo" class="tw-object-contain tw-opacity-80 tw-h-full tw-w-full dark:tw-invert">
-                                    </div>
-
-                                    <div class="tw-flex tw-mt-2 tw-gap-2 tw-flex-col">
-                                        <a href="#link-to-img-gen" class="tw-flex tw-rounded-sm tw-gap-2 tw-p-2 dark:hover:tw-bg-[#2d2d2ddb] hover:tw-bg-gray-200">
-                                            <i class="bi bi-image"></i>
-                                            <span>Faturamento</span>
-                                        </a>
-                                        <a href="#link-to-pdf-gen" class="tw-flex tw-rounded-sm tw-gap-2 tw-p-2 dark:hover:tw-bg-[#2d2d2ddb] hover:tw-bg-gray-200">
-                                            <i class="bi bi-file-pdf"></i>
-                                            <span>Margem Financeira</span>
-                                        </a>
-                                        <a href="#link-to-code-gen" class="tw-flex tw-rounded-sm tw-gap-2 tw-p-2 dark:hover:tw-bg-[#2d2d2ddb] hover:tw-bg-gray-200">
-                                            <i class="bi bi-code-square"></i>
-                                            <span>Estoque atual</span>
-                                        </a>
-                                        <a href="javascript:void(0);" class="tw-flex tw-rounded-sm tw-group tw-gap-2 tw-p-2 dark:hover:tw-bg-[#2d2d2ddb] hover:tw-bg-gray-200">
-                                            <span>Tudo com a cici</span>
-                                            <i class="bi bi-arrow-right tw-transform tw-transition-transform tw-duration-300 group-hover:tw-translate-x-1"></i>
-                                        </a>
-                                    </div>
-
-                                    <div class="tw-mt-auto tw-w-full tw-flex tw-px-6 tw-place-content-center">
-                                        <a href="#sign-up" class="btn !tw-w-full !tw-bg-transparent tw-duration-[0.3s] 
-                                                                hover:!tw-bg-black hover:!tw-text-white
-                                                                dark:hover:!tw-bg-white dark:hover:!tw-text-black
-                                                                !tw-border-[1px] !tw-border-black !tw-text-black
-                                                                dark:!tw-border-white dark:!tw-text-white
-                                                                ">Conhecer a Cici</a>
-                                    </div>
-
-                                </div>
-
-                                <div class="tw-flex tw-w-full tw-p-4 tw-bg-white dark:tw-bg-black tw-h-full tw-flex-col" id="pixa-playground">
-                                    <div class="tw-relative tw-w-full tw-flex tw-place-content-center tw-h-full">
-                                        <div class="tw-absolute tw-top-[20%] max-lg:tw-top-[30%] tw-left-1/2 tw--translate-x-1/2  tw-w-[150px] tw-h-[150px]">
-                                            <img src="./assets/logo/logo.png" class="tw-w-full tw-h-full dark:tw-invert tw-object-contain tw-opacity-20" alt="cici logo">
-                                        </div>
-                                        <div class="prompt-container tw-overflow-y-auto tw-px-[5%] max-lg:tw-px-2 scrollbar max-lg:tw-max-h-[80%] tw-max-h-[550px] 
-                                                    max-lg:tw-mt-12 tw-w-full tw-h-full tw-z-10 tw-flex tw-flex-col" id="prompt-container">
-                                            <div class="tw-w-full tw-flex tw-text-center tw-flex-col tw-place-content-center">
-                                                <h2 class="tw-text-4xl max-md:tw-text-2xl max-md:tw-mt-3 tw-opacity-80">Como a cici pode ajudar?</h2>
-                                                <div class="tw-inline tw-mt-6 max-md:tw-mt-3">
-                                                    <span id="prompts-sample">Como está o estoque?</span><span class="typed-cursor typed-cursor--blink">|</span><span class="typed-cursor typed-cursor--blink">|</span><span class="typed-cursor typed-cursor--blink">|</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        
-                                    </div>
-
-                                    <form action="" id="prompt-form" onsubmit="return false;" class="tw-place-content-center tw-mt-auto tw-h-[50px] tw-p-1 tw-place-items-center 
-                                                tw-justify-around tw-flex tw-gap-1 tw-bottom-2 tw-w-full tw-rounded-md tw-bg-[#f3f4f6] dark:tw-bg-[#171717]">
-                                        <div class="tw-min-w-[140px] tw-min-h-[80px] max-lg:tw-absolute tw-z-10 tw-top-1 tw-left-1/2 max-lg:tw--translate-x-1/2 
-                                                    tw-flex tw-flex-col tw-text-sm tw-gap-1 tw-place-content-center">
-                                            
-                                        </div>
-                                        <input placeholder="Como a Cici pode te ajudar?" type="text" class="tw-p-2 !tw-outline-none tw-bg-transparent tw-border-none tw-w-full tw-placehoder-gray-500
-                                                                    dark:tw-placeholder-opacity-60 dark:tw-placeholder-gray-300 tw-max-w-[80%] tw-h-full" name="prompt">
-                                        <button type="submit" class="btn !tw-bg-[#6366f1] !tw-p-2 !tw-px-3 !tw-text-white" title="submit">
-                                            <i class="bi bi-arrow-up"></i>
-                                        </button>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <section class="tw-relative tw-flex tw-w-full tw-max-w-[100vw] tw-flex-col tw-place-content-center tw-place-items-center tw-overflow-hidden tw-p-8">
-            <h2 class="reveal-up tw-text-3xl max-md:tw-text-xl" style="translate: none; rotate: none; scale: none; transform: translate(0px, 0%); opacity: 1;">Powered by</h2>
-
-            <div class="reveal-up carousel-container" style="translate: none; rotate: none; scale: none; transform: translate(0px, 0%); opacity: 1;">
-                <div class="carousel lg:w-place-content-center tw-mt-10 tw-flex tw-w-full tw-gap-5 max-md:tw-gap-2">
-                    <!-- add the brands using your app  -->
-                    <div class="carousel-img tw-h-[30px] tw-w-[150px]">
-                        <img src="./assets/images/brand-logos/google.svg" alt="Google" class="tw-h-full tw-w-full tw-object-contain tw-grayscale tw-transition-colors hover:tw-grayscale-0" srcset="">
-                    </div>
-                    <div class="carousel-img tw-h-[30px] tw-w-[150px]">
-                        <img src="./assets/images/brand-logos/microsoft.svg" alt="Microsoft" class="tw-h-full tw-w-full tw-object-contain tw-grayscale tw-transition-colors hover:tw-grayscale-0" srcset="">
-                    </div>
-                    <div class="carousel-img tw-h-[30px] tw-w-[150px]">
-                        <img src="./assets/images/brand-logos/claude2.svg" alt="Claude" class="tw-h-full tw-w-full tw-object-contain tw-grayscale tw-transition-colors hover:tw-grayscale-0" srcset="">
-                    </div>
-                    <div class="carousel-img tw-h-[30px] tw-w-[150px]">
-                        <img src="./assets/images/brand-logos/gpt2.svg" alt="GPT" class="tw-h-full tw-w-full tw-object-contain tw-grayscale tw-transition-colors hover:tw-grayscale-0" srcset="">
-                    </div>
-                    
-                    
+    <!-- Video Section -->
+    <section class="video-section">
+        <div class="container">
+            <h2 class="section-title reveal-up">Veja a CICI3 em ação</h2>
+            <p class="section-subtitle reveal-up">Assista como nossa IA conversa naturalmente com seus dados e gera insights estratégicos em segundos.</p>
+            <div class="video-container reveal-up delay-1">
+                <div class="video-item">
+                    <video width="100%" height="100%" poster="src/images/video-thumbnail.jpg" autoplay muted loop>
+                        <source src="assets/videos/completo.mp4" type="video/mp4">
+                    </video>
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
 
-            
-        <section class="tw-relative tw-flex  tw-w-full tw-min-h-[100vh] max-lg:tw-min-h-[80vh] tw-flex-col tw-place-content-center tw-place-items-center tw-overflow-hidden">   
-             <div class="tw-w-full  tw-place-content-center tw-items-center 
-                        tw-flex tw-flex-col tw-max-w-[900px] tw-gap-4 tw-p-4">
-               <div class="purple-bg-grad  reveal-up tw-absolute tw-right-[20%] tw-top-[20%] tw-h-[200px] tw-w-[200px]" style="translate: none; rotate: none; scale: none; transform: translate(0px, 0%); opacity: 1;"></div>
-                <h2 class="reveal-up tw-text-6xl max-lg:tw-text-4xl tw-text-center tw-leading-normal tw-uppercase" style="translate: none; rotate: none; scale: none; transform: translate(0px, 0%); opacity: 1;">
-                    
-                    <span class="tw-font-semibold">Por quê a Cici3?</span>
-                    <br>
-                    <span class="tw-font-serif">Seus dados em segundos</span>
-                </h2>
-                <p class="reveal-up tw-mt-8 tw-max-w-[650px] tw-text-gray-900 dark:tw-text-gray-200 tw-text-center max-md:tw-text-sm" style="translate: none; rotate: none; scale: none; transform: translate(0px, 0%); opacity: 1;">Com Cici3 você tem acesso aos seus dados atualizados e em tempo real. Tudo que você quer saber sobre sua operação em questão de segundos e com uma simples pergunta.</p>
-                <div class="reveal-up tw-flex tw-mt-8" style="translate: none; rotate: none; scale: none; transform: translate(0px, 0%); opacity: 1;">
-                    <a href="javascript:void(0);" target="_blank" rel="noopener" class="tw-shadow-md hover:tw-shadow-xl dark:tw-shadow-gray-800 tw-transition-all tw-duration-300 
-                                        tw-border-[1px] tw-p-3 tw-px-4 tw-border-black dark:tw-border-white tw-rounded-md">Saiba Mais</a>
+    <!-- Social Proof Section -->
+    <section class="social-proof-section">
+        <div class="container">
+            <h2 class="social-proof-title reveal-up">Alguns de nossos parceiros estratégicos</h2>
+            <div class="logos-slider-container reveal-up delay-1">
+                <div class="logos-slider">
+                    <div class="logo-item">
+                        <img src="assets/images/brand-logos/claude.svg" alt="Claude Sonnet">
+                    </div>
+                    <div class="logo-item">
+                        <img src="assets/images/brand-logos/google.svg" alt="Google">
+                    </div>
+                    <div class="logo-item">
+                        <img src="assets/images/brand-logos/openai.svg" alt="Open AI">
+                    </div>
+                    <div class="logo-item">
+                        <img src="assets/images/brand-logos/aws.png" alt="AWS">
+                    </div>
+                    <div class="logo-item">
+                        <img src="assets/images/brand-logos/efe.jpeg" alt="efe">
+                    </div>
+                    <div class="logo-item">
+                        <img src="assets/images/brand-logos/pe.jpeg" alt="pe">
+                    </div>
+                    <div class="logo-item">
+                        <img src="assets/images/brand-logos/total.jpeg" alt="total">
+                    </div>
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <section class="tw-relative tw-flex tw-max-w-[100vw] tw-flex-col tw-place-content-center tw-place-items-center tw-overflow-hidden">   
-
-
-            <div class="tw-mt-8 tw-flex tw-flex-col tw-w-full tw-h-full tw-place-items-center tw-gap-5">
-                <div class="reveal-up tw-mt-5 tw-flex tw-flex-col tw-gap-3 tw-text-center" style="translate: none; rotate: none; scale: none; transform: translate(0px, 0%); opacity: 1;">
-                    <h2 class="tw-text-6xl tw-font-medium max-md:tw-text-3xl tw-p-2">Como implementamos a Cici3</h2>
-                </div>
-                <div class="tw-mt-6 tw-flex tw-flex-col tw-max-w-[1150px] max-lg:tw-max-w-full tw-h-full 
-                            tw-p-4 max-lg:tw-place-content-center tw-gap-8 ">   
-
-                    <div class="max-xl:tw-flex max-xl:tw-flex-col tw-place-items-center tw-grid tw-grid-cols-3 tw-gap-8 
-                                tw-place-content-center tw-auto-rows-auto">
-                        <div class="reveal-up tw-w-[350px] tw-h-[540px] tw-flex max-md:tw-w-full" style="translate: none; rotate: none; scale: none; transform: translate(0px, 0%); opacity: 1;">
-                            <a href="javascript:void(0);" class=" tw-relative tw-p-10 tw-transition-all tw-duration-300 tw-group/card  tw-gap-5 tw-flex 
-                                tw-flex-col tw-w-full tw-h-full  tw-bg-[#f6f7fb] dark:tw-bg-[#171717] tw-rounded-3xl 
-                                hover:tw-scale-[1.02]">
-                                <div class="tw-overflow-hidden tw-w-full tw-min-h-[180px] tw-h-[180px]">
-                                    <img src="./assets/images/home/api.png" class="tw-w-full tw-object-contain tw-h-auto" alt="unified interface">
-                                    <!-- <i class="bi bi-grid-1x2-fill"></i> -->
-                                </div>
-                                <h2 class="tw-text-3xl max-md:tw-text-2xl tw-font-medium">Consultoria inicial</h2>
-                                <p class="tw-text-base tw-leading-normal tw-text-gray-800 dark:tw-text-gray-200">Entendemos suas necessidades e definimos o escopo do projeto para garantir que a solução atenda às suas expectativas.</p>
-                                <div class="tw-flex tw-items-center tw-gap-2 tw-mt-auto">
-                                    <span>Saiba mais</span>
-                                    <i class="bi bi-arrow-right tw-transform tw-transition-transform tw-duration-300 group-hover/card:tw-translate-x-2"></i>
-                                </div>
-                            </a>
-                        </div>
-
-                        
-                        <div class="reveal-up tw-w-[350px] tw-h-[540px] tw-flex max-md:tw-w-full" style="translate: none; rotate: none; scale: none; transform: translate(0px, 0%); opacity: 1;">
-                            <a href="javascript:void(0);" class=" tw-relative tw-p-10 tw-transition-all tw-duration-300 tw-group/card  tw-gap-5 tw-flex 
-                                tw-flex-col tw-w-full tw-h-full  tw-bg-[#f6f7fb] dark:tw-bg-[#171717] tw-rounded-3xl 
-                                hover:tw-scale-[1.02]">
-                                <div class="tw-w-full tw-min-h-[180px] tw-h-[180px] tw-overflow-hidden">
-                                    <img src="./assets/images/home/api.png" alt="API" class="tw-w-full tw-h-auto tw-object-contain">
-                                    <!-- <i class="bi bi-grid-1x2-fill"></i> -->
-                                </div>
-                                <h2 class="tw-text-3xl max-md:tw-text-2xl tw-font-medium">Case Study</h2>
-                                <p class="tw-leading-normal tw-text-gray-800 dark:tw-text-gray-200">Analisamos seus dados e criamos um estudo de caso personalizado para mostrar como a Cici3 pode agregar valor ao seu negócio.</p>
-                                <div class="tw-flex tw-items-center tw-gap-2 tw-mt-auto">
-                                    <span>Quero a Cici3</span>
-                                    <i class="bi bi-arrow-right tw-transform tw-transition-transform tw-duration-300 group-hover/card:tw-translate-x-2"></i>
-                                </div>
-                            </a>
-                        </div>
-
-                        
-                        <div class="reveal-up tw-w-[350px] tw-h-[540px] tw-flex max-md:tw-w-full" style="translate: none; rotate: none; scale: none; transform: translate(0px, 0%); opacity: 1;">
-                            <a href="javascript:void(0);" class=" tw-relative tw-p-10 tw-transition-all tw-duration-300 tw-group/card  tw-gap-5 tw-flex 
-                                tw-flex-col tw-w-full tw-h-full  tw-bg-[#f6f7fb] dark:tw-bg-[#171717] tw-rounded-3xl 
-                                hover:tw-scale-[1.02]">
-                                <div class="tw-w-full tw-flex tw-place-contet-center tw-min-h-[180px] tw-h-[180px] tw-rounded-xl tw-overflow-hidden">
-                                    <img src="./assets/images/home/integrations1.png" class="tw-w-full tw-h-auto tw-object-contain" alt="Prebuilt integrations">
-                                </div>
-                                <h2 class="tw-text-3xl max-md:tw-text-2xl tw-font-medium">Implementação</h2>
-                                <p class="tw-leading-normal tw-text-gray-800 dark:tw-text-gray-200">Integramos a Cici3 ao seu ERP e configuramos os dashboards para que você comece a usar a plataforma imediatamente.</p>
-                                <div class="tw-flex tw-items-center tw-gap-2 tw-mt-auto">
-                                    <span>Saiba mais</span>
-                                    <i class="bi bi-arrow-right tw-transform tw-transition-transform tw-duration-300 group-hover/card:tw-translate-x-2"></i>
-                                </div>
-                            </a>
-                        </div>
+    <!-- Use Cases Section -->
+    <section class="use-cases-section" id="modulos">
+        <div class="container">
+            <h2 class="section-title reveal-up">Módulos especializados para cada área do seu negócio</h2>
+            <p class="section-subtitle reveal-up">Cada módulo de IA é treinado especificamente para entender os desafios e métricas da sua área. Combine módulos conforme sua necessidade.</p>
+            <div class="solutions-grid">
+                <!-- Primeira linha: Vendas e Crescimento -->
+                <div class="solution-module reveal-up" onclick="openContactModal()">
+                    <div class="module-tag">MAIS VENDIDO</div>
+                    <div class="module-icon">
+                        <i class="bi bi-graph-up-arrow"></i>
                     </div>
-                    
-                    <div class="reveal-up tw-w-full md:tw-h-[350px] max-md:tw-min-h-[350px] tw-flex" style="translate: none; rotate: none; scale: none; transform: translate(0px, 0%); opacity: 1;">
-                        <a href="javascript:void(0);" class=" tw-relative tw-p-10 tw-transition-all tw-duration-300 tw-group/card  tw-gap-5 tw-flex 
-                            max-md:tw-flex-col tw-w-full tw-h-full  tw-bg-[#f6f7fb] dark:tw-bg-[#171717] tw-rounded-3xl 
-                            hover:tw-scale-[1.02]">
-                            <div class="tw-text-6xl tw-overflow-hidden tw-rounded-xl tw-w-full tw-h-full max-md:tw-h-[180px]">
-                                <img src="./assets/images/home/ai-models.png" class="tw-w-full tw-object-contain tw-h-full" alt="AI models">
-                                <!-- <i class="bi bi-grid-1x2-fill"></i> -->
-                            </div>
-                            <div class="tw-flex tw-flex-col tw-gap-4">
-                                <h2 class="tw-text-3xl max-md:tw-text-2xl tw-font-medium">Acompanhamento</h2>
-                                <p class="tw-leading-normal tw-text-gray-800 dark:tw-text-gray-200">Oferecemos suporte contínuo para garantir que você esteja aproveitando ao máximo a plataforma e os insights gerados.</p>
-                                <div class="tw-flex tw-items-center tw-gap-2 tw-mt-auto">
-                                    <span>Quero saber meus dados com AI</span>
-                                    <i class="bi bi-arrow-right tw-transform tw-transition-transform tw-duration-300 group-hover/card:tw-translate-x-2"></i>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-
-                </div>
-            </div>
-        </section>
-
-        <section class="tw-relative tw-mt-10 tw-flex tw-min-h-[100vh] tw-w-full tw-max-w-[100vw] tw-flex-col tw-place-items-center lg:tw-p-6">
-
-            <div class="reveal-up tw-mt-[5%] tw-flex tw-h-full tw-w-full tw-place-content-center 
-                        tw-gap-2 tw-p-4 max-lg:tw-max-w-full max-lg:tw-flex-col" style="translate: none; rotate: none; scale: none; transform: translate(0px, 0%); opacity: 1;">
-
-                <div class="tw-relative tw-flex tw-max-w-[30%] max-lg:tw-max-w-full tw-flex-col 
-                            tw-place-items-start tw-gap-4  tw-p-2 max-lg:tw-place-items-center 
-                            max-lg:tw-place-content-center max-lg:tw-w-full">
-                    <div class="tw-top-40 tw-flex tw-flex-col lg:tw-sticky tw-place-items-center tw-max-h-fit tw-max-w-[850px] max-lg:tw-max-h-fit max-lg:tw-max-w-[320px] tw-overflow-hidden">
-                        <h2 class="tw-text-5xl tw-font-serif tw-text-center tw-font-medium  max-md:tw-text-3xl">Seus dados com IA</h2>
-                        
-                        <a href="http://" class="btn !tw-mt-8 !tw-bg-transparent !tw-text-black 
-                                                !tw-border-[1px] !tw-border-black 
-                                                dark:!tw-border-white dark:!tw-text-white">Comece agora</a>
-
-                    </div>
-                   
-                </div>
-
-                <div class="tw-flex tw-flex-col tw-gap-10 tw-h-full tw-max-w-1/2 max-lg:tw-max-w-full tw-px-[10%]
-                             max-lg:tw-px-4 max-lg:tw-gap-3 max-lg:tw-w-full lg:tw-top-[20%]
-                             tw-place-items-center
-                             ">   
-                    <div class="reveal-up tw-h-[240px] tw-w-[450px] max-md:tw-w-full" style="translate: none; rotate: none; scale: none; transform: translate(0px, 0%); opacity: 1;">
-                        <a href="javascript:void(0);" class="tw-flex tw-w-full tw-h-full tw-gap-8 tw-rounded-xl 
-                                    hover:tw-shadow-lg dark:tw-shadow-[#171717] tw-duration-300 tw-transition-all
-                                  tw-p-8 tw-group/card">
-                            <div class="tw-text-4xl max-md:tw-text-2xl">
-                                <i class="bi bi-code-square"></i>
-                            </div>
-
-                            <div class="tw-flex tw-flex-col tw-gap-4">
-                                <h3 class="tw-text-2xl max-md:tw-text-xl">Análise das vendas</h3>
-                                <p class="tw-text-gray-800 dark:tw-text-gray-100 max-md:tw-text-sm">Ferramentas de análise de vendas para identificar tendências, prever demandas e otimizar estratégias comerciais.</p>
-
-                                <div class="tw-mt-auto tw-flex tw-gap-2 tw-underline tw-underline-offset-4">
-                                    <span>Conhecer</span>
-                                    <i class="bi bi-arrow-up-right group-hover/card:tw--translate-y-1
-                                                group-hover/card:tw-translate-x-1 tw-duration-300 tw-transition-transform"></i>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-
-                    <div class="reveal-up tw-h-[240px] tw-w-[450px] max-md:tw-w-full" style="translate: none; rotate: none; scale: none; transform: translate(0px, 0%); opacity: 1;">
-                        <a href="javascript:void(0);" class="tw-flex tw-w-full tw-h-full tw-gap-8 tw-rounded-xl
-                                 hover:tw-shadow-lg dark:tw-shadow-[#171717] tw-duration-300 tw-transition-all tw-p-8 tw-group/card">
-                            <div class="tw-text-4xl max-md:tw-text-2xl">
-                                <i class="bi bi-file-pdf-fill"></i>
-                            </div>
-
-                            <div class="tw-flex tw-flex-col tw-gap-4">
-                                <h3 class="tw-text-2xl max-md:tw-text-xl">Gestão Financeira</h3>
-                                <p class="tw-text-gray-800 dark:tw-text-gray-100 max-md:tw-text-sm"> Automatize a análise de dados financeiros para tomar decisões mais rápidas e precisas.</p>
-
-                                <div class="tw-mt-auto tw-flex tw-gap-2 tw-underline tw-underline-offset-4">
-                                    <span>Conhecer</span>
-                                    <i class="bi bi-arrow-up-right group-hover/card:tw--translate-y-1
-                                                group-hover/card:tw-translate-x-1 tw-duration-300 tw-transition-transform"></i>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-
-                    <div class="reveal-up tw-h-[240px] tw-w-[450px] max-md:tw-w-full" style="translate: none; rotate: none; scale: none; transform: translate(0px, 0%); opacity: 1;">
-                        <a href="javascript:void(0);" class="tw-flex tw-w-full tw-h-full tw-gap-8 tw-rounded-xl hover:tw-shadow-lg tw-duration-300 
-                                tw-transition-all dark:tw-shadow-[#171717] tw-p-8 tw-group/card">
-                            <div class="tw-text-4xl max-md:tw-text-2xl">
-                                <i class="bi bi-image-fill"></i>
-                            </div>
-
-                            <div class="tw-flex tw-flex-col tw-gap-4">
-                                <h3 class="tw-text-2xl max-md:tw-text-xl">Gestão Operacional</h3>
-                                <p class="tw-text-gray-800 dark:tw-text-gray-100 max-md:tw-text-sm">Monitore seu estoque e operacões e evite desperdícios ou falta de produtos.</p>
-
-                                <div class="tw-mt-auto tw-flex tw-gap-2 tw-underline tw-underline-offset-4">
-                                    <span>Conhecer</span>
-                                    <i class="bi bi-arrow-up-right group-hover/card:tw--translate-y-1
-                                                group-hover/card:tw-translate-x-1 tw-duration-300 tw-transition-transform"></i>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-
-                    <div class="reveal-up tw-h-[240px] tw-w-[450px] max-md:tw-w-full" style="translate: none; rotate: none; scale: none; transform: translate(0px, 0%); opacity: 1;">
-                        <a href="javascript:void(0);" class="tw-flex tw-w-full dark:tw-shadow-[#171717] tw-h-full tw-gap-8 tw-rounded-xl  hover:tw-shadow-lg tw-duration-300 
-                            tw-transition-all tw-p-8 tw-group/card">
-                            <div class="tw-text-4xl max-md:tw-text-2xl">
-                                <i class="bi bi-bar-chart-line-fill"></i>
-                            </div>
-
-                            <div class="tw-flex tw-flex-col tw-gap-4">
-                                <h3 class="tw-text-2xl max-md:tw-text-xl">Gráficos Automatizados</h3>
-                                <p class="tw-text-gray-800 dark:tw-text-gray-100 max-md:tw-text-sm">    Gere gráficos e relatórios automáticos para visualizar dados de forma clara e eficiente.
-
-</p>
-
-                                <div class="tw-mt-auto tw-flex tw-gap-2 tw-underline tw-underline-offset-4">
-                                    <span>Conhecer</span>
-                                    <i class="bi bi-arrow-up-right group-hover/card:tw--translate-y-1
-                                                group-hover/card:tw-translate-x-1 tw-duration-300 tw-transition-transform"></i>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                    
-                    
-
-                    
-
-                </div>
-
-                
-            </div>
-        </section>
-
-
-        <section class="tw-relative tw-flex  tw-w-full tw-min-h-[110vh] max-md:tw-min-h-[80vh] tw-flex-col tw-place-content-center tw-place-items-center tw-overflow-hidden">   
-             <div class="tw-w-full max-lg:tw-max-w-full tw-place-content-center tw-items-center 
-                        tw-flex tw-flex-col tw-max-w-[80%] tw-gap-4 tw-p-4">
-               
-                <h3 class="reveal-up tw-text-5xl tw-font-medium max-md:tw-text-3xl tw-text-center tw-leading-normal" style="translate: none; rotate: none; scale: none; transform: translate(0px, 0%); opacity: 1;">Recursos Adicionais</h3>
-                <!-- <p class="reveal-up tw-mt-3 tw-max-w-[600px] tw-text-center ">
-                </p> -->
-                
-                <div class="tw-mt-8 tw-relative tw-gap-10 tw-p-4 tw-grid tw-place-items-center tw-grid-cols-3 max-lg:tw-flex max-lg:tw-flex-col">
-
-
-                    <div class="reveal-up  tw-w-[350px] tw-border-[1px] tw-h-[400px] tw-rounded-md tw-place-items-center tw-p-4
-                                 tw-bg-[#f2f3f4] max-md:tw-w-[320px] dark:tw-bg-[#141414] dark:tw-border-[#1f2123] tw-flex tw-flex-col tw-gap-3" style="translate: none; rotate: none; scale: none; transform: translate(0px, 0%); opacity: 1;">
-
-                        <div class="tw-w-full tw-h-[250px]
-                                    tw-p-4
-                                    tw-rounded-xl 
-                                     tw-backdrop-blur-2xl
-                                     tw-overflow-hidden tw-flex tw-place-content-center">
-                            <img src="./assets/images/home/prompts2.png" alt="Prompt library" class="tw-w-auto tw-h-full tw-object-contain">
-                        </div>
-                        <h3 class="tw-text-2xl">Seus Dados com Perguntas</h3>
-                        <p class="tw-text-gray-700 dark:tw-text-gray-300 tw-px-4 tw-text-center tw-text-sm">Esqueça Excel, Power BI ou qualquer ferramenta para analisar seus dados. A Cici pode entregar tudo isso com uma simples pergunta</p>
-                    </div>
-                    
-                    <div class="reveal-up tw-w-[350px] max-md:tw-w-[320px] tw-border-[1px] tw-h-[400px] tw-rounded-md tw-place-items-center tw-p-4
-                                 tw-bg-[#f2f3f4] dark:tw-bg-[#141414] dark:tw-border-[#1f2123] tw-flex tw-flex-col tw-gap-3" style="translate: none; rotate: none; scale: none; transform: translate(0px, 0%); opacity: 1;">
-
-                        <div class="tw-w-full tw-h-[250px]
-                                    tw-p-4
-                                    tw-rounded-xl 
-                                     tw-backdrop-blur-2xl
-                                     tw-overflow-hidden tw-flex tw-place-content-center">
-                            <img src="./assets/images/home/search.png" alt="Web search" class="tw-w-auto tw-h-full tw-object-contain">
-                        </div>
-                        <h3 class="tw-text-2xl">Pesquisa em Real Time</h3>
-                        <p class="tw-text-gray-700 dark:tw-text-gray-300 tw-px-4 tw-text-center tw-text-sm">    Integre dados de diferentes fontes e obtenha insights em tempo real.
-
-</p>
-                    </div>
-
-                    <div class="reveal-up tw-w-[350px] max-md:tw-w-[320px] tw-border-[1px] tw-h-[400px] tw-rounded-lg tw-place-items-center tw-p-4
-                                 tw-bg-[#f2f3f4] dark:tw-bg-[#141414] dark:tw-border-[#1f2123] tw-flex tw-flex-col tw-gap-3" style="translate: none; rotate: none; scale: none; transform: translate(0px, 0%); opacity: 1;">
-
-                        <div class="tw-w-full tw-h-[250px]
-                                    tw-p-4
-                                    tw-rounded-xl 
-                                     tw-backdrop-blur-2xl
-                                     tw-overflow-hidden tw-flex tw-place-content-center">
-                            <img src="./assets/images/home/image.png" alt="Image generation" class="tw-w-auto tw-h-full tw-object-contain">
-                        </div>
-                        <h3 class="tw-text-2xl">Big Picture da Empresa</h3>
-                        <p class="tw-text-gray-700 dark:tw-text-gray-300 tw-px-4 tw-text-center tw-text-sm">A Cici é capaz de entender seus dados e gerar insights valiosos para o seu negocio.</p>
-                    </div>
-
-                    <div class="reveal-up tw-w-[350px] max-md:tw-w-[320px] tw-border-[1px] tw-h-[400px] tw-rounded-lg tw-place-items-center tw-p-4
-                                 tw-bg-[#f2f3f4] dark:tw-bg-[#141414] dark:tw-border-[#1f2123] tw-flex tw-flex-col tw-gap-3" style="translate: none; rotate: none; scale: none; transform: translate(0px, 0%); opacity: 1;">
-
-                        <div class="tw-w-full tw-h-[250px]
-                                    tw-p-4
-                                     tw-rounded-xl 
-                                     tw-backdrop-blur-2xl
-                                     tw-overflow-hidden tw-flex tw-place-content-center">
-                            <img src="./assets/images/home/history.png" alt="History" class="tw-w-auto tw-h-full tw-object-contain">
-                        </div>
-                        <h3 class="tw-text-2xl">Histórico de Análises</h3>
-                        <p class="tw-text-gray-700 dark:tw-text-gray-300 tw-px-4 tw-text-center tw-text-sm">    Acesse análises anteriores e compare resultados para tomar decisões mais informadas.
-
-</p>
-                    </div>
-
-                    <div class="reveal-up tw-w-[350px] max-md:tw-w-[320px] tw-border-[1px] tw-h-[400px] tw-rounded-lg tw-place-items-center tw-p-4
-                                 tw-bg-[#f2f3f4] dark:tw-bg-[#141414] dark:tw-border-[#1f2123] tw-flex tw-flex-col tw-gap-3" style="translate: none; rotate: none; scale: none; transform: translate(0px, 0%); opacity: 1;">
-
-                        <div class="tw-w-full tw-h-[250px]
-                                    tw-p-4
-                                    tw-rounded-xl 
-                                     tw-backdrop-blur-2xl
-                                     tw-overflow-hidden tw-flex tw-place-content-center">
-                            <img src="./assets/images/home/import.png" alt="Import content" class="tw-w-auto tw-h-full tw-object-contain">
-                        </div>
-                        <h3 class="tw-text-2xl">Importação de Dados</h3>
-                        <p class="tw-text-gray-700 dark:tw-text-gray-300 tw-px-4 tw-text-center tw-text-sm">    Importe dados de ERPs, planilhas e outras fontes para análise integrada.
-
-</p>
-                    </div>
-
-                    <div class="reveal-up tw-w-[350px] max-md:tw-w-[320px] tw-border-[1px] tw-h-[400px] tw-rounded-lg tw-place-items-center tw-p-4
-                                 tw-bg-[#f2f3f4] dark:tw-bg-[#141414] dark:tw-border-[#1f2123] tw-flex tw-flex-col tw-gap-3" style="translate: none; rotate: none; scale: none; transform: translate(0px, 0%); opacity: 1;">
-
-                        <div class="tw-w-full tw-h-[250px]
-                                    tw-p-4
-                                    tw-rounded-xl 
-                                     tw-backdrop-blur-2xl
-                                     tw-overflow-hidden tw-flex tw-place-content-center">
-                            <img src="./assets/images/home/multilingual.png" alt="Multilingual" class="tw-w-auto tw-h-full tw-object-contain">
-                        </div>
-                        <h3 class="tw-text-2xl">Suporte Multilíngue</h3>
-                        <p class="tw-text-gray-700 dark:tw-text-gray-300 tw-px-4 tw-text-center tw-text-sm">    A plataforma suporta múltiplos idiomas para atender empresas globais.
-
-</p>
-                    </div>
-
-                </div>
-
-            </div>
-        </section>
-
-        
-
-        <section class="tw-flex tw-min-h-[100vh] tw-w-full tw-flex-col tw-place-content-center tw-place-items-center tw-p-[2%]">
-            <h3 class="reveal-up tw-text-4xl tw-font-medium tw-text-center max-md:tw-text-2xl" style="translate: none; rotate: none; scale: none; transform: translate(0px, 0%); opacity: 1;">O que dizem sobre a Cici</h3>
-            <!-- Testimonials -->
-            <div class="tw-mt-20 tw-gap-10 tw-space-y-8  max-md:tw-columns-1 lg:tw-columns-2 xl:tw-columns-3">
-                <div class="reveal-up tw-flex tw-h-fit tw-w-[350px] tw-break-inside-avoid 
-                        tw-flex-col tw-gap-4 tw-rounded-lg tw-border-[1px] 
-                        tw-bg-[#f6f7fb] dark:tw-bg-[#080808] dark:tw-border-[#1f2123] tw-p-4 max-lg:tw-w-[320px]" style="translate: none; rotate: none; scale: none; transform: translate(0px, 0%); opacity: 1;">   
-
-                    <div class="tw-flex tw-place-items-center tw-gap-3">
-                        <div class="tw-h-[50px] tw-w-[50px] tw-overflow-hidden tw-rounded-full">
-                            <img src="./assets/images/people/man2.jpg" class="tw-h-full tw-w-full tw-object-cover" alt="man">
-                        </div>
-                        <div class="tw-flex tw-flex-col tw-gap-1">
-                            <div class="tw-font-semibold">Francisco R</div>
-                            <div class="tw-text-gray-700 dark:tw-text-gray-300">Diretor de Vendas</div>
-                        </div>
-                    </div>
-
-                    <p class="tw-mt-4 tw-text-gray-800 dark:tw-text-gray-200">Poder ver a performance da minha equipe sentado no sofá da minha sala é realmente algo poderoso.</p>
-                </div>
-
-                 
-
-                 <div class="reveal-up tw-flex tw-h-fit tw-w-[350px] tw-break-inside-avoid 
-                        tw-flex-col tw-gap-4 tw-rounded-lg tw-border-[1px] 
-                        tw-bg-[#f6f7fb] dark:tw-bg-[#080808] dark:tw-border-[#1f2123] tw-p-4 max-lg:tw-w-[320px]" style="translate: none; rotate: none; scale: none; transform: translate(0px, 0%); opacity: 1;">   
-
-                    <div class="tw-flex tw-place-items-center tw-gap-3">
-                        <div class="tw-h-[50px] tw-w-[50px] tw-overflow-hidden tw-rounded-full">
-                            <img src="./assets/images/people/man.jpg" class="tw-h-full tw-w-full tw-object-cover" alt="man">
-                        </div>
-                        <div class="tw-flex tw-flex-col tw-gap-1">
-                            <div class="tw-font-semibold">Tiago S</div>
-                            <div class="tw-text-gray-700 dark:tw-text-gray-300">COO, Total Ingredientes</div>
-                        </div>
-                    </div>
-
-                    <p class="tw-mt-4 tw-text-gray-800 dark:tw-text-gray-200">Com a Cici3, conseguimos reduzir custos e aumentar a eficiência operacional. Eu tomava quase duas horas para um forecast de volume de compras e agora tomamos 10 minutos.</p>
-                </div>
-
-                 
-
-                 <div class="reveal-up tw-flex tw-h-fit tw-w-[350px] tw-break-inside-avoid 
-                        tw-flex-col tw-gap-4 tw-rounded-lg tw-border-[1px] 
-                        tw-bg-[#f6f7fb] dark:tw-bg-[#080808] dark:tw-border-[#1f2123] tw-p-4 max-lg:tw-w-[320px]" style="translate: none; rotate: none; scale: none; transform: translate(0px, 0%); opacity: 1;">   
-
-                    <div class="tw-flex tw-place-items-center tw-gap-3">
-                        <div class="tw-h-[50px] tw-w-[50px] tw-overflow-hidden tw-rounded-full">
-                            <img src="./assets/images/people/women.jpg" class="tw-h-full tw-w-full tw-object-cover" alt="women">
-                        </div>
-                        <div class="tw-flex tw-flex-col tw-gap-1">
-                            <div class="tw-font-semibold">Thamile L</div>
-                            <div class="tw-text-gray-700 dark:tw-text-gray-300">Pesquisadora</div>
-                        </div>
-                    </div>
-
-                    <p class="tw-mt-4 tw-text-gray-800 dark:tw-text-gray-200">A plataforma é intuitiva e nos ajuda a identificar oportunidades que antes passavam despercebidas.</p>
-                </div>
-
-                 <div class="reveal-up tw-flex tw-h-fit tw-w-[350px] tw-break-inside-avoid 
-                        tw-flex-col tw-gap-4 tw-rounded-lg tw-border-[1px] 
-                        tw-bg-[#f6f7fb] dark:tw-bg-[#080808] dark:tw-border-[#1f2123] tw-p-4 max-lg:tw-w-[320px]" style="translate: none; rotate: none; scale: none; transform: translate(0px, 0%); opacity: 1;">   
-
-                    <div class="tw-flex tw-place-items-center tw-gap-3">
-                        <div class="tw-h-[50px] tw-w-[50px] tw-overflow-hidden tw-rounded-full">
-                            <img src="./assets/images/people/man3.jpeg" class="tw-h-full tw-w-full tw-object-cover" alt="man">
-                        </div>
-                        <div class="tw-flex tw-flex-col tw-gap-1">
-                            <div class="tw-font-semibold">Rafael F</div>
-                            <div class="tw-text-gray-700 dark:tw-text-gray-300">Analista de Dados, WEG</div>
-                        </div>
-                    </div>
-
-                    <p class="tw-mt-4 tw-text-gray-800 dark:tw-text-gray-200">Vejo que a Cici3 nos permite automatizar processos manuais e focar em estratégias que realmente agregam valor ao negócio.</p>
-                </div>
-               
-            </div>
-        </section>
-
-
-        <section class="tw-mt-5 tw-flex tw-w-full tw-flex-col tw-gap-6 tw-place-items-center tw-p-[2%]" id="pricing">
-            <h3 class="reveal-up tw-text-5xl tw-font-medium max-md:tw-text-2xl" style="translate: none; rotate: none; scale: none; transform: translate(0px, 0%); opacity: 1;">Escolha o plano para você</h3>
-            <!-- pricing -->
-            <div class="tw-mt-10 tw-flex tw-flex-wrap tw-place-content-center tw-gap-8 max-lg:tw-flex-col">
-                <div class="reveal-up tw-flex tw-w-[350px] tw-flex-col tw-place-items-center tw-gap-2 tw-rounded-lg tw-border-[1px]
-                            tw-border-outlineColor tw-bg-white dark:tw-bg-[#080808] dark:tw-border-[#1f2123] tw-p-8 tw-shadow-xl max-lg:tw-w-[320px]" style="translate: none; rotate: none; scale: none; transform: translate(0px, 0%); opacity: 1;">
-                    <h3 class="">
-                        <span class="tw-text-5xl max-md:tw-text-3xl tw-font-semibold">Em breve</span>
-                        <span class="tw-text-2xl tw-text-gray-600 dark:tw-text-gray-300"></span>
-                    </h3>
-                    <p class="tw-mt-3 tw-text-center tw-text-gray-800 dark:tw-text-gray-100">Ferramenta Personnal - Para Pessoas</p>
-                    <hr>
-                    <ul class="tw-mt-4 tw-flex tw-flex-col tw-gap-4 tw-text-base tw-text-gray-800 dark:tw-text-gray-200">
-                        <li class="tw-flex tw-gap-2">
-                            <i class="bi bi-check-circle-fill"></i>
-                            <span>Análise Automatizada com IA</span>    
-                        </li>
-                        <li class="tw-flex tw-gap-2">
-                            <i class="bi bi-check-circle-fill"></i>
-                            <span>Gráficos e dashboards automáticos</span>    
-                        </li>
-                        <li class="tw-flex tw-gap-2">
-                            <i class="bi bi-check-circle-fill"></i>
-                            <span>Integração com Excel, CSV, JSON</span>    
-                        </li>
-
-                        <li class="tw-flex tw-gap-2 ">
-                            <i class="bi bi-check-circle-fill tw-text-gray-400 dark:tw-text-gray-500"></i>
-                            <span>Suporte 24h</span>    
-                        </li>
-
-                        <li class="tw-flex tw-gap-2 ">
-                            <i class="bi bi-check-circle-fill tw-text-gray-400 dark:tw-text-gray-500"></i>
-                            <span>Atualizações on time dos modelos</span>    
-                        </li>
-                  
+                    <h3>IA de Vendas</h3>
+                    <p>Desvende padrões de vendas, identifique oportunidades perdidas e accelere seu crescimento com insights preditivos.</p>
+                    <ul class="module-benefits">
+                        <li><span class="check">✓</span> Previsão de vendas por região/produto</li>
+                        <li><span class="check">✓</span> Análise de performance de vendedores</li>
+                        <li><span class="check">✓</span> Identificação de oportunidades perdidas</li>
+                        <li><span class="check">✓</span> Sazonalidade e tendências</li>
                     </ul>
-                    <a href="javascript:void(0);" class="btn tw-mt-auto !tw-w-full tw-transition-transform tw-duration-[0.3s] 
-                                hover:tw-scale-x-[1.02] !tw-text-black !tw-bg-transparent !tw-border-[1px]
-                                 tw-border-black dark:tw-border-white dark:!tw-text-white">Entrar na Lista</a>
                 </div>
-                
-                <div class="reveal-up tw-flex tw-w-[350px] tw-flex-col tw-place-items-center tw-gap-2 tw-rounded-lg tw-border-2
-                            tw-border-outlineColor tw-bg-white dark:tw-bg-[#080808] dark:tw-border-[#595858] tw-p-8 tw-shadow-xl max-lg:tw-w-[320px]" style="translate: none; rotate: none; scale: none; transform: translate(0px, 0%); opacity: 1;">
-                    <h3 class="">
-                        <span class="tw-text-5xl max-md:tw-text-3xl  tw-font-semibold">Beta Phase</span>
-                        
-                    </h3>
-                    <p class="tw-mt-3 tw-text-center tw-text-gray-800 dark:tw-text-gray-200">Plano Business - Para Empresas</p>
-                    <hr>
-                    <ul class="tw-mt-4 tw-flex tw-flex-col tw-gap-4  tw-text-base tw-text-gray-800 dark:tw-text-gray-100">
-                        <li class="tw-flex tw-gap-2">
-                            <i class="bi bi-check-circle-fill"></i>
-                            <span>Análises ilimitadas de dados</span>    
-                        </li>
-                        <li class="tw-flex tw-gap-2">
-                            <i class="bi bi-check-circle-fill"></i>
-                            <span>Gráficos, dashboards e relatórios personalizados</span>    
-                        </li>
-                        <li class="tw-flex tw-gap-2">
-                            <i class="bi bi-check-circle-fill"></i>
-                            <span>Integração com múltiplos ERPs e fontes de dados</span>    
-                        </li>
-
-                        <li class="tw-flex tw-gap-2 ">
-                            <i class="bi bi-check-circle-fill"></i>
-                            <span>Suporte prioritário por e-mail e chat</span>    
-                        </li>
-
-                        <li class="tw-flex tw-gap-2 ">
-                            <i class="bi bi-check-circle-fill tw-text-gray-400 dark:tw-text-gray-500"></i>
-                            <span>Acesso a análises avançadas de estoque e desempenho</span>    
-                        </li>
-                  
+                <div class="solution-module reveal-up delay-1" onclick="openContactModal()">
+                    <div class="module-tag">CRESCIMENTO</div>
+                    <div class="module-icon">
+                        <i class="bi bi-people"></i>
+                    </div>
+                    <h3>IA de Customer</h3>
+                    <p>Entenda o comportamento dos seus clientes, calcule lifetime value e desenvolva estratégias de retenção.</p>
+                    <ul class="module-benefits">
+                        <li><span class="check">✓</span> Segmentação automática de clientes</li>
+                        <li><span class="check">✓</span> Cálculo de Lifetime Value (LTV)</li>
+                        <li><span class="check">✓</span> Predição de churn</li>
+                        <li><span class="check">✓</span> Análise de jornada do cliente</li>
                     </ul>
-                    <a href="javascript:void(0);" class="btn tw-mt-auto !tw-w-full tw-transition-transform tw-duration-[0.3s] hover:tw-scale-x-[1.02]">Falar com Especialista</a>
                 </div>
-
-                
-
-            </div>
-        </section>
-
-        <section class="tw-mt-5 tw-flex tw-min-h-[80vh] tw-w-full tw-flex-col tw-place-content-center tw-place-items-center tw-p-[2%] max-lg:tw-p-3">
-            <h3 class="reveal-up tw-text-4xl tw-font-medium max-md:tw-text-2xl" style="translate: none; rotate: none; scale: none; transform: translate(0px, 100%); opacity: 0;">Latest Updates</h3>
-            <!-- articles -->
-        
-            <div class="reveal-up tw-mt-10 tw-flex tw-flex-wrap tw-place-content-center tw-gap-10 max-lg:tw-flex-col" style="translate: none; rotate: none; scale: none; transform: translate(0px, 100%); opacity: 0;">
-                <a href="javascript:void(0);" class="tw-flex tw-h-[500px] tw-w-[400px] tw-flex-col tw-gap-2 tw-overflow-clip tw-rounded-lg tw-p-4 max-lg:tw-w-[350px]">
-                    <div class="tw-h-[350px] tw-min-h-[350px] tw-w-full tw-overflow-hidden tw-rounded-2xl">
-                        <img src="./assets/images/home/article1.png" alt="article image" class="tw-h-full tw-w-full tw-object-cover tw-transition-transform tw-duration-700 hover:tw-scale-[1.3]" srcset="">
+                <!-- Segunda linha: Financeiro e Operacional -->
+                <div class="solution-module reveal-up delay-2" onclick="openContactModal()">
+                    <div class="module-tag">ESSENCIAL</div>
+                    <div class="module-icon">
+                        <i class="bi bi-cash-stack"></i>
                     </div>
-
-                    <div class="tw-text-gray-600 dark:tw-text-gray-300 tw-justify-between tw-flex tw-gap-2">
-                        <div class="tw-text-gray-800 dark:tw-text-gray-200">Launch</div>
-                        <div class="tw-text-gray-600 dark:tw-text-gray-400">Janeiro, 2025</div>
-                    </div>
-                    <h3 class="tw-mt-1 tw-font-medium tw-text-xl max-md:tw-text-xl">Nascimento modelo Cici1</h3>
-                    
-                </a>
-                
-                <a href="javascript:void(0);" class="tw-flex tw-h-[500px] tw-w-[400px] tw-flex-col tw-gap-2 tw-overflow-clip tw-rounded-lg tw-p-4 max-lg:tw-w-[350px]">
-                    <div class="tw-h-[350px] tw-min-h-[350px] tw-w-full tw-overflow-hidden tw-rounded-2xl">
-                        <img src="./assets/images/home/article2.jpg" alt="article image" class="tw-h-full tw-w-full tw-object-cover tw-transition-transform tw-duration-700 hover:tw-scale-[1.3]" srcset="">
-                    </div>
-
-                    <div class="tw-text-gray-600 dark:tw-text-gray-300 tw-justify-between tw-flex tw-gap-2">
-                        <div class="tw-text-gray-800 dark:tw-text-gray-200">
-                            Announcement
-                        </div>
-                        <div class="tw-text-gray-600 dark:tw-text-gray-400">Fevereiro, 2025</div>
-                    </div>
-                    <h3 class="tw-mt-1 tw-font-medium tw-text-xl max-md:tw-text-xl">Cici3 backed by Anthropic &amp; OpenAI</h3>
-                    
-                </a>
-
-                <a href="javascript:void(0);" class="tw-flex tw-h-[500px] tw-w-[400px] tw-flex-col tw-gap-2 tw-overflow-clip tw-rounded-lg tw-p-4 max-lg:tw-w-[350px]">
-                    <div class="tw-h-[350px] tw-min-h-[350px] tw-w-full tw-overflow-hidden tw-rounded-2xl">
-                        <img src="./assets/images/home/article3.png" alt="article image" class="tw-h-full tw-w-full tw-object-cover tw-transition-transform tw-duration-700 hover:tw-scale-[1.3]" srcset="">
-                    </div>
-
-                    <div class="tw-text-gray-600 dark:tw-text-gray-300 tw-justify-between tw-flex tw-gap-2">
-                        <div class="tw-text-gray-800 dark:tw-text-gray-200">Launch</div>
-                        <div class="tw-text-gray-600 dark:tw-text-gray-400">Março, 2025</div>
-                    </div>
-                    <h3 class="tw-mt-1 tw-font-medium tw-text-xl max-md:tw-text-xl">Liberação do modelo Cici3</h3>
-                    
-                </a>
-
-            </div>
-        </section>
-
-        <section class="tw-relative tw-flex tw-w-full tw-flex-col tw-place-content-center tw-place-items-center tw-gap-[10%] tw-p-[5%] tw-px-[10%]">   
-
-
-            <h3 class="tw-text-4xl tw-font-medium max-md:tw-text-2xl">
-                Faq
-            </h3>
-            <div class="tw-mt-5 tw-flex tw-min-h-[300px] tw-w-full tw-max-w-[850px] tw-flex-col tw-gap-4">
-                <div class="faq tw-w-full">
-                    <h4 class="faq-accordion tw-flex tw-w-full tw-select-none tw-text-xl max-md:tw-text-lg">
-                        <span>O que é a Cici3?</span>
-                        <i class="bi bi-plus tw-text-xl tw-origin-center tw-duration-300 tw-transition-transform 
-                                    tw-ml-auto tw-font-semibold" style="transform: rotate(0deg);"></i>
-                    </h4>
-                    <div class="content max-lg:tw-text-sm" style="max-height: 0px; padding: 0px 18px;">A Cici3 é uma plataforma de análise de dados que conecta AI aos dados de vendas, financeiro e estoque de ERPs para fornecer insights em tempo real. Nossa solução ajuda empresas a tomar decisões mais inteligentes e estratégicas.</div>
+                    <h3>IA Financeira</h3>
+                    <p>Monitore fluxo de caixa, otimize margens e tome decisões financeiras baseadas em dados históricos e projeções.</p>
+                    <ul class="module-benefits">
+                        <li><span class="check">✓</span> Fluxo de caixa projetado</li>
+                        <li><span class="check">✓</span> Análise de margem por produto/cliente</li>
+                        <li><span class="check">✓</span> Alertas de inadimplência</li>
+                        <li><span class="check">✓</span> Controle de custos inteligente</li>
+                    </ul>
                 </div>
-                <hr>
-                <div class="faq tw-w-full">
-                    <h4 class="faq-accordion tw-flex tw-w-full tw-select-none tw-text-xl max-md:tw-text-lg">
-                        <span>O que é um Agente de Análise de Dados?</span>
-                        <i class="bi bi-plus tw-text-xl tw-origin-center tw-duration-300 tw-transition-transform 
-                                    tw-ml-auto tw-font-semibold" style="transform: rotate(0deg);"></i>
-                    </h4>
-                    <div class="content max-lg:tw-text-sm" style="max-height: 0px; padding: 0px 18px;">Um Agente de Análise de Dados é uma ferramenta baseada em inteligência artificial que automatiza a coleta, processamento e interpretação de dados. Ele transforma dados brutos em insights acionáveis, como gráficos, relatórios e previsões.</div>
-                </div>
-                <hr>
-                <div class="faq tw-w-full">
-                    <h4 class="faq-accordion tw-flex tw-w-full tw-select-none tw-text-xl max-md:tw-text-lg">
-                        <span>Com quais ERPs a cici3 se integra?</span>
-                        <i class="bi bi-plus tw-text-xl tw-origin-center tw-duration-300 tw-transition-transform 
-                                    tw-ml-auto tw-font-semibold" style="transform: rotate(0deg);"></i>
-                    </h4>
-                    <div class="content max-lg:tw-text-sm" style="max-height: 0px; padding: 0px 18px;">Integramos a cici em diferentes modelos de ERP , para isso nosso time de consultoria analise a necessidade e a possibilidade da integração na fase de análise com você.</div>
-                </div>
-                <hr>
-
-                <div class="faq tw-w-full">
-                    <h4 class="faq-accordion tw-flex tw-w-full tw-select-none tw-text-xl max-md:tw-text-lg">
-                        <span>Posso testar a Cici3 antes de comprar?</span>
-                        <i class="bi bi-plus tw-text-xl tw-origin-center tw-duration-300 tw-transition-transform 
-                                    tw-ml-auto tw-font-semibold" style="transform: rotate(0deg);"></i>
-                    </h4>
-                    <div class="content max-lg:tw-text-sm" style="max-height: 0px; padding: 0px 18px;">No momento estamos trabalhando em testes Beta e selecionando parceiros estratégicos para integração do nosso negócio.</div>
-                </div>
-                <hr>
-                
-            </div>
-            <div class="purple-bg-grad max-md:tw-hidden reveal-up tw-absolute tw-bottom-14 tw-right-[20%] 
-                                 tw-h-[150px] tw-w-[150px] tw-rounded-full" style="translate: none; rotate: none; scale: none; transform: translate(0px, 100%); opacity: 0;"></div>
-           
-        </section>
-
-        
-
-        <section class="tw-flex tw-w-full tw-flex-col tw-place-content-center tw-place-items-center tw-gap-[10%] tw-p-[5%] tw-px-[10%] max-md:tw-px-2">
-            <div class="tw-flex tw-w-full tw-max-w-[80%] tw-place-content-center tw-place-items-center tw-justify-between tw-gap-3 
-                        tw-rounded-lg tw-bg-[#F6F7FB] dark:tw-bg-[#171717] tw-p-6 max-md:tw-max-w-full max-md:tw-flex-col">
-                <div class="tw-flex tw-flex-col max-lg:tw-text-center tw-gap-1">
-                    <h2 class="tw-text-2xl tw-text-gray-800 dark:tw-text-gray-200 max-md:tw-text-xl">Tenho interesse</h2>
-                    <div class="tw-text-gray-700 dark:tw-text-gray-300">Quero sair na frente com análise de dados </div>
-                </div>
-
-                <div class="tw-flex tw-h-[60px] tw-place-items-center tw-gap-2 tw-overflow-hidden tw-p-2">
-                    <input type="email" class="input tw-h-full tw-w-full !tw-border-gray-600 tw-p-2 tw-outline-none" placeholder="email">
-                    <a class="btn !tw-rounded-full !tw-border-[1px] !tw-text-black !tw-border-solid !tw-border-black  dark:!tw-text-white
-                            dark:!tw-border-gray-300 !tw-bg-transparent tw-transition-colors tw-duration-[0.3s]" href="">Enviar</a>
+                <div class="solution-module reveal-up delay-3" onclick="openContactModal()">
+                    <div class="module-tag">OPERAÇÃO</div>
+                    <div class="module-icon">
+                        <i class="bi bi-boxes"></i>
+                    </div>
+                    <h3>IA Operacional</h3>
+                    <p>Elimine rupturas de estoque, otimize compras e mantenha sua operação funcionando com máxima eficiência.</p>
+                    <ul class="module-benefits">
+                        <li><span class="check">✓</span> Prevenção de ruptura de estoque</li>
+                        <li><span class="check">✓</span> Otimização de pontos de reposição</li>
+                        <li><span class="check">✓</span> Análise de giro por categoria</li>
+                        <li><span class="check">✓</span> Gestão de fornecedores</li>
+                    </ul>
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <footer class="tw-mt-auto tw-flex tw-flex-col tw-w-full tw-gap-4 tw-text-sm tw-pt-[5%] tw-pb-10 tw-px-[10%] 
-                    tw-text-black dark:tw-text-white max-md:tw-flex-col">
-            <div class="tw-flex max-md:tw-flex-col max-md:tw-gap-6 tw-gap-3 tw-w-full tw-place-content-around">
-                <div class="tw-flex tw-h-full tw-w-[250px] tw-flex-col tw-place-items-center tw-gap-6 max-md:tw-w-full">   
-                    <a href="javascript:void(0);" class="tw-w-full tw-place-items-center tw-flex tw-flex-col tw-gap-6">
-                        <img src="./assets/logo/logo.png" alt="logo" srcset="" class="tw-max-w-[120px] dark:tw-invert">
-                        <div class="tw-max-w-[120px] tw-text-center tw-text-3xl tw-h-fit">cici3</div>
+    <!-- Problem Section -->
+    <section class="problem-section">
+        <div class="container">
+            <h2 class="section-title reveal-up">O custo da análise manual está matando seu crescimento</h2>
+            <div class="problem-stats reveal-up">
+                <span class="big-stat">83%</span>
+                <p class="stat-description">das PMEs brasileiras ainda tomam decisões baseadas em "feeling" por falta de dados organizados</p>
+            </div>
+            <div class="problems-grid">
+                <!-- Primeira linha -->
+                <div class="problem-card reveal-up">
+                    <div class="problem-icon">
+                        <i class="bi bi-hourglass-split"></i>
+                    </div>
+                    <h3>Análises que demoram horas</h3>
+                    <p>Sua equipe pode gastar 8-12 horas por semana montando relatórios manuais. Quando ficam prontos, os dados já estão desatualizados e a oportunidade passou.</p>
+                    <div class="problem-impact">
+                        <span class="impact-value">R$ 45.000</span>
+                        <span class="impact-label">Custo anual em horas perdidas (baseado em salário médio)</span>
+                    </div>
+                </div>
+                <div class="problem-card reveal-up delay-1">
+                    <div class="problem-icon">
+                        <i class="bi bi-graph-down-arrow"></i>
+                    </div>
+                    <h3>Oportunidades invisíveis</h3>
+                    <p>Seus dados contêm insights valiosos sobre sazonalidade, clientes mais lucrativos e produtos com maior potencial. Mas estão "enterrados" em planilhas e sistemas.</p>
+                    <div class="problem-impact">
+                        <span class="impact-value">23%</span>
+                        <span class="impact-label">Aumento médio de receita ao identificar padrões ocultos</span>
+                    </div>
+                </div>
+                <!-- Segunda linha -->
+                <div class="problem-card reveal-up delay-2">
+                    <div class="problem-icon">
+                        <i class="bi bi-exclamation-triangle"></i>
+                    </div>
+                    <h3>Decisões reativas ao invés de estratégicas</h3>
+                    <p>Sem previsibilidade, você sempre está "apagando incêndio". Descobre problemas de estoque quando já faltou, vê a margem cair depois que já aconteceu.</p>
+                    <div class="problem-impact">
+                        <span class="impact-value">67%</span>
+                        <span class="impact-label">Das empresas que usam BI preventivo crescem mais que concorrentes</span>
+                    </div>
+                </div>
+                <div class="problem-card reveal-up delay-3">
+                    <div class="problem-icon">
+                        <i class="bi bi-currency-dollar"></i>
+                    </div>
+                    <h3>Custo proibitivo de especialistas</h3>
+                    <p>Um analista de dados pleno custa R$ 8.500/mês + benefícios. Para contratar um bom, você compete com multinacionais que pagam R$ 15.000+.</p>
+                    <div class="problem-impact">
+                        <span class="impact-value">R$ 156.000</span>
+                        <span class="impact-label">Custo estimado de um analista senior (salário + encargos + benefícios)</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Analyst Section -->
+    <section class="cta-analyst-section">
+        <div class="container">
+            <div class="cta-analyst-content reveal-up">
+                <h2 class="cta-analyst-title">E se você tivesse um analista sênior disponível 24/7?</h2>
+                <p class="cta-analyst-subtitle">A CICI3 é como ter um especialista em BI que trabalha sem parar, entende português real e custa 90% menos que contratar alguém.</p>
+                <div class="cta-analyst-buttons">
+                    <a href="#" class="btn btn-primary" onclick="openContactModal()">
+                        Quero meu analista de IA
+                        <i class="bi bi-robot"></i>
                     </a>
-                    <!-- <div class="tw-mt-3 tw-text-lg tw-font-semibold">Follow us</div> -->
-                    <div class="tw-flex tw-gap-4 tw-text-lg">
-                        
-                        
-                      
-                        
-                    </div>
-
+                    <a href="#solucao" class="btn btn-secondary">
+                        Ver como funciona
+                        <i class="bi bi-play-fill"></i>
+                    </a>
                 </div>
+            </div>
+        </div>
+    </section>
 
-                <div class="tw-flex max-md:tw-flex-col tw-flex-wrap tw-gap-6 tw-h-full tw-w-full tw-justify-around">
-                    <div class="tw-flex tw-h-full tw-w-[200px] tw-flex-col tw-gap-4">
-                        <h2 class="tw-text-xl">Resources</h2>
-                        <div class="tw-flex tw-flex-col tw-gap-3">
-                            <a href="javascript:void(0);" class="footer-link">Getting started</a>
-                            <a href="javascript:void(0);" class="footer-link">API Docs</a>
-                            <a href="javascript:void(0);" class="footer-link">API Endpoints</a>
-                            
-                            <a href="javascript:void(0);" class="footer-link">Pricing</a>
+    <!-- Solution Section -->
+    <section class="solution-section" id="solucao">
+        <div class="container">
+            <h2 class="section-title reveal-up">Converse com seus dados como se fosse seu analista pessoal</h2>
+            <p class="section-subtitle reveal-up">Clique em uma pergunta e veja como a CICI3 responde instantaneamente. Imagine isso integrado com seus dados reais, funcionando 24/7.</p>
+            <div class="solution-demo">
+                <div class="questions-list reveal-up">
+                    <button class="question-btn active" data-answer="vendas">
+                        "Nossa margem líquida está caindo. Por quê?"
+                    </button>
+                    <button class="question-btn" data-answer="vendedores">
+                        "Qual o faturamento por vendedor neste mês comparado ao mês passado?"
+                    </button>
+                    <button class="question-btn" data-answer="clientes">
+                        "Quais clientes têm risco de churn este mês?"
+                    </button>
+                    <button class="question-btn" data-answer="previsao">
+                        "Qual a previsão de faturamento para Q1?"
+                    </button>
+                    <button class="question-btn" data-answer="oportunidade">
+                        "Onde estou perdendo receita sem perceber?"
+                    </button>
+                </div>
+                <div class="demo-chat reveal-up delay-1">
+                    <div id="chat-response">
+                        <div class="chat-message">
+                            <div class="chat-user">Você:</div>
+                            <div class="chat-response">"Nossa margem líquida está caindo. Por quê?"</div>
                         </div>
-                    </div>
-
-
-                    
-
-                    <div class="tw-flex tw-h-full tw-w-[200px] tw-flex-col tw-gap-4">
-                        <h2 class="tw-text-xl">Legal</h2>
-                        <div class="tw-flex tw-flex-col tw-gap-3">
-                            <a href="javascript:void(0);" class="footer-link">Termos de Uso</a>
-                            <a href="javascript:void(0);" class="footer-link">Política de Privacidade</a>
-                            <a href="javascript:void(0);" class="footer-link">Nossa Política de Dados</a>
+                        <div class="chat-message">
+                            <div class="chat-user">CICI3:</div>
+                            <div class="chat-response">Identifiquei 3 fatores principais: 📊 1) Aumento de 15% no custo de frete (maior impacto), 2) Mix de produtos: cresceu 23% a venda de itens de baixa margem vs alta margem, 3) Descontos: subiram de 8,2% para 11,7% sem critério. RECOMENDAÇÃO: Revisar política de frete para pedidos acima de R$ 200 e criar incentivos para produtos premium. Isso pode recuperar 4-6 pontos de margem em 60 dias.</div>
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
+    </section>
 
-            <hr class="tw-mt-8">
-            <div class="tw-mt-2 tw-flex tw-gap-2 tw-flex-col tw-text-gray-700 dark:tw-text-gray-300 tw-place-items-center 
-                    tw-text-[12px] tw-w-full tw-text-center tw-place-content-around">
-                <span>Copyright © 2025</span>
-                <span>All trademarks and copyrights belong to their respective owners.</span>
+    <!-- Benefits Section -->
+    <section class="benefits-section">
+        <div class="container">
+            <h2 class="section-title reveal-up">Por que empresários escolhem a CICI3?</h2>
+            <p class="section-subtitle reveal-up">Mais que uma ferramenta de BI. É seu consultor estratégico que nunca dorme e entende o contexto brasileiro.</p>
+            <div class="benefits-grid">
+                <div class="benefit-card reveal-up">
+                    <div class="benefit-icon">
+                        <i class="bi bi-chat-quote"></i>
+                    </div>
+                    <h3>Português brasileiro nativo</h3>
+                    <p>Pergunte "Como tá o giro dos produtos?" ou "Qual região tá vendendo melhor?" - entendemos gírias, abreviações e o contexto real do seu negócio. Zero curva de aprendizado.</p>
+                    <div class="roi-highlight">Setup rápido vs 3 meses de treinamento</div>
+                </div>
+                <div class="benefit-card reveal-up delay-1">
+                    <div class="benefit-icon">
+                        <i class="bi bi-lightning-charge"></i>
+                    </div>
+                    <h3>Insights que geram receita</h3>
+                    <p>Não entregamos apenas números. Fornecemos visão prática: "Talvez seja interessante aumentar estoque do produto X em 40% antes da sazonalidade pode gerar R$ 180k extras."</p>
+                    <div class="roi-highlight">Aumento em receita adicional no primeiro ano</div>
+                </div>
+                <div class="benefit-card reveal-up delay-2">
+                    <div class="benefit-icon">
+                        <i class="bi bi-shield-check"></i>
+                    </div>
+                    <h3>ROI comprovado e transparente</h3>
+                    <p>Economia comprovado vs contratar analista. Decisões 5x mais rápidas. Aumento médio de 18% na eficiência operacional em 90 dias.</p>
+                    <div class="roi-highlight">Aumento de ROI no primeiro ano (média dos clientes)</div>
+                </div>
             </div>
+        </div>
+    </section>
 
-        </footer>
-    
+<section class="pricing-section" id="precos">
+    <div class="container">
+        <h2 class="section-title reveal-up">Planos flexíveis para cada estágio da sua jornada de dados</h2>
+        <p class="section-subtitle reveal-up">Do MVP à transformação completa, temos a solução de IA ideal para o seu negócio.</p>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.0/gsap.min.js" integrity="sha512-B1lby8cGcAUU3GR+Fd809/ZxgHbfwJMp0jLTVfHiArTuUt++VqSlJpaJvhNtRf3NERaxDNmmxkdx2o+aHd4bvw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.0/ScrollTrigger.min.js" integrity="sha512-AY2+JxnBETJ0wcXnLPCcZJIJx0eimyhz3OJ55k2Jx4RtYC+XdIi2VtJQ+tP3BaTst4otlGG1TtPJ9fKrAUnRdQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <div class="pricing-tabs reveal-up">
+            <button class="pricing-tab active" onclick="showPricingTab('saas')">Planos de Inteligência</button>
+            <button class="pricing-tab" onclick="showPricingTab('implementation')"> Programa Early Partner</button>
+        </div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/typed.js/2.0.10/typed.min.js" integrity="sha512-hIlMpy2enepx9maXZF1gn0hsvPLerXoLHdb095CmRY5HG3bZfN7XPBZ14g+TUDH1aGgfLyPHmY9/zuU53smuMw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <div id="saas-pricing" class="pricing-content active">
+            <div class="pricing-grid">
+                
+                <div class="pricing-card reveal-up">
+                    <h3>Validação<br>Starter Intelligence</h3>
+                    <p class="pricing-subtitle">Ideal para empresas que querem validar o potencial da IA em seus dados antes de um investimento maior.</p>
+                    <div class="price-container custom-value">
+                        <div class="price">Investimento sob medida</div>
+                        <div class="price-note">Preço definido após análise das suas necessidades e volume de dados</div>
+                    </div>
+                    <ul class="features-list">
+                        <li><span class="check">✓</span> 1 módulo de IA especializado</li>
+                        <li><span class="check">✓</span> Análise inicial dos seus dados</li>
+                        <li><span class="check">✓</span> Chatbot conversacional em português</li>
+                        <li><span class="check">✓</span> Integração com sistema atual</li>
+                        <li><span class="check">✓</span> Relatório de insights descobertos</li>
+                        <li><span class="check">✓</span> Suporte via WhatsApp</li>
+                    </ul>
+                    <a href="#" class="btn btn-ghost" onclick="openContactModal()">Agendar análise gratuita</a>
+                </div>
 
-    <script src="./scripts/components.js"></script>
-    <script src="./index.js"></script><style type="text/css" data-typed-js-css="true">
-        .typed-cursor{
-          opacity: 1;
-        }
-        .typed-cursor.typed-cursor--blink{
-          animation: typedjsBlink 0.7s infinite;
-          -webkit-animation: typedjsBlink 0.7s infinite;
-                  animation: typedjsBlink 0.7s infinite;
-        }
-        @keyframes typedjsBlink{
-          50% { opacity: 0.0; }
-        }
-        @-webkit-keyframes typedjsBlink{
-          0% { opacity: 1; }
-          50% { opacity: 0.0; }
-          100% { opacity: 1; }
-        }
-      </style><style type="text/css" data-typed-js-css="true">
-        .typed-cursor{
-          opacity: 1;
-        }
-        .typed-cursor.typed-cursor--blink{
-          animation: typedjsBlink 0.7s infinite;
-          -webkit-animation: typedjsBlink 0.7s infinite;
-                  animation: typedjsBlink 0.7s infinite;
-        }
-        @keyframes typedjsBlink{
-          50% { opacity: 0.0; }
-        }
-        @-webkit-keyframes typedjsBlink{
-          0% { opacity: 1; }
-          50% { opacity: 0.0; }
-          100% { opacity: 1; }
-        }
-      </style><style type="text/css" data-typed-js-css="true">
-        .typed-cursor{
-          opacity: 1;
-        }
-        .typed-cursor.typed-cursor--blink{
-          animation: typedjsBlink 0.7s infinite;
-          -webkit-animation: typedjsBlink 0.7s infinite;
-                  animation: typedjsBlink 0.7s infinite;
-        }
-        @keyframes typedjsBlink{
-          50% { opacity: 0.0; }
-        }
-        @-webkit-keyframes typedjsBlink{
-          0% { opacity: 1; }
-          50% { opacity: 0.0; }
-          100% { opacity: 1; }
-        }
-      </style>
-<!-- Modal de Contato -->
-<div class="modal" id="contactModal" tabindex="-1" aria-labelledby="contactModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="contactModalLabel">Entre em Contato</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <form action="https://formspree.io/f/mrbplqyw" method="POST">
-          <div class="form-group">
-            <label for="name">Nome</label>
-            <input type="text" class="form-control" id="name" name="name" required>
-          </div>
-          <div class="form-group">
-            <label for="email">Email</label>
-            <input type="email" class="form-control" id="email" name="_replyto" required>
-          </div>
-          <div class="form-group">
-            <label for="phone">Telefone</label>
-            <input type="tel" class="form-control" id="phone" name="phone">
-          </div>
-          <div class="form-group">
-            <label for="company">Empresa</label>
-            <input type="text" class="form-control" id="company" name="company">
-          </div>
-          <div class="form-group">
-            <label for="message">Mensagem</label>
-            <textarea class="form-control" id="message" name="message" rows="4" required></textarea>
-          </div>
-          <input type="hidden" name="_subject" value="Novo contato do site">
-          <input type="hidden" name="source" value="Botão de contato">
-          <button type="submit" class="btn btn-primary btn-block">Enviar Mensagem</button>
-        </form>
-      </div>
+                <div class="pricing-card popular reveal-up delay-1">
+                    <span class="popular-badge">Mais escolhido</span>
+                    <h3>Business Intelligence</h3>
+                    <p class="pricing-subtitle">Solução completa para empresas que querem decisões estratégicas baseadas em dados com dashboard executivo.</p>
+                    <div class="price-container custom-value">
+                        <div class="price">ROI garantido em 90 dias</div>
+                        <div class="price-note">Demonstramos retorno financeiro ou ajustamos a solução</div>
+                    </div>
+                    <ul class="features-list">
+                        <li><span class="check">✓</span> 1-2 módulos de IA integrados</li>
+                        <li><span class="check">✓</span> Dashboard executivo personalizado</li>
+                        <li><span class="check">✓</span> KPIs em tempo real</li>
+                        <li><span class="check">✓</span> Alertas inteligentes automáticos</li>
+                        <li><span class="check">✓</span> Relatórios executivos mensais</li>
+                        <li><span class="check">✓</span> Consultoria estratégica mensal</li>
+                        <li><span class="check">✓</span> Suporte prioritário</li>
+                    </ul>
+                    <a href="#" class="btn btn-primary" onclick="openContactModal()">Descobrir meu ROI potencial</a>
+                </div>
+
+                <div class="pricing-card reveal-up delay-2">
+                    <h3>Transformação Completa<br>Enterprise Analytics</h3>
+                    <p class="pricing-subtitle">Plataforma completa para empresas que querem se tornar líderes data-driven em seu mercado.</p>
+                    <div class="price-container custom-value">
+                        <div class="price">Parceria estratégica</div>
+                        <div class="price-note">Consultoria contínua para maximizar valor dos seus dados</div>
+                    </div>
+                    <ul class="features-list">
+                        <li><span class="check">✓</span> Todos os 4 módulos de IA</li>
+                        <li><span class="check">✓</span> Dashboard C-Level customizado</li>
+                        <li><span class="check">✓</span> Insights estratégicos diários</li>
+                        <li><span class="check">✓</span> Automação de relatórios</li>
+                        <li><span class="check">✓</span> Consultoria estratégica semanal</li>
+                        <li><span class="check">✓</span> Treinamento para toda equipe</li>
+                        <li><span class="check">✓</span> Suporte dedicado 24/7</li>
+                    </ul>
+                    <a href="#" class="btn btn-ghost" onclick="openContactModal()">Falar com especialista sênior</a>
+                </div>
+            </div>
+        </div>
+
+        <div id="implementation-pricing" class="pricing-content">
+            <div class="early-partner-container reveal-up">
+                <h3 class="early-partner-title">Junte-se ao nosso Programa Early Partner</h3>
+                <p class="early-partner-subtitle">Vagas limitadas para os primeiros 50 clientes, que receberão condições exclusivas de lançamento para crescermos juntos.</p>
+                
+                <div class="early-partner-benefits">
+                    <h4>Seus Benefícios Exclusivos:</h4>
+                    <ul>
+                        <li><span class="check">✓</span> <strong>Descontos especiais</strong>  no investimento inicial e mensalidades.</li>
+                        <li><span class="check">✓</span> <strong>Setup e implementação sem custo</strong>  para uma partida rápida.</li>
+                        <li><span class="check">✓</span> <strong>Garantia estendida de resultados</strong>  para sua total segurança.</li>
+                        <li><span class="check">✓</span> <strong>Acesso direto aos fundadores</strong>  para feedback e estratégia.</li>
+                    </ul>
+                </div>
+                
+                <a href="#" class="btn btn-primary btn-large" onclick="openContactModal()">Quero ser Early Partner</a>
+            </div>
+        </div>
     </div>
-  </div>
-</div>
+</section>
+
+    <!-- Testimonials Section -->
+    <section class="testimonials-section" id="cases">
+        <div class="container">
+            <h2 class="section-title section-title-white reveal-up">Cases reais de transformação com dados</h2>
+            <p class="section-subtitle section-subtitle-white reveal-up">Empresas brasileiras que saíram do "achismo" e entraram na era da decisão baseada em dados.</p>
+            <div class="testimonials-grid">
+                <div class="testimonial-card reveal-up">
+                    <p>"A CICI3 identificou que nossos clientes da região Sul compravam 40% mais no inverno, mas estávamos enviando estoque igual o ano todo. Ajustamos a distribuição e otimizamos nossa operação."</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">RC</div>
+                        <div>
+                            <div style="font-weight: 600;">Roberto Azevedo</div>
+                            <div style="color: var(--cinza-claro); font-size: 14px;">CEO, Distribuidora Campos Verdes</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card reveal-up delay-1">
+                    <p>"Descobrimos que nossos clientes com maior lifetime value vinham de um canal específico que representava pouco do marketing budget. Realocamos investimento e melhoramos significativamente o ROI."</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">MS</div>
+                        <div>
+                            <div style="font-weight: 600;">Mariana Silva</div>
+                            <div style="color: var(--cinza-claro); font-size: 14px;">Diretora Comercial, TechParts</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card reveal-up delay-2">
+                    <p>"O módulo operacional da CICI3 previu com antecedência que faltaria matéria-prima na nossa linha principal. Evitamos uma parada que custaria caro em vendas perdidas."</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">TS</div>
+                        <div>
+                            <div style="font-weight: 600;">Tiago Salvador</div>
+                            <div style="color: var(--cinza-claro); font-size: 14px;">COO, Total Ingredientes</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card reveal-up delay-3">
+                    <p>"Identificamos produtos que vendiam bem juntos mas não tínhamos no mesmo mix. Criamos combos estratégicos e aumentamos o ticket médio sem aumentar custo de aquisição."</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">EJ</div>
+                        <div>
+                            <div style="font-weight: 600;">Eleutério Joaquim</div>
+                            <div style="color: var(--cinza-claro); font-size: 14px;">Head Comercial, Tero Imports</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card reveal-up delay-4">
+                    <p>"A CICI3 mostrou que nossos melhores vendedores tinham sazonalidades específicas. Mapeamos os dados de toda equipe com base nesses insights e as vendas melhoraram significativamente."</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">PS</div>
+                        <div>
+                            <div style="font-weight: 600;">Paulo Santos</div>
+                            <div style="color: var(--cinza-claro); font-size: 14px;">Diretor de Vendas, Pez</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card reveal-up delay-5">
+                    <p>"Pensávamos que março era nosso mês mais fraco. A CICI3 mostrou que era porque não fazíamos promoções adequadas. Mudamos a estratégia e março virou nosso segundo melhor mês."</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">FR</div>
+                        <div>
+                            <div style="font-weight: 600;">Francisco Reus</div>
+                            <div style="color: var(--cinza-claro); font-size: 14px;">CEO, R&F Distribuição</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+        <!-- FAQ Section -->
+    <section class="faq-section">
+        <div class="container">
+            <h2 class="section-title reveal-up">Perguntas que recebemos de empresários</h2>
+            <div class="faq-list">
+                <div class="faq-item reveal-up">
+                    <div class="faq-question">
+                        <span>Como a CICI3 se integra com meu ERP ou sistema atual?</span>
+                        <i class="bi bi-plus faq-icon"></i>
+                    </div>
+                    <div class="faq-answer">
+                        Podemos conectar com os principais ERPs brasileiros (Totvs, SAP, Sankhya, Senior, Bling) via API segura ou importação de dados. Para planilhas Excel/Google Sheets, a integração é automática. Nosso time técnico configura tudo para você, sem precisa alterar nada no seu sistema atual. Se usar um ERP específico, desenvolvemos conectores customizados sem custo adicional.
+                    </div>
+                </div>
+                <div class="faq-item reveal-up delay-1">
+                    <div class="faq-question">
+                        <span>Quanto tempo leva para começar a ver resultados práticos?</span>
+                        <i class="bi bi-plus faq-icon"></i>
+                    </div>
+                    <div class="faq-answer">
+                        Primeiros insights aparecem em 24-48h após conectar seus dados. Nos primeiros 7 dias, você já identifica padrões básicos de vendas e estoque. Em 30 dias, o modelo começa a fazer previsões mais precisas. Nossos clientes geralmente veem o primeiro impacto financeiro positivo entre 15-30 dias (melhoria em compras, identificação de oportunidades, etc.).
+                    </div>
+                </div>
+                <div class="faq-item reveal-up delay-2">
+                    <div class="faq-question">
+                        <span>Meus dados ficam seguros? Vocês vendem ou compartilham informações?</span>
+                        <i class="bi bi-plus faq-icon"></i>
+                    </div>
+                    <div class="faq-answer">
+                        Seus dados são 100% privados e ficam hospedados em servidores no Brasil (AWS São Paulo) e criptografados. Somos compliance com LGPD e NUNCA vendemos, compartilhamos ou usamos seus dados para outros fins. Você pode exportar ou deletar todos os dados a qualquer momento. Nossa receita vem da assinatura, não dos seus dados.
+                    </div>
+                </div>
+                <div class="faq-item reveal-up delay-3">
+                    <div class="faq-question">
+                        <span>Preciso ter conhecimento técnico para usar a CICI3?</span>
+                        <i class="bi bi-plus faq-icon"></i>
+                    </div>
+                    <div class="faq-answer">
+                        Zero conhecimento técnico necessário. Se você sabe fazer uma pergunta, sabe usar a CICI3. Funciona como uma conversa: "Como estão as vendas este mês?" ou "Que produto está vendendo mais?". A IA entende português natural, gírias e contexto brasileiro. Oferecemos treinamento de 1 hora para sua equipe, mas a maioria dos usuários aprende sozinha em 15 minutos.
+                    </div>
+                </div>
+                <div class="faq-item reveal-up delay-4">
+                    <div class="faq-question">
+                        <span>Qual a diferença entre os módulos de IA? Posso começar com um?</span>
+                        <i class="bi bi-plus faq-icon"></i>
+                    </div>
+                    <div class="faq-answer">
+                        Cada módulo é treinado para uma área específica: Vendas (previsões, performance), Financeiro (fluxo de caixa, margem), Operacional (estoque, compras) e Customer (comportamento, retenção). Recomendamos começar com o módulo da sua maior dor atual. Por exemplo: se tem problema de ruptura de estoque, comece com Operacional. Se quer aumentar vendas, comece com Vendas. Pode adicionar outros módulos a qualquer momento.
+                    </div>
+                </div>
+                <div class="faq-item reveal-up delay-5">
+                    <div class="faq-question">
+                        <span>Como funciona o suporte? Vocês me ajudam a interpretar os insights?</span>
+                        <i class="bi bi-plus faq-icon"></i>
+                    </div>
+                    <div class="faq-answer">
+                        Suporte completo via WhatsApp, chat e email. Além do suporte técnico, temos um time de consultores de negócio que te ajudam a interpretar insights e transformar em ações práticas. Clientes Business e Enterprise têm acesso a sessões diretas de consultoria estratégica onde analisamos os dados juntos e definimos próximos passos.
+                </div>
+                <div class="faq-item reveal-up delay-6">
+                    <div class="faq-question">
+                        <span>E se eu não estiver satisfeito? Posso cancelar?</span>
+                        <i class="bi bi-plus faq-icon"></i>
+                    </div>
+                    <div class="faq-answer">
+                        Sim, pode cancelar a qualquer momento sem multa ou burocracia. O cancelamento é acordado no momento da contratação. Temos 96% de taxa de retenção porque nossos clientes veem resultado real, mas entendemos que cada negócio é único e respeitamos sua decisão.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
 
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-  // Procurar o botão específico pelo texto "Entre em contato"
-  const contactButtons = document.querySelectorAll('a span');
-  
-  contactButtons.forEach(function(span) {
-    if (span.textContent.trim() === 'Entre em contato') {
-      const button = span.closest('a');
-      
-      if (button) {
-        console.log('Botão de contato encontrado:', button);
-        
-        // Adicionar evento de clique
-        button.addEventListener('click', function(e) {
-          e.preventDefault();
-          console.log('Botão de contato clicado!');
-          
-          // Mostrar o modal
-          const modal = document.getElementById('contactModal');
-          if (modal) {
-            modal.style.display = 'block';
-            document.body.style.overflow = 'hidden';
-          } else {
-            console.error('Modal não encontrado!');
-            alert('Formulário de contato não disponível. Por favor, envie um email para cici3.tech@gmail.com');
-          }
-        });
-      }
-    }
-  });
-  
-  // Fechar o modal quando clicar no botão de fechar
-  const closeButtons = document.querySelectorAll('.close');
-  closeButtons.forEach(function(button) {
-    button.addEventListener('click', function() {
-      const modal = this.closest('.modal');
-      if (modal) {
-        modal.style.display = 'none';
-        document.body.style.overflow = '';
-      }
-    });
-  });
-  
-  // Fechar o modal quando clicar fora dele
-  window.addEventListener('click', function(e) {
-    if (e.target.classList.contains('modal')) {
-      e.target.style.display = 'none';
-      document.body.style.overflow = '';
-    }
-  });
-});
-</script>
+    <!-- Final CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <h2 class="section-title section-title-white reveal-up">Conecte seus dados e comece a descobrir oportunidades hoje</h2>
+            <p class="section-subtitle section-subtitle-white reveal-up">Se junte ao movimento de empresas brasileiras já transformaram dados em vantagem competitiva. Sua próxima grande descoberta está a uma pergunta de distância.</p>
+            <div class="cta-buttons reveal-up delay-1">
+                <a href="#" class="btn btn-primary" onclick="openContactModal()">
+                    Quero conectar meus dados sem compromisso
+                    <i class="bi bi-database-check"></i>
+                </a>
+                <a href="#solucao" class="btn btn-secondary">
+                    Ver demonstração
+                    <i class="bi bi-play-fill"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <div class="logo" style="margin-bottom: 20px;">
+                        <!-- Substitua por sua logo personalizada -->
+                        <!-- <img src="src/images/logo-cici3-white.png" alt="CICI3" class="logo-custom"> -->
+                        <img src="assets/logo/logo.png" alt="Logo da CICI3" class="logo-custom">
+                        CICI3
+                    </div>
+                    <p>A primeira plataforma de Business Intelligence conversacional especializada no mercado brasileiro. Transformamos dados em decisões estratégicas através de IA que entende português.</p>
+                    <div style="margin-top: 24px;">
+                        <p style="font-size: 14px; color: var(--cinza-equilibrado);">
+                            <strong>Cici3 Tecnologia e Assessoria LTDA</strong><br>
+                            CNPJ: 60.610.781/0001-68
+                        </p>
+                    </div>
+                </div>
+                <div>
+                    <h4 style="color: var(--branco-puro); margin-bottom: 20px;">Módulos</h4>
+                    <ul class="footer-links">
+                        <li><a href="#modulos">IA de Vendas</a></li>
+                        <li><a href="#modulos">IA Financeira</a></li>
+                        <li><a href="#modulos">IA Operacional</a></li>
+                        <li><a href="#modulos">IA de Customer</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 style="color: var(--branco-puro); margin-bottom: 20px;">Suporte</h4>
+                    <ul class="footer-links">
+                        <li><a href="#" onclick="openContactModal()">Conectar dados</a></li>
+                        <li><a href="#cases">Cases de sucesso</a></li>
+                        <li><a href="#precos">Ver preços</a></li>
+                        <li><a href="#solucao">Demonstração</a></li>
+                        <li><a href="#termos">Termos de Uso</a></li>
+                        <li><a href="#privacidade">Política de Privacidade</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 CICI3. Todos os direitos reservados.</p>
+                <p style="margin-top: 8px;">Sua próxima grande descoberta está a uma pergunta de distância.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Contact Modal -->
+    <div id="contactModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2 style="margin-bottom: 32px; color: var(--oceano-profundo);">Conecte seus dados e descubra oportunidades ocultas</h2>
+            <form action="https://formspree.io/f/mrbplqyw" method="POST">
+                <div class="form-group">
+                    <label for="name">Nome completo</label>
+                    <input type="text" class="form-control" id="name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email corporativo</label>
+                    <input type="email" class="form-control" id="email" name="_replyto" required>
+                </div>
+                <div class="form-group">
+                    <label for="company">Empresa</label>
+                    <input type="text" class="form-control" id="company" name="company" required>
+                </div>
+                <div class="form-group">
+                    <label for="phone">WhatsApp</label>
+                    <input type="tel" class="form-control" id="phone" name="phone" placeholder="(11) 99999-9999" required>
+                </div>
+                <div class="form-group">
+                    <label for="role">Seu cargo</label>
+                    <select class="form-control" id="role" name="role" required>
+                        <option value="">Selecione...</option>
+                        <option value="CEO/Fundador">CEO/Fundador</option>
+                        <option value="Diretor Comercial">Diretor Comercial</option>
+                        <option value="Diretor Financeiro">Diretor Financeiro</option>
+                        <option value="Diretor Operacional">Diretor Operacional</option>
+                        <option value="Gerente Geral">Gerente Geral</option>
+                        <option value="Sócio">Sócio</option>
+                        <option value="Outro">Outro</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="revenue">Faturamento anual aproximado</label>
+                    <select class="form-control" id="revenue" name="revenue" required>
+                        <option value="">Selecione...</option>
+                        <option value="Até R$ 1M">Até R$ 1 milhão</option>
+                        <option value="R$ 1M - R$ 5M">R$ 1M - R$ 5M</option>
+                        <option value="R$ 5M - R$ 20M">R$ 5M - R$ 20M</option>
+                        <option value="R$ 20M - R$ 50M">R$ 20M - R$ 50M</option>
+                        <option value="Acima de R$ 50M">Acima de R$ 50M</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="modules">Que módulo mais te interessa?</label>
+                    <select class="form-control" id="modules" name="modules">
+                        <option value="">Selecione...</option>
+                        <option value="IA de Vendas">IA de Vendas (previsões, performance)</option>
+                        <option value="IA Financeira">IA Financeira (fluxo de caixa, margem)</option>
+                        <option value="IA Operacional">IA Operacional (estoque, compras)</option>
+                        <option value="IA de Customer">IA de Customer (comportamento, retenção)</option>
+                        <option value="Combo Completo">Quero ver todos os módulos</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="message">Qual sua maior dor com dados hoje?</label>
+                    <textarea class="form-control" id="message" name="message" rows="3" placeholder="Ex: Demoro horas para analisar vendas, não sei quando vai faltar estoque, não consigo prever fluxo de caixa..."></textarea>
+                </div>
+                <input type="hidden" name="_subject" value="Novo lead qualificado - CICI3 v2.3">
+                <input type="hidden" name="source" value="Landing Page CICI3 - Módulos IA">
+                <button type="submit" class="btn btn-primary" style="width: 100%;">
+                    Conectar meus dados agora
+                    <i class="bi bi-database-check"></i>
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Mobile menu functionality
+        function toggleMobileMenu() {
+            const mobileNav = document.getElementById('mobileNav');
+            const btn = document.querySelector('.mobile-menu-btn i');
             
-</body></html>
+            mobileNav.classList.toggle('active');
+            
+            if (mobileNav.classList.contains('active')) {
+                btn.className = 'bi bi-x';
+                document.body.style.overflow = 'hidden';
+            } else {
+                btn.className = 'bi bi-list';
+                document.body.style.overflow = '';
+            }
+        }
+
+        // Modal functionality with mobile improvements and form handling
+        function openContactModal() {
+            const modal = document.getElementById('contactModal');
+            if (modal) {
+                modal.style.display = 'block';
+                document.body.classList.add('modal-open');
+                
+                // Close mobile menu if open
+                const mobileNav = document.getElementById('mobileNav');
+                if (mobileNav && mobileNav.classList.contains('active')) {
+                    toggleMobileMenu();
+                }
+                
+                // Focus no primeiro campo do formulário
+                setTimeout(() => {
+                    const firstInput = modal.querySelector('input[type="text"]');
+                    if (firstInput) firstInput.focus();
+                }, 100);
+            } else {
+                // Fallback se o modal não existir
+                console.error('Modal não encontrado!');
+                alert('Entre em contato conosco pelo email: contato@cici3.com');
+            }
+        }
+
+        function closeContactModal() {
+            const modal = document.getElementById('contactModal');
+            if (modal) {
+                modal.style.display = 'none';
+                document.body.classList.remove('modal-open');
+            }
+        }
+
+        // Close modal when clicking outside or on close button
+        window.onclick = function(event) {
+            const modal = document.getElementById('contactModal');
+            if (event.target == modal) {
+                closeContactModal();
+            }
+        }
+
+        // Setup modal close button
+        document.addEventListener('DOMContentLoaded', function() {
+            const closeButton = document.querySelector('.close');
+            if (closeButton) {
+                closeButton.onclick = function() {
+                    closeContactModal();
+                }
+            }
+        });
+
+        // Close modal with escape key
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                closeContactModal();
+            }
+        });
+
+        // Pricing tabs functionality
+        function showPricingTab(tabName) {
+            // Hide all content
+            document.querySelectorAll('.pricing-content').forEach(content => {
+                content.classList.remove('active');
+            });
+            
+            // Remove active class from all tabs
+            document.querySelectorAll('.pricing-tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            // Show selected content and activate tab
+            document.getElementById(tabName + '-pricing').classList.add('active');
+            event.target.classList.add('active');
+        }
+
+        // FAQ functionality
+        document.querySelectorAll('.faq-question').forEach(question => {
+            question.addEventListener('click', () => {
+                const faqItem = question.parentElement;
+                const isActive = faqItem.classList.contains('active');
+                
+                // Close all FAQ items
+                document.querySelectorAll('.faq-item').forEach(item => {
+                    item.classList.remove('active');
+                });
+                
+                // Toggle current item
+                if (!isActive) {
+                    faqItem.classList.add('active');
+                }
+            });
+        });
+
+
+        // Demo chat functionality
+        const answers = {
+            'vendas': {
+                user: '"Nossa margem líquida está caindo. Por quê?"',
+                cici: 'Identifiquei 3 fatores principais: 📊 1) Aumento de 15% no custo de frete (maior impacto), 2) Mix de produtos: cresceu 23% a venda de itens de baixa margem vs alta margem, 3) Descontos: subiram de 8,2% para 11,7% sem critério. RECOMENDAÇÃO: Revisar política de frete para pedidos acima de R$ 200 e criar incentivos para produtos premium. Isso pode recuperar 4-6 pontos de margem em 60 dias.'
+            },
+            'vendedores': {
+                user: '"Qual o faturamento por vendedor neste mês comparado ao mês passado?"',
+                cici: 'Análise de performance por vendedor: 📈 João Silva: R$ 120k (+18% vs mês anterior), Maria Santos: R$ 85k (-5%), Carlos Lima: R$ 95k (+12%). DESTAQUE: João teve 23% mais conversões focando em produtos premium. OPORTUNIDADE: Maria está perdendo vendas em cross-sell (apenas 15% vs média de 28%). Sugiro treinamento específico em técnicas de venda consultiva para equalizar performance.'
+            },
+            'clientes': {
+                user: '"Quais clientes têm risco de churn este mês?"',
+                cici: 'Análise de churn identificou 23 clientes em risco alto (LTV total: R$ 340k): 🔴 Empresa Alpha: 65% probabilidade churn (sem compras há 45 dias + reduziu volume 40%), 🟡 Grupo Beta: 42% risco (padrão de pagamento mudou + reclamações aumentaram). Top 5 ações: 1) Contato comercial urgente Alpha, 2) Pesquisa NPS Grupo Beta, 3) Promoção retenção personalizada. Quer lista completa?'
+            },
+            'previsao': {
+                user: '"Qual a previsão de faturamento para Q1?"',
+                cici: 'Previsão Q1/2025: R$ 2.8M (±8% margem erro). 📈 Detalhamento: Jan: R$ 850k (baixa sazonalidade), Fev: R$ 920k (volta pós-férias), Mar: R$ 1.03M (alta histórica pré-outono). Cenários: Conservador R$ 2.6M | Otimista R$ 3.1M. Principais drivers: sazonalidade histórica + 3 novos produtos + campanha carnaval. Fatores de risco: inflação fornecedores + concorrente novo no mercado.'
+            },
+            'oportunidade': {
+                user: '"Onde estou perdendo receita sem perceber?"',
+                cici: 'Identifiquei 4 vazamentos de receita: 💰 1) Clientes categoria A comprando produtos B (R$ 180k potencial anual), 2) Região Sul subatendida: 40% menos reps vs potencial de mercado, 3) Cross-sell perdido: 67% dos clientes compram só 1 categoria vs histórico de quem compra 2+, 4) Timing: vendas terça/quarta são 23% menores sem motivo aparente. Maior oportunidade: campanha cross-sell pode gerar +R$ 280k em 6 meses.'
+            }
+        };
+
+        document.querySelectorAll('.question-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Remove active class from all buttons
+                document.querySelectorAll('.question-btn').forEach(b => b.classList.remove('active'));
+                // Add active class to clicked button
+                btn.classList.add('active');
+                
+                const answerKey = btn.dataset.answer;
+                const answer = answers[answerKey];
+                const chatResponse = document.getElementById('chat-response');
+                
+                // Show typing indicator
+                chatResponse.innerHTML = '<div class="typing-indicator">CICI3 está analisando seus dados...</div>';
+                
+                // Show answer after delay
+                setTimeout(() => {
+                    chatResponse.innerHTML = `
+                        <div class="chat-message">
+                            <div class="chat-user">Você:</div>
+                            <div class="chat-response">${answer.user}</div>
+                        </div>
+                        <div class="chat-message">
+                            <div class="chat-user">CICI3:</div>
+                            <div class="chat-response">${answer.cici}</div>
+                        </div>
+                    `;
+                }, 2000);
+            });
+        });
+
+        // Smooth scroll for anchor links with mobile header offset
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                if (this.getAttribute('href') !== '#') {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        const headerHeight = 80;
+                        const targetPosition = target.offsetTop - headerHeight;
+                        
+                        window.scrollTo({
+                            top: targetPosition,
+                            behavior: 'smooth'
+                        });
+                    }
+                }
+            });
+        });
+
+        // Animation trigger on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe all reveal-up elements
+        document.querySelectorAll('.reveal-up').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Form handling with better validation and feedback
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.querySelector('#contactModal form');
+            
+            if (form) {
+                form.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    
+                    // Validação básica
+                    const requiredFields = form.querySelectorAll('[required]');
+                    let isValid = true;
+                    
+                    requiredFields.forEach(field => {
+                        if (!field.value.trim()) {
+                            field.style.borderColor = 'var(--coral-urgente)';
+                            isValid = false;
+                        } else {
+                            field.style.borderColor = 'var(--cinza-medio)';
+                        }
+                    });
+                    
+                    // Validação de email corporativo
+                    const emailField = form.querySelector('#email');
+                    if (emailField && emailField.value) {
+                        const email = emailField.value.toLowerCase();
+                        const domain = email.split('@')[1];
+                        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                        if (!emailRegex.test(email)) {
+                            alert('Por favor, insira um email válido.');
+                            return;
+                        }
+                    }
+                    
+                    if (!isValid) {
+                        alert('Por favor, preencha todos os campos obrigatórios.');
+                        return;
+                    }
+                    
+                    // Se chegou até aqui, o formulário é válido
+                    const submitButton = form.querySelector('button[type="submit"]');
+                    const originalText = submitButton.innerHTML;
+                    
+                    // Feedback visual durante envio
+                    submitButton.innerHTML = 'Enviando... <i class="bi bi-hourglass-split"></i>';
+                    submitButton.disabled = true;
+                    
+                    // Criar FormData para envio
+                    const formData = new FormData(form);
+                    
+                    // Enviar via fetch para melhor controle
+                    fetch(form.action, {
+                        method: 'POST',
+                        body: formData,
+                        headers: {
+                            'Accept': 'application/json'
+                        }
+                    })
+                    .then(response => {
+                        if (response.ok) {
+                            // Sucesso
+                            alert('Mensagem enviada com sucesso! Entraremos em contato em breve.');
+                            form.reset();
+                            closeContactModal();
+                        } else {
+                            throw new Error('Erro no envio');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Erro:', error);
+                        alert('Erro ao enviar mensagem. Tente novamente ou entre em contato pelo email: contato@cici3.com');
+                    })
+                    .finally(() => {
+                        // Restaurar botão
+                        submitButton.innerHTML = originalText;
+                        submitButton.disabled = false;
+                    });
+                });
+                
+                // Remover bordas vermelhas quando o usuário começar a digitar
+                const inputs = form.querySelectorAll('input, select, textarea');
+                inputs.forEach(input => {
+                    input.addEventListener('input', function() {
+                        this.style.borderColor = 'var(--cinza-medio)';
+                    });
+                });
+            }
+        });
+
+        // Improve mobile navigation UX
+        document.addEventListener('DOMContentLoaded', function() {
+            // Close mobile menu when clicking on links
+            document.querySelectorAll('.mobile-nav-link').forEach(link => {
+                link.addEventListener('click', () => {
+                    const mobileNav = document.getElementById('mobileNav');
+                    if (mobileNav.classList.contains('active')) {
+                        toggleMobileMenu();
+                    }
+                });
+            });
+
+            // Handle window resize
+            window.addEventListener('resize', function() {
+                const mobileNav = document.getElementById('mobileNav');
+                if (window.innerWidth > 768 && mobileNav.classList.contains('active')) {
+                    toggleMobileMenu();
+                }
+            });
+
+            // Prevent body scroll when modal is open on mobile
+            const modal = document.getElementById('contactModal');
+            modal.addEventListener('scroll', function(e) {
+                e.stopPropagation();
+            });
+        });
+
+        // Touch improvements for mobile
+        if ('ontouchstart' in window) {
+            document.body.classList.add('touch-device');
+        }
+
+        // Handle orientation change
+        window.addEventListener('orientationchange', function() {
+            setTimeout(() => {
+                // Force recalculation of viewport height
+                document.documentElement.style.setProperty('--vh', `${window.innerHeight * 0.01}px`);
+            }, 100);
+        });
+
+        // Set initial viewport height
+        document.documentElement.style.setProperty('--vh', `${window.innerHeight * 0.01}px`);
+    </script>
+</body>
+</html>
