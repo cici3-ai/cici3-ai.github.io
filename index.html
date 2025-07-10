@@ -943,7 +943,23 @@
         /* PRICING SECTION   */
         /* ================= */
         .pricing-section {
-            padding: 120px 0;
+            padding: 60px 0;
+            position: relative;
+            /* Manter ou adicionar overflow-x: hidden; para a section principal, se necessário,
+               mas o scroll será no container interno. */
+            overflow-x: hidden; /* Garante que a seção não expanda a página */
+        }
+
+        .pricing-carousel-container {
+            width: 100%; /* Ocupa 100% da largura do seu container pai */
+            overflow-x: auto; /* Habilita o scroll horizontal */
+            scroll-snap-type: x mandatory; /* Faz com que o scroll "grude" nos cards */
+            -webkit-overflow-scrolling: touch; /* Melhora o scroll no iOS */
+            position: relative;
+            padding-bottom: 20px; /* Espaço para a barra de rolagem não sobrepor o conteúdo */
+            margin-top: 40px; /* Margem do container do carrossel */
+            margin-left: -16px; /* Ajuste para compensar o padding do .container e permitir que os cards comecem na borda */
+            padding-left: 16px; /* Padding no início para o primeiro card não grudar na borda */
         }
 
         .pricing-tabs {
@@ -984,13 +1000,14 @@
         }
 
         .pricing-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 32px;
-            margin-top: 40px;
-            max-width: 1100px;
-            margin-left: auto;
-            margin-right: auto;
+            display: flex; /* Mantém os cards em linha */
+            flex-wrap: nowrap; /* Impede que os cards quebrem para a próxima linha */
+            gap: 24px; /* Espaçamento entre os cards */
+            width: fit-content; /* O grid se ajusta ao conteúdo, permitindo o scroll */
+            /* REMOVER: animation: autoSlidePricingMobile 15s infinite; */
+            /* REMOVER: transition: transform 0.6s ease-in-out; */
+            margin-left: 0; /* As margens serão controladas pelo gap e padding */
+            margin-right: 0;
         }
 
         .pricing-card {
@@ -1584,25 +1601,32 @@
         .pricing-section {
             padding: 60px 0;
             position: relative;
-            /* REMOVER: overflow: hidden; */
+            /* Manter ou adicionar overflow-x: hidden; para a section principal, se necessário,
+               mas o scroll será no container interno. */
+            overflow-x: hidden; /* Garante que a seção não expanda a página */
         }
 
-            .pricing-carousel-container {
-            width: 100%;
-            overflow-x: auto; /* Mudar para auto */
-            scroll-snap-type: x mandatory; /* Adicionar scroll-snap-type aqui */
-            -webkit-overflow-scrolling: touch; /* Melhorar o scroll no iOS */
+        .pricing-carousel-container {
+            width: 100%; /* Ocupa 100% da largura do seu container pai */
+            overflow-x: auto; /* Habilita o scroll horizontal */
+            scroll-snap-type: x mandatory; /* Faz com que o scroll "grude" nos cards */
+            -webkit-overflow-scrolling: touch; /* Melhora o scroll no iOS */
             position: relative;
-            /* REMOVER: overflow: hidden; */
+            padding-bottom: 20px; /* Espaço para a barra de rolagem não sobrepor o conteúdo */
+            margin-top: 40px; /* Margem do container do carrossel */
+            margin-left: -16px; /* Ajuste para compensar o padding do .container e permitir que os cards comecem na borda */
+            padding-left: 16px; /* Padding no início para o primeiro card não grudar na borda */
         }
             
         .pricing-grid {
-            display: flex;
-            width: auto; /* Remover largura fixa */
-            /* REMOVER: transition: transform 0.6s ease-in-out; */
+            display: flex; /* Mantém os cards em linha */
+            flex-wrap: nowrap; /* Impede que os cards quebrem para a próxima linha */
+            gap: 24px; /* Espaçamento entre os cards */
+            width: fit-content; /* O grid se ajusta ao conteúdo, permitindo o scroll */
             /* REMOVER: animation: autoSlidePricingMobile 15s infinite; */
-            margin: 0; /* Ajuste se houver margem que atrapalhe o scroll */
-            padding-bottom: 20px; /* Adicionar padding para o scrollbar não cobrir conteúdo */
+            /* REMOVER: transition: transform 0.6s ease-in-out; */
+            margin-left: 0; /* As margens serão controladas pelo gap e padding */
+            margin-right: 0;
         }
             
             .pricing-grid.dragging {
@@ -1611,15 +1635,12 @@
             }
             
         .pricing-card {
-            min-width: 80%; /* Cada card ocupa a maior parte da tela */
-            max-width: 300px; /* Limite máximo para o card individual */
-            flex-shrink: 0;
-            scroll-snap-align: center; /* Centraliza o card no snap */
-            padding: 24px 16px;
-            margin: 0 8px; /* Espaçamento entre os cards */
-            box-sizing: border-box;
-            transform: none !important; /* Assegura que não há transformações residuais */
-            border-radius: 20px;
+            flex-shrink: 0; /* Impede que os cards encolham */
+            width: calc(100vw - 32px); /* Ocupa 100% da largura da viewport menos o padding do .container (2*16px) */
+            max-width: 380px; /* Limite máximo para o card individual, se quiser que ele não seja ENORME em tablets */
+            scroll-snap-align: start; /* Alinha o início do card ao snap point */
+            padding: 30px 20px; /* Ajuste o padding interno se necessário */
+            transform: none !important; /* Assegura que não há transformações residuais de desktop */
         }
             
             .pricing-card h3 {
@@ -1866,13 +1887,20 @@
                 padding: 0 20px;
             }
 
-            .pricing-grid {
-                grid-template-columns: 1fr;
-                max-width: 600px;
-            }
+        .pricing-grid {
+            display: flex; /* Mantém os cards em linha */
+            flex-wrap: nowrap; /* Impede que os cards quebrem para a próxima linha */
+            gap: 24px; /* Espaçamento entre os cards */
+            width: fit-content; /* O grid se ajusta ao conteúdo, permitindo o scroll */
+            /* REMOVER: animation: autoSlidePricingMobile 15s infinite; */
+            /* REMOVER: transition: transform 0.6s ease-in-out; */
+            margin-left: 0; /* As margens serão controladas pelo gap e padding */
+            margin-right: 0;
+        }
 
         .pricing-card.popular {
-            transform: none !important;
+            transform: none !important; /* Remove a escala do popular no mobile */
+            border-color: var(--ciano-eletrico); /* Mantém a borda destacada */
         }
 
 
