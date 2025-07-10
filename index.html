@@ -2225,9 +2225,18 @@
                 padding: 16px 8px;
             }
             
+            /* Ajustes mais finos para o carrossel de pricing em telas muito pequenas */
+            .pricing-carousel-container {
+                margin-left: -12px; /* Ajusta para o padding do container de 12px */
+                padding-left: 12px;
+            }
+            .pricing-grid {
+                /* Recalcula a largura total do grid para telas de 480px ou menos */
+                width: calc((100vw - 24px) * 3 + 24px * 2); /* 3 cards + 2 gaps */
+            }
             .pricing-card {
-                margin: 0 4px;
-                padding: 16px 12px;
+                width: calc(100vw - 24px); /* Ocupa 100% da largura da viewport menos o padding do .container (2*12px) */
+                padding: 20px 12px; /* Reduz um pouco o padding interno */
             }
             
             .solution-module h3,
@@ -3277,6 +3286,21 @@
                     });
                 });
                 
+
+
+                document.addEventListener('click', function(event) {
+                    const mobileNav = document.getElementById('mobileNav');
+                    const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+
+                    // Verifica se o menu está ativo (aberto)
+                    if (mobileNav.classList.contains('active')) {
+                        // Verifica se o clique não foi dentro do menu
+                        // E se o clique não foi no botão que abriu/fecha o menu
+                        if (!mobileNav.contains(event.target) && !mobileMenuBtn.contains(event.target)) {
+                            toggleMobileMenu(); // Chama a função para fechar o menu
+                        }
+                    }
+                });
                 // Remover bordas vermelhas quando o usuário começar a digitar
                 const inputs = form.querySelectorAll('input, select, textarea');
                 inputs.forEach(input => {
