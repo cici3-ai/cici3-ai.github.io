@@ -945,21 +945,24 @@
         .pricing-section {
             padding: 60px 0;
             position: relative;
-            /* Manter ou adicionar overflow-x: hidden; para a section principal, se necessário,
-               mas o scroll será no container interno. */
-            overflow-x: hidden; /* Garante que a seção não expanda a página */
+            /* Garante que a seção principal não crie barras de rolagem indesejadas */
+            overflow-x: hidden; 
         }
 
         .pricing-carousel-container {
-            width: 100%; /* Ocupa 100% da largura do seu container pai */
+            width: 100%; /* Ocupa 100% da largura do pai */
             overflow-x: auto; /* Habilita o scroll horizontal */
             scroll-snap-type: x mandatory; /* Faz com que o scroll "grude" nos cards */
             -webkit-overflow-scrolling: touch; /* Melhora o scroll no iOS */
             position: relative;
             padding-bottom: 20px; /* Espaço para a barra de rolagem não sobrepor o conteúdo */
             margin-top: 40px; /* Margem do container do carrossel */
-            margin-left: -16px; /* Ajuste para compensar o padding do .container e permitir que os cards comecem na borda */
-            padding-left: 16px; /* Padding no início para o primeiro card não grudar na borda */
+            
+            /* Ajustes para "full-bleed" (cards que vão até a borda) */
+            /* Isso move o container para a esquerda e adiciona padding interno */
+            margin-left: -16px; 
+            padding-left: 16px; 
+            box-sizing: content-box; /* Garante que padding e margem funcionem como esperado com a largura */
         }
 
         .pricing-tabs {
@@ -1001,42 +1004,39 @@
 
         .pricing-grid {
             display: flex; /* Mantém os cards em linha */
-            flex-wrap: nowrap; /* Impede que os cards quebrem para a próxima linha */
+            flex-wrap: nowrap; /* ESSENCIAL: Impede que os cards quebrem para a próxima linha */
             gap: 24px; /* Espaçamento entre os cards */
-            width: fit-content; /* O grid se ajusta ao conteúdo, permitindo o scroll */
-            /* REMOVER: animation: autoSlidePricingMobile 15s infinite; */
-            /* REMOVER: transition: transform 0.6s ease-in-out; */
-            margin-left: 0; /* As margens serão controladas pelo gap e padding */
+            
+            /* AQUI ESTÁ A MUDANÇA CRÍTICA:
+               Calculamos a largura total necessária para todos os cards + gaps.
+               No mobile, temos 3 cards, cada um com largura de (100vw - 32px) + 24px de gap.
+               (100vw - 32px) * 3 + (24px * 2) = largura total para 3 cards e 2 gaps
+            */
+            width: calc((100vw - 32px) * 3 + 24px * 2); /* Ajuste a largura total do grid */
+            
+            margin-left: 0; /* Zera margens extras */
             margin-right: 0;
         }
 
         .pricing-card {
-            background: var(--branco-puro);
-            border: 2px solid var(--cinza-medio);
-            border-radius: 24px;
-            padding: 40px;
-            text-align: center;
-            position: relative;
-            transition: all 0.3s ease;
+            flex-shrink: 0; /* Impede que os cards encolham */
+            /* A largura do card é o 100% da largura visível do container, menos o padding do container */
+            width: calc(100vw - 32px); /* A largura do card é ajustada ao viewport */
+            max-width: 380px; /* Limite máximo para o card individual */
+            scroll-snap-align: start; /* Alinha o início do card ao snap point */
+            padding: 30px 20px; /* Ajuste o padding interno se necessário */
+            transform: none !important; /* Assegura que não há transformações residuais de desktop */
         }
 
         .pricing-card.popular {
-            border-color: var(--ciano-eletrico);
-            transform: scale(1.05);
-            box-shadow: var(--shadow-strong);
+            transform: none !important; /* Remove a escala do popular no mobile */
+            border-color: var(--ciano-eletrico); /* Mantém a borda destacada */
         }
-
-            .pricing-card.popular::before {
-                display: none; /* Remove o selo no mobile */
-            }
-
-        .pricing-card:hover {
-            transform: translateY(-8px);
-            box-shadow: var(--shadow-strong);
+        .pricing-card.popular::before {
+            display: none; /* Oculta a tag "Mais Escolhido" que pode ficar estranha */
         }
-
         .pricing-card.popular:hover {
-            transform: scale(1.05) translateY(-8px);
+            transform: none !important; /* Remove a escala do popular no mobile */
         }
 
         .pricing-card h3 {
