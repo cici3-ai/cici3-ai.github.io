@@ -943,41 +943,7 @@
         /* PRICING SECTION   */
         /* ================= */
         .pricing-section {
-            padding: 60px 0;
-            position: relative;
-            /* Garante que a seção principal não crie barras de rolagem indesejadas */
-            overflow-x: hidden; 
-        }
-
-        .pricing-carousel-container {
-            width: 100%; /* Ocupa 100% da largura do seu container pai (o .container) */
-            overflow-x: auto; /* Habilita o scroll horizontal */
-            scroll-snap-type: x mandatory; /* Faz com que o scroll "grude" nos cards */
-            -webkit-overflow-scrolling: touch; /* Melhora o scroll no iOS */
-            position: relative;
-            padding-bottom: 20px; /* Espaço para a barra de rolagem não sobrepor o conteúdo */
-            margin-top: 40px; /* Margem do container do carrossel */
-            
-            /* Esta é a mudança chave para o "full-bleed" nos lados. */
-            /* Puxa para a esquerda o valor do padding do .container, e adiciona esse padding de volta. */
-            margin-left: calc(-1 * var(--container-padding-mobile, 16px)); /* Usa uma variável para o padding do .container */
-            padding-left: var(--container-padding-mobile, 16px);
-            
-            /* Garante que padding e margem não adicionem largura ao 100% */
-            box-sizing: border-box; 
-        }
-
-            .pricing-grid {
-            display: flex; /* Mantém os cards em linha */
-            flex-wrap: nowrap; /* ESSENCIAL: Impede que os cards quebrem para a próxima linha */
-            gap: 24px; /* Espaçamento entre os cards */
-            
-            /* **MUDANÇA AQUI:** Removendo a largura calculada complexa e usando min-content.
-               Isso fará o grid ter a largura mínima necessária para conter todos os flex items sem quebra. */
-            width: min-content; 
-            
-            margin-left: 0; 
-            margin-right: 0;
+            padding: 120px 0;
         }
 
         .pricing-tabs {
@@ -1018,38 +984,42 @@
         }
 
         .pricing-grid {
-            display: flex; /* Mantém os cards em linha */
-            flex-wrap: nowrap; /* ESSENCIAL: Impede que os cards quebrem para a próxima linha */
-            gap: 24px; /* Espaçamento entre os cards */
-            
-            /* **MUDANÇA AQUI:** Removendo a largura calculada complexa e usando min-content.
-               Isso fará o grid ter a largura mínima necessária para conter todos os flex items sem quebra. */
-            width: min-content; 
-            
-            margin-left: 0; 
-            margin-right: 0;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 32px;
+            margin-top: 40px;
+            max-width: 1100px;
+            margin-left: auto;
+            margin-right: auto;
         }
 
         .pricing-card {
-            flex-shrink: 0; /* Impede que os cards encolham */
-            /* **MUDANÇA AQUI:** A largura do card agora é 100% do viewport MENOS o padding total do .container
-               Isso garante que um card caiba EXATAMENTE na tela (considerando o padding global do site). */
-            width: calc(100vw - (2 * var(--container-padding-mobile, 16px))); 
-            max-width: 380px; /* Limite máximo para o card individual */
-            scroll-snap-align: start; /* Alinha o início do card ao snap point */
-            padding: 30px 20px; /* Ajuste o padding interno se necessário */
-            transform: none !important; /* Assegura que não há transformações residuais de desktop */
+            background: var(--branco-puro);
+            border: 2px solid var(--cinza-medio);
+            border-radius: 24px;
+            padding: 40px;
+            text-align: center;
+            position: relative;
+            transition: all 0.3s ease;
         }
 
         .pricing-card.popular {
-            transform: none !important; /* Remove a escala do popular no mobile */
-            border-color: var(--ciano-eletrico); /* Mantém a borda destacada */
+            border-color: var(--ciano-eletrico);
+            transform: scale(1.05);
+            box-shadow: var(--shadow-strong);
         }
-        .pricing-card.popular::before {
-            display: none; /* Oculta a tag "Mais Escolhido" que pode ficar estranha */
+
+            .pricing-card.popular::before {
+                display: none; /* Remove o selo no mobile */
+            }
+
+        .pricing-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-strong);
         }
+
         .pricing-card.popular:hover {
-            transform: none !important; /* Remove a escala do popular no mobile */
+            transform: scale(1.05) translateY(-8px);
         }
 
         .pricing-card h3 {
@@ -1502,31 +1472,31 @@
             }
             
             /* USE CASES SECTION - CAROUSEL AUTOMÁTICO */
-        .use-cases-section {
-            padding: 60px 0;
-            /* Se overflow: hidden; estiver aqui, remova-o. */
-        }
+            .use-cases-section {
+                padding: 60px 0;
+            }
             
-        .solutions-grid {
-            display: flex;
-            width: auto; /* Remove largura fixa, se ajusta ao conteúdo */
-            /* REMOVER: animation: autoSlideUseCases 16s infinite; */
-            /* REMOVER: transition: transform 0.5s ease-in-out; */
-            overflow-x: auto; /* Habilita o scroll horizontal */
-            scroll-snap-type: x mandatory; /* Faz com que o scroll "grude" nos cards */
-            -webkit-overflow-scrolling: touch; /* Melhora o scroll no iOS */
-            padding-bottom: 20px; /* Adiciona espaço para o scrollbar não cobrir conteúdo */
-        }
+    .solutions-grid {
+        display: flex; /* Manter display flex para que os cards fiquem um ao lado do outro */
+        width: auto; /* Remover largura fixa, vai ser determinada pelo conteúdo */
+        /* Remover: animation: autoSlideUseCases 16s infinite; */
+        /* Remover: transition: transform 0.5s ease-in-out; */
+        overflow-x: auto; /* Habilita o scroll horizontal */
+        scroll-snap-type: x mandatory; /* Faz com que o scroll "grude" nos cards */
+        -webkit-overflow-scrolling: touch; /* Melhora o scroll no iOS */
+    }
             
-        .solution-module {
-            min-width: 80%; /* Ajuste a largura para mostrar 1 card por vez ou parte de 2 */
-            max-width: 300px; /* Limite o tamanho máximo do card */
-            flex-shrink: 0;
-            scroll-snap-align: center; /* Centraliza o card no snap. Pode ser 'start' */
-            padding: 24px 16px;
-            margin: 0 8px; /* Adiciona um pouco de espaço entre os cards */
-            box-sizing: border-box;
-        }
+            .solutions-grid:hover {
+                animation-play-state: paused;
+            }
+            
+            .solution-module {
+                width: 25%; /* 100% / 4 cards */
+                flex-shrink: 0;
+                padding: 24px 16px;
+                margin: 0 8px;
+                box-sizing: border-box;
+            }
             
             .solution-module h3 {
                 font-size: 18px;
@@ -1542,7 +1512,7 @@
                 font-size: 12px;
                 margin-bottom: 6px;
             }
-        
+            
             
             /* DIMINUIR ESPAÇO ENTRE CASES E SOLUTION */
             .solution-section {
@@ -1591,6 +1561,7 @@
             padding-bottom: 20px; /* Adiciona espaço para o scrollbar não cobrir conteúdo */
         }
             
+            
         .benefit-card {
             min-width: 80%; /* Ajuste para exibir 1 card por vez */
             max-width: 350px; /* Limite máximo para o card */
@@ -1609,56 +1580,36 @@
             .benefit-card p {
                 font-size: 14px;
             }
+        
             
             /* PRICING SECTION - UM CARD POR VEZ COM SWIPE */
-        .pricing-section {
-            padding: 60px 0;
-            position: relative;
-            /* Manter ou adicionar overflow-x: hidden; para a section principal, se necessário,
-               mas o scroll será no container interno. */
-            overflow-x: hidden; /* Garante que a seção não expanda a página */
-        }
-
-        .pricing-carousel-container {
-            width: 100%; /* Ocupa 100% da largura do seu container pai */
-            overflow-x: auto; /* Habilita o scroll horizontal */
-            scroll-snap-type: x mandatory; /* Faz com que o scroll "grude" nos cards */
-            -webkit-overflow-scrolling: touch; /* Melhora o scroll no iOS */
-            position: relative;
-            padding-bottom: 20px; /* Espaço para a barra de rolagem não sobrepor o conteúdo */
-            margin-top: 40px; /* Margem do container do carrossel */
-            margin-left: -16px; /* Ajuste para compensar o padding do .container e permitir que os cards comecem na borda */
-            padding-left: 16px; /* Padding no início para o primeiro card não grudar na borda */
-        }
+            .pricing-section {
+                padding: 60px 0;
+                position: relative;
+                overflow: hidden;
+            }
             
-        .pricing-grid {
-            display: flex; /* Mantém os cards em linha */
-            flex-wrap: nowrap; /* ESSENCIAL: Impede que os cards quebrem para a próxima linha */
-            gap: 24px; /* Espaçamento entre os cards */
-            
-            /* **MUDANÇA AQUI:** Removendo a largura calculada complexa e usando min-content.
-               Isso fará o grid ter a largura mínima necessária para conter todos os flex items sem quebra. */
-            width: min-content; 
-            
-            margin-left: 0; 
-            margin-right: 0;
-        }
+            .pricing-grid {
+                display: flex;
+                width: 300%; /* 3 cards * 100% */
+                animation: autoSlidePricing 12s infinite;
+                transition: transform 0.3s ease-out;
+                touch-action: pan-x;
+            }
             
             .pricing-grid.dragging {
                 animation-play-state: paused;
                 transition: none;
             }
             
-        .pricing-card {
-            flex-shrink: 0; /* Impede que os cards encolham */
-            /* **MUDANÇA AQUI:** A largura do card agora é 100% do viewport MENOS o padding total do .container
-               Isso garante que um card caiba EXATAMENTE na tela (considerando o padding global do site). */
-            width: calc(100vw - (2 * var(--container-padding-mobile, 16px))); 
-            max-width: 380px; /* Limite máximo para o card individual */
-            scroll-snap-align: start; /* Alinha o início do card ao snap point */
-            padding: 30px 20px; /* Ajuste o padding interno se necessário */
-            transform: none !important; /* Assegura que não há transformações residuais de desktop */
-        }
+            .pricing-card {
+                width: 33.333%; /* Um terço da largura total para mostrar 1 card */
+                flex-shrink: 0;
+                padding: 20px 12px;
+                margin: 0;
+                box-sizing: border-box;
+                max-width: none;
+            }
             
             .pricing-card h3 {
                 font-size: 14px;
@@ -1904,29 +1855,15 @@
                 padding: 0 20px;
             }
 
-        .pricing-grid {
-            display: flex; /* Mantém os cards em linha */
-            flex-wrap: nowrap; /* ESSENCIAL: Impede que os cards quebrem para a próxima linha */
-            gap: 24px; /* Espaçamento entre os cards */
-            
-            /* **MUDANÇA AQUI:** Removendo a largura calculada complexa e usando min-content.
-               Isso fará o grid ter a largura mínima necessária para conter todos os flex items sem quebra. */
-            width: min-content; 
-            
-            margin-left: 0; 
-            margin-right: 0;
-        }
+            .pricing-grid {
+                grid-template-columns: 1fr;
+                max-width: 600px;
+            }
 
-        .pricing-card.popular {
-            transform: none !important; /* Remove a escala do popular no mobile */
-            border-color: var(--ciano-eletrico); /* Mantém a borda destacada */
-        }
+            .pricing-card.popular {
+                transform: none;
+            }
 
-
-            .pricing-card.popular:hover {
-            transform: none !important;
-        }
-        
             .benefits-grid {
                 grid-template-columns: 1fr;
                 max-width: 600px;
@@ -2016,13 +1953,26 @@
                 gap: 40px;
             }
 
-            .solutions-grid {
-                grid-template-columns: 1fr;
-            }
+        .solutions-grid {
+            display: flex;
+            width: auto; /* Remove largura fixa, se ajusta ao conteúdo */
+            /* REMOVER: animation: autoSlideUseCases 16s infinite; */
+            /* REMOVER: transition: transform 0.5s ease-in-out; */
+            overflow-x: auto; /* Habilita o scroll horizontal */
+            scroll-snap-type: x mandatory; /* Faz com que o scroll "grude" nos cards */
+            -webkit-overflow-scrolling: touch; /* Melhora o scroll no iOS */
+            padding-bottom: 20px; /* Adiciona espaço para o scrollbar não cobrir conteúdo */
+        }
 
-            .solution-module {
-                padding: 30px 20px;
-            }
+        .solution-module {
+            min-width: 80%; /* Ajuste a largura para mostrar 1 card por vez ou parte de 2 */
+            max-width: 300px; /* Limite o tamanho máximo do card */
+            flex-shrink: 0;
+            scroll-snap-align: center; /* Centraliza o card no snap. Pode ser 'start' */
+            padding: 24px 16px;
+            margin: 0 8px; /* Adiciona um pouco de espaço entre os cards */
+            box-sizing: border-box;
+        }
 
             /* Problems grid mobile */
             .problems-grid {
@@ -2176,16 +2126,10 @@
                 font-size: 16px;
             }
 
-        .pricing-card {
-            flex-shrink: 0; /* Impede que os cards encolham */
-            /* **MUDANÇA AQUI:** A largura do card agora é 100% do viewport MENOS o padding total do .container
-               Isso garante que um card caiba EXATAMENTE na tela (considerando o padding global do site). */
-            width: calc(100vw - (2 * var(--container-padding-mobile, 16px))); 
-            max-width: 380px; /* Limite máximo para o card individual */
-            scroll-snap-align: start; /* Alinha o início do card ao snap point */
-            padding: 30px 20px; /* Ajuste o padding interno se necessário */
-            transform: none !important; /* Assegura que não há transformações residuais de desktop */
-        }
+            /* Pricing card mobile */
+            .pricing-card {
+                padding: 30px 20px;
+            }
 
             .price {
                 font-size: 28px;
@@ -2250,34 +2194,10 @@
                 padding: 16px 8px;
             }
             
-            /* Ajustes mais finos para o carrossel de pricing em telas muito pequenas */
-            .pricing-carousel-container {
-                margin-left: -12px; /* Ajusta para o padding do container de 12px */
-                padding-left: 12px;
+            .pricing-card {
+                margin: 0 4px;
+                padding: 16px 12px;
             }
-        .pricing-grid {
-            display: flex; /* Mantém os cards em linha */
-            flex-wrap: nowrap; /* ESSENCIAL: Impede que os cards quebrem para a próxima linha */
-            gap: 24px; /* Espaçamento entre os cards */
-            
-            /* **MUDANÇA AQUI:** Removendo a largura calculada complexa e usando min-content.
-               Isso fará o grid ter a largura mínima necessária para conter todos os flex items sem quebra. */
-            width: min-content; 
-            
-            margin-left: 0; 
-            margin-right: 0;
-        }
-
-        .pricing-card {
-            flex-shrink: 0; /* Impede que os cards encolham */
-            /* **MUDANÇA AQUI:** A largura do card agora é 100% do viewport MENOS o padding total do .container
-               Isso garante que um card caiba EXATAMENTE na tela (considerando o padding global do site). */
-            width: calc(100vw - (2 * var(--container-padding-mobile, 16px))); 
-            max-width: 380px; /* Limite máximo para o card individual */
-            scroll-snap-align: start; /* Alinha o início do card ao snap point */
-            padding: 30px 20px; /* Ajuste o padding interno se necessário */
-            transform: none !important; /* Assegura que não há transformações residuais de desktop */
-        }
             
             .solution-module h3,
             .benefit-card h3 {
@@ -2325,16 +2245,9 @@
                 padding: 20px;
             }
 
-        .pricing-card {
-            flex-shrink: 0; /* Impede que os cards encolham */
-            /* **MUDANÇA AQUI:** A largura do card agora é 100% do viewport MENOS o padding total do .container
-               Isso garante que um card caiba EXATAMENTE na tela (considerando o padding global do site). */
-            width: calc(100vw - (2 * var(--container-padding-mobile, 16px))); 
-            max-width: 380px; /* Limite máximo para o card individual */
-            scroll-snap-align: start; /* Alinha o início do card ao snap point */
-            padding: 30px 20px; /* Ajuste o padding interno se necessário */
-            transform: none !important; /* Assegura que não há transformações residuais de desktop */
-        }
+            .pricing-card {
+                padding: 24px 16px;
+            }
 
             .early-partner-container {
                 padding: 24px 16px;
@@ -2871,7 +2784,7 @@
                         <i class="bi bi-plus faq-icon"></i>
                     </div>
                     <div class="faq-answer">
-                        Seus dados são 100% privados e ficam hospedados em servidores criptografados. Somos compliance com LGPD e NUNCA vendemos, compartilhamos ou usamos seus dados para outros fins. Você pode exportar ou deletar todos os dados a qualquer momento. Nossa receita vem da assinatura, não dos seus dados.
+                        Seus dados são 100% privados e ficam hospedados em servidores no Brasil (AWS São Paulo) e criptografados. Somos compliance com LGPD e NUNCA vendemos, compartilhamos ou usamos seus dados para outros fins. Você pode exportar ou deletar todos os dados a qualquer momento. Nossa receita vem da assinatura, não dos seus dados.
                     </div>
                 </div>
                 <div class="faq-item reveal-up delay-3">
@@ -3333,21 +3246,6 @@
                     });
                 });
                 
-
-
-                document.addEventListener('click', function(event) {
-                    const mobileNav = document.getElementById('mobileNav');
-                    const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
-
-                    // Verifica se o menu está ativo (aberto)
-                    if (mobileNav.classList.contains('active')) {
-                        // Verifica se o clique não foi dentro do menu
-                        // E se o clique não foi no botão que abriu/fecha o menu
-                        if (!mobileNav.contains(event.target) && !mobileMenuBtn.contains(event.target)) {
-                            toggleMobileMenu(); // Chama a função para fechar o menu
-                        }
-                    }
-                });
                 // Remover bordas vermelhas quando o usuário começar a digitar
                 const inputs = form.querySelectorAll('input, select, textarea');
                 inputs.forEach(input => {
@@ -3385,29 +3283,6 @@
             });
         });
 
-        // Touch improvements for mobile and carousel pause
-        if ('ontouchstart' in window) {
-            document.body.classList.add('touch-device');
-            
-            // Pause carousel animations on touch
-            document.addEventListener('DOMContentLoaded', function() {
-                const carousels = document.querySelectorAll('.solutions-grid, .benefits-grid, .pricing-grid');
-                
-                carousels.forEach(carousel => {
-                    carousel.addEventListener('touchstart', function() {
-                        this.style.animationPlayState = 'paused';
-                    });
-                    
-                    carousel.addEventListener('touchend', function() {
-                        // Resume after 1 second
-                        setTimeout(() => {
-                            this.style.animationPlayState = 'running';
-                        }, 1000);
-                    });
-                });
-            });
-        }
-
         // Animate pricing indicators (mobile only)
         document.addEventListener('DOMContentLoaded', function() {
             if (window.innerWidth <= 768) {
@@ -3429,6 +3304,44 @@
                 
                 // Update indicators every 4 seconds to match pricing carousel timing
                 setInterval(updateIndicators, 4000);
+
+                function toggleMobileMenu() {
+    const mobileNav = document.getElementById('mobileNav');
+    const btn = document.querySelector('.mobile-menu-btn i');
+    
+    mobileNav.classList.toggle('active');
+    
+    if (mobileNav.classList.contains('active')) {
+        btn.className = 'bi bi-x';
+        document.body.style.overflow = 'hidden'; // Prevents scrolling when menu is open
+    } else {
+        btn.className = 'bi bi-list';
+        document.body.style.overflow = ''; // Restores scrolling
+    }
+}
+
+    // Function to close mobile menu
+    function closeMobileMenu() {
+        const mobileNav = document.getElementById('mobileNav');
+        const btn = document.querySelector('.mobile-menu-btn i');
+        if (mobileNav.classList.contains('active')) {
+            mobileNav.classList.remove('active');
+            btn.className = 'bi bi-list';
+            document.body.style.overflow = '';
+        }
+    }
+
+    // New: Close mobile menu when clicking outside
+    document.addEventListener('click', function(event) {
+        const mobileNav = document.getElementById('mobileNav');
+        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+        
+        // Check if the clicked element is not inside the mobile nav and not the menu button itself
+        if (mobileNav && mobileMenuBtn && !mobileNav.contains(event.target) && !mobileMenuBtn.contains(event.target) && mobileNav.classList.contains('active')) {
+            closeMobileMenu();
+        }
+    });
+
                 
                 // Pause indicators when carousel is paused
                 if (pricingGrid) {
