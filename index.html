@@ -1472,29 +1472,31 @@
             }
             
             /* USE CASES SECTION - CAROUSEL AUTOMÁTICO */
-            .use-cases-section {
-                padding: 60px 0;
-                overflow: hidden;
-            }
+        .use-cases-section {
+            padding: 60px 0;
+            /* Se overflow: hidden; estiver aqui, remova-o. */
+        }
             
-            .solutions-grid {
-                display: flex;
-                width: 400%; /* 4 cards * 100% */
-                animation: autoSlideUseCases 16s infinite; /* 4s por card */
-                transition: transform 0.5s ease-in-out;
-            }
+        .solutions-grid {
+            display: flex;
+            width: auto; /* Remove largura fixa, se ajusta ao conteúdo */
+            /* REMOVER: animation: autoSlideUseCases 16s infinite; */
+            /* REMOVER: transition: transform 0.5s ease-in-out; */
+            overflow-x: auto; /* Habilita o scroll horizontal */
+            scroll-snap-type: x mandatory; /* Faz com que o scroll "grude" nos cards */
+            -webkit-overflow-scrolling: touch; /* Melhora o scroll no iOS */
+            padding-bottom: 20px; /* Adiciona espaço para o scrollbar não cobrir conteúdo */
+        }
             
-            .solutions-grid:hover {
-                animation-play-state: paused;
-            }
-            
-            .solution-module {
-                width: 25%; /* 100% / 4 cards */
-                flex-shrink: 0;
-                padding: 24px 16px;
-                margin: 0 8px;
-                box-sizing: border-box;
-            }
+        .solution-module {
+            min-width: 80%; /* Ajuste a largura para mostrar 1 card por vez ou parte de 2 */
+            max-width: 300px; /* Limite o tamanho máximo do card */
+            flex-shrink: 0;
+            scroll-snap-align: center; /* Centraliza o card no snap. Pode ser 'start' */
+            padding: 24px 16px;
+            margin: 0 8px; /* Adiciona um pouco de espaço entre os cards */
+            box-sizing: border-box;
+        }
             
             .solution-module h3 {
                 font-size: 18px;
@@ -1510,14 +1512,7 @@
                 font-size: 12px;
                 margin-bottom: 6px;
             }
-            
-            @keyframes autoSlideUseCases {
-                0%, 23% { transform: translateX(0%); }
-                25%, 48% { transform: translateX(-25%); }
-                50%, 73% { transform: translateX(-50%); }
-                75%, 98% { transform: translateX(-75%); }
-                100% { transform: translateX(0%); }
-            }
+        
             
             /* DIMINUIR ESPAÇO ENTRE CASES E SOLUTION */
             .solution-section {
@@ -1550,29 +1545,31 @@
             }
             
             /* BENEFITS SECTION - CAROUSEL AUTOMÁTICO */
-            .benefits-section {
-                padding: 60px 0;
-                overflow: hidden;
-            }
+        .benefits-section {
+            padding: 60px 0;
+            /* Se overflow: hidden; estiver aqui, remova-o. */
+        }
             
-            .benefits-grid {
-                display: flex;
-                width: 300%; /* 3 cards * 100% */
-                animation: autoSlideBenefits 12s infinite; /* 4s por card */
-                transition: transform 0.5s ease-in-out;
-            }
+        .benefits-grid {
+            display: flex;
+            width: auto; /* Remove largura fixa */
+            /* REMOVER: animation: autoSlideBenefits 12s infinite; */
+            /* REMOVER: transition: transform 0.5s ease-in-out; */
+            overflow-x: auto; /* Habilita o scroll horizontal */
+            scroll-snap-type: x mandatory; /* Faz com que o scroll "grude" nos cards */
+            -webkit-overflow-scrolling: touch; /* Melhora o scroll no iOS */
+            padding-bottom: 20px; /* Adiciona espaço para o scrollbar não cobrir conteúdo */
+        }
             
-            .benefits-grid:hover {
-                animation-play-state: paused;
-            }
-            
-            .benefit-card {
-                width: 33.333%; /* 100% / 3 cards */
-                flex-shrink: 0;
-                padding: 24px 16px;
-                margin: 0 8px;
-                box-sizing: border-box;
-            }
+        .benefit-card {
+            min-width: 80%; /* Ajuste para exibir 1 card por vez */
+            max-width: 350px; /* Limite máximo para o card */
+            flex-shrink: 0;
+            scroll-snap-align: center; /* Centraliza o card no snap */
+            padding: 24px 16px;
+            margin: 0 8px;
+            box-sizing: border-box;
+        }
             
             .benefit-card h3 {
                 font-size: 18px;
@@ -1583,41 +1580,47 @@
                 font-size: 14px;
             }
             
-            @keyframes autoSlideBenefits {
-                0%, 30% { transform: translateX(0%); }
-                33.33%, 63.33% { transform: translateX(-33.333%); }
-                66.66%, 96.66% { transform: translateX(-66.666%); }
-                100% { transform: translateX(0%); }
-            }
-            
             /* PRICING SECTION - UM CARD POR VEZ COM SWIPE */
-            .pricing-section {
-                padding: 60px 0;
-                position: relative;
-                overflow: hidden;
-            }
+        .pricing-section {
+            padding: 60px 0;
+            position: relative;
+            /* REMOVER: overflow: hidden; */
+        }
+
+            .pricing-carousel-container {
+            width: 100%;
+            overflow-x: auto; /* Mudar para auto */
+            scroll-snap-type: x mandatory; /* Adicionar scroll-snap-type aqui */
+            -webkit-overflow-scrolling: touch; /* Melhorar o scroll no iOS */
+            position: relative;
+            /* REMOVER: overflow: hidden; */
+        }
             
-            .pricing-grid {
-                display: flex;
-                width: 300%; /* 3 cards * 100% */
-                animation: autoSlidePricing 12s infinite;
-                transition: transform 0.3s ease-out;
-                touch-action: pan-x;
-            }
+        .pricing-grid {
+            display: flex;
+            width: auto; /* Remover largura fixa */
+            /* REMOVER: transition: transform 0.6s ease-in-out; */
+            /* REMOVER: animation: autoSlidePricingMobile 15s infinite; */
+            margin: 0; /* Ajuste se houver margem que atrapalhe o scroll */
+            padding-bottom: 20px; /* Adicionar padding para o scrollbar não cobrir conteúdo */
+        }
             
             .pricing-grid.dragging {
                 animation-play-state: paused;
                 transition: none;
             }
             
-            .pricing-card {
-                width: 33.333%; /* Um terço da largura total para mostrar 1 card */
-                flex-shrink: 0;
-                padding: 20px 12px;
-                margin: 0;
-                box-sizing: border-box;
-                max-width: none;
-            }
+        .pricing-card {
+            min-width: 80%; /* Cada card ocupa a maior parte da tela */
+            max-width: 300px; /* Limite máximo para o card individual */
+            flex-shrink: 0;
+            scroll-snap-align: center; /* Centraliza o card no snap */
+            padding: 24px 16px;
+            margin: 0 8px; /* Espaçamento entre os cards */
+            box-sizing: border-box;
+            transform: none !important; /* Assegura que não há transformações residuais */
+            border-radius: 20px;
+        }
             
             .pricing-card h3 {
                 font-size: 14px;
@@ -1868,10 +1871,15 @@
                 max-width: 600px;
             }
 
-            .pricing-card.popular {
-                transform: none;
-            }
+        .pricing-card.popular {
+            transform: none !important;
+        }
 
+
+            .pricing-card.popular:hover {
+            transform: none !important;
+        }
+        
             .benefits-grid {
                 grid-template-columns: 1fr;
                 max-width: 600px;
@@ -2344,9 +2352,9 @@
             
             <!-- Mobile navigation -->
             <nav class="mobile-nav" id="mobileNav">
-                <a href="#modulos" class="mobile-nav-link" onclick="toggleMobileMenu()">Módulos de IA</a>
-                <a href="#precos" class="mobile-nav-link" onclick="toggleMobileMenu()">Preços</a>
-                <a href="#solucao" class="mobile-nav-link" onclick="toggleMobileMenu()">Demonstração</a>
+                <a href="#modulos" class="mobile-nav-link">Módulos de IA</a>
+                <a href="#precos" class="mobile-nav-link">Preços</a>
+                <a href="#solucao" class="mobile-nav-link">Demonstração</a>
                 <a href="#" class="btn btn-primary" onclick="openContactModal(); toggleMobileMenu();" style="margin-top: 16px;">
                     Conectar meus dados
                     <i class="bi bi-database-check"></i>
@@ -2779,7 +2787,7 @@
                         <i class="bi bi-plus faq-icon"></i>
                     </div>
                     <div class="faq-answer">
-                        Seus dados são 100% privados e ficam hospedados em servidores no Brasil (AWS São Paulo) e criptografados. Somos compliance com LGPD e NUNCA vendemos, compartilhamos ou usamos seus dados para outros fins. Você pode exportar ou deletar todos os dados a qualquer momento. Nossa receita vem da assinatura, não dos seus dados.
+                        Seus dados são 100% privados e ficam hospedados em servidores criptografados. Somos compliance com LGPD e NUNCA vendemos, compartilhamos ou usamos seus dados para outros fins. Você pode exportar ou deletar todos os dados a qualquer momento. Nossa receita vem da assinatura, não dos seus dados.
                     </div>
                 </div>
                 <div class="faq-item reveal-up delay-3">
