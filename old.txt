@@ -108,32 +108,6 @@
             padding: 0 24px;
         }
 
-        .section-title {
-            font-size: clamp(2rem, 5vw, 3rem);
-            font-weight: 800;
-            color: var(--oceano-profundo);
-            text-align: center;
-            margin-bottom: 20px;
-            line-height: 1.2;
-        }
-
-        .section-title-white {
-            color: var(--branco-puro);
-        }
-
-        .section-subtitle {
-            font-size: 18px;
-            color: var(--cinza-equilibrado);
-            text-align: center;
-            max-width: 600px;
-            margin: 0 auto;
-            line-height: 1.6;
-        }
-
-        .section-subtitle-white {
-            color: var(--cinza-claro);
-        }
-
         .btn {
             display: inline-flex;
             align-items: center;
@@ -1009,9 +983,19 @@
             box-shadow: var(--shadow-strong);
         }
 
-            .pricing-card.popular::before {
-                display: none; /* Remove o selo no mobile */
-            }
+        .pricing-card.popular::before {
+            content: 'Mais Escolhido';
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--gradient-success);
+            color: var(--oceano-profundo);
+            padding: 8px 24px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
+        }
 
         .pricing-card:hover {
             transform: translateY(-8px);
@@ -1119,6 +1103,49 @@
             font-weight: 600;
             display: inline-block;
             margin-top: 16px;
+        }
+
+        /* ================= */
+        /* TESTIMONIALS      */
+        /* ================= */
+        .testimonials-section {
+            padding: 120px 0;
+            background: var(--oceano-profundo);
+            color: var(--branco-puro);
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 40px;
+            margin-top: 80px;
+        }
+
+        .testimonial-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 40px;
+            backdrop-filter: blur(20px);
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-top: 24px;
+        }
+
+        .author-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--gradient-success);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--oceano-profundo);
+            font-weight: 600;
         }
 
         /* ================= */
@@ -1323,10 +1350,7 @@
             margin-top: 16px;
         }
 
-        /* Indicadores (bolinhas) - OCULTAS NO DESKTOP */
-        .pricing-indicators {
-            display: none;
-        }
+        /* Estilos para os cards de planos sem preço fixo */
         .price-container.custom-value {
             text-align: left;
             padding: 16px 0;
@@ -1405,457 +1429,6 @@
         }
 
         /* ================= */
-        /* MOBILE ONLY       */
-        /* ================= */
-        
-        /* OCULTAR SEÇÕES NO MOBILE */
-        @media (max-width: 768px) {
-            .problem-section,
-            .cta-analyst-section,
-            .cta-section,
-            .testimonials-section {
-                display: none;
-            }
-            
-            /* HERO MOBILE - MENOR E MAIS RESUMIDO */
-            .hero {
-                padding: 120px 0 60px 0;
-            }
-            
-            .hero h1 {
-                font-size: clamp(1.8rem, 8vw, 2.5rem);
-                margin-bottom: 16px;
-                line-height: 1.2;
-            }
-            
-            .hero-subtitle {
-                font-size: 16px;
-                margin-bottom: 24px;
-            }
-            
-            .cta-hero-box {
-                padding: 20px;
-                margin: 20px auto 30px;
-            }
-            
-            .hero-metrics {
-                display: grid;
-                grid-template-columns: 1fr 1fr;
-                gap: 15px;
-                margin-top: 30px;
-                max-width: 400px;
-                margin-left: auto;
-                margin-right: auto;
-            }
-            
-            .metric {
-                text-align: center;
-                padding: 0;
-            }
-            
-            .metric-value {
-                font-size: 20px;
-            }
-            
-            .metric-label {
-                font-size: 11px;
-                line-height: 1.3;
-            }
-            
-            /* Terceira métrica centralizada */
-            .metric:nth-child(3) {
-                grid-column: 1 / -1;
-                margin-top: 10px;
-                max-width: 200px;
-                margin-left: auto;
-                margin-right: auto;
-            }
-            
-            /* USE CASES SECTION - CAROUSEL AUTOMÁTICO */
-            .use-cases-section {
-                padding: 60px 0;
-                overflow: hidden;
-            }
-            
-            .solutions-grid {
-                display: flex;
-                width: 400%; /* 4 cards * 100% */
-                animation: autoSlideUseCases 16s infinite; /* 4s por card */
-                transition: transform 0.5s ease-in-out;
-            }
-            
-            .solutions-grid:hover {
-                animation-play-state: paused;
-            }
-            
-            .solution-module {
-                width: 25%; /* 100% / 4 cards */
-                flex-shrink: 0;
-                padding: 24px 16px;
-                margin: 0 8px;
-                box-sizing: border-box;
-            }
-            
-            .solution-module h3 {
-                font-size: 18px;
-                margin-bottom: 12px;
-            }
-            
-            .solution-module p {
-                font-size: 14px;
-                margin-bottom: 16px;
-            }
-            
-            .module-benefits li {
-                font-size: 12px;
-                margin-bottom: 6px;
-            }
-            
-            @keyframes autoSlideUseCases {
-                0%, 23% { transform: translateX(0%); }
-                25%, 48% { transform: translateX(-25%); }
-                50%, 73% { transform: translateX(-50%); }
-                75%, 98% { transform: translateX(-75%); }
-                100% { transform: translateX(0%); }
-            }
-            
-            /* DIMINUIR ESPAÇO ENTRE CASES E SOLUTION */
-            .solution-section {
-                padding: 40px 0 60px 0;
-            }
-            
-            /* SOLUTION SECTION - MOBILE OTIMIZADA */
-            .solution-demo {
-                grid-template-columns: 1fr;
-                gap: 30px;
-                margin-top: 40px;
-            }
-            
-            /* Chat primeiro no mobile */
-            .demo-chat {
-                order: -1;
-                padding: 20px;
-                min-height: 250px;
-            }
-            
-            /* Só 3 botões no mobile */
-            .questions-list .question-btn:nth-child(n+4) {
-                display: none;
-            }
-            
-            .question-btn {
-                padding: 14px;
-                font-size: 14px;
-                margin-bottom: 10px;
-            }
-            
-            /* BENEFITS SECTION - CAROUSEL AUTOMÁTICO */
-            .benefits-section {
-                padding: 60px 0;
-                overflow: hidden;
-            }
-            
-            .benefits-grid {
-                display: flex;
-                width: 300%; /* 3 cards * 100% */
-                animation: autoSlideBenefits 12s infinite; /* 4s por card */
-                transition: transform 0.5s ease-in-out;
-            }
-            
-            .benefits-grid:hover {
-                animation-play-state: paused;
-            }
-            
-            .benefit-card {
-                width: 33.333%; /* 100% / 3 cards */
-                flex-shrink: 0;
-                padding: 24px 16px;
-                margin: 0 8px;
-                box-sizing: border-box;
-            }
-            
-            .benefit-card h3 {
-                font-size: 18px;
-                margin-bottom: 12px;
-            }
-            
-            .benefit-card p {
-                font-size: 14px;
-            }
-            
-            @keyframes autoSlideBenefits {
-                0%, 30% { transform: translateX(0%); }
-                33.33%, 63.33% { transform: translateX(-33.333%); }
-                66.66%, 96.66% { transform: translateX(-66.666%); }
-                100% { transform: translateX(0%); }
-            }
-            
-            /* PRICING SECTION - UM CARD POR VEZ COM SWIPE */
-            .pricing-section {
-                padding: 60px 0;
-                position: relative;
-                overflow: hidden;
-            }
-            
-            .pricing-grid {
-                display: flex;
-                width: 300%; /* 3 cards * 100% */
-                animation: autoSlidePricing 12s infinite;
-                transition: transform 0.3s ease-out;
-                touch-action: pan-x;
-            }
-            
-            .pricing-grid.dragging {
-                animation-play-state: paused;
-                transition: none;
-            }
-            
-            .pricing-card {
-                width: 33.333%; /* Um terço da largura total para mostrar 1 card */
-                flex-shrink: 0;
-                padding: 20px 12px;
-                margin: 0;
-                box-sizing: border-box;
-                max-width: none;
-            }
-            
-            .pricing-card h3 {
-                font-size: 14px;
-                margin-bottom: 6px;
-                min-height: auto;
-                line-height: 1.2;
-            }
-            
-            .pricing-subtitle {
-                font-size: 10px;
-                margin-bottom: 8px;
-                line-height: 1.3;
-            }
-            
-            .price-container.custom-value .price {
-                font-size: 0.9rem;
-                line-height: 1.1;
-            }
-            
-            .price-container.custom-value .price-note {
-                font-size: 9px;
-                line-height: 1.2;
-            }
-            
-            .features-list {
-                margin: 12px 0;
-            }
-            
-            .features-list li {
-                font-size: 9px;
-                margin-bottom: 3px;
-                line-height: 1.2;
-            }
-            
-            .btn {
-                padding: 8px 12px;
-                font-size: 10px;
-            }
-            
-            /* Indicadores (bolinhas) - VISÍVEIS NO MOBILE */
-            .pricing-indicators {
-                display: flex;
-                justify-content: center;
-                gap: 8px;
-                margin-top: 15px;
-            }
-            
-            .pricing-dot {
-                width: 8px;
-                height: 8px;
-                border-radius: 50%;
-                background: var(--cinza-medio);
-                transition: background 0.3s ease;
-                cursor: pointer;
-            }
-            
-            .pricing-dot.active {
-                background: var(--ciano-eletrico);
-            }
-            
-            @keyframes autoSlidePricing {
-                0%, 30% { 
-                    transform: translateX(0%);
-                }
-                33.33%, 63.33% { 
-                    transform: translateX(-33.333%);
-                }
-                66.66%, 96.66% { 
-                    transform: translateX(-66.666%);
-                }
-                100% { 
-                    transform: translateX(0%);
-                }
-            }
-            
-            /* EARLY PARTNER CONTAINER NO MOBILE */
-            .early-partner-container {
-                padding: 24px 16px;
-                margin: 30px auto;
-            }
-            
-            .early-partner-title {
-                font-size: 1.4rem;
-                margin-bottom: 12px;
-            }
-            
-            .early-partner-subtitle {
-                font-size: 14px;
-                margin-bottom: 20px;
-            }
-            
-            .early-partner-benefits h4 {
-                font-size: 1.1rem;
-                margin-bottom: 12px;
-            }
-            
-            .early-partner-benefits ul li {
-                font-size: 14px;
-                margin-bottom: 8px;
-            }
-            
-            /* TEXTOS RESUMIDOS PARA MOBILE */
-            .section-title {
-                font-size: clamp(1.4rem, 6vw, 2rem);
-                margin-bottom: 12px;
-                line-height: 1.2;
-            }
-
-            .section-subtitle {
-                font-size: 14px;
-                margin-bottom: 20px;
-                line-height: 1.4;
-            }
-            
-            .hero-subtitle {
-                font-size: 15px;
-                margin-bottom: 20px;
-                line-height: 1.4;
-            }
-            
-            .cta-hero-title {
-                font-size: 16px;
-                margin-bottom: 12px;
-            }
-            
-            .cta-hero-box p {
-                font-size: 13px;
-                margin-bottom: 20px;
-            }
-            
-            /* Use Cases - textos resumidos */
-            .solution-module h3 {
-                font-size: 16px;
-                margin-bottom: 8px;
-                line-height: 1.3;
-            }
-            
-            .solution-module p {
-                font-size: 12px;
-                margin-bottom: 12px;
-                line-height: 1.4;
-            }
-            
-            .module-benefits li {
-                font-size: 11px;
-                margin-bottom: 4px;
-                line-height: 1.3;
-            }
-            
-            /* Benefits - textos resumidos */
-            .benefit-card h3 {
-                font-size: 15px;
-                margin-bottom: 6px;
-                line-height: 1.2;
-            }
-            
-            .benefit-card p {
-                font-size: 11px;
-                line-height: 1.3;
-                margin-bottom: 8px;
-            }
-            
-            .roi-highlight {
-                font-size: 10px;
-                padding: 4px 8px;
-                margin-top: 8px;
-                line-height: 1.2;
-            }
-            
-            /* Solution section */
-            .demo-chat {
-                padding: 16px;
-                min-height: 200px;
-            }
-            
-            .chat-user {
-                font-size: 13px;
-                margin-bottom: 6px;
-            }
-            
-            .chat-response {
-                font-size: 12px;
-                line-height: 1.4;
-            }
-            
-            /* FAQ */
-            .faq-question {
-                font-size: 14px;
-                line-height: 1.3;
-            }
-
-            .faq-answer {
-                font-size: 12px;
-                line-height: 1.4;
-            }
-            .video-section,
-            .social-proof-section,
-            .faq-section {
-                padding: 50px 0;
-            }
-        }
-
-        /* TESTIMONIALS SCROLL HORIZONTAL NO MOBILE */
-        @media (max-width: 768px) {
-            .testimonials-grid {
-                display: flex;
-                overflow-x: auto;
-                gap: 20px;
-                margin-top: 40px;
-                padding-bottom: 20px;
-                scroll-snap-type: x mandatory;
-                -webkit-overflow-scrolling: touch;
-            }
-            
-            .testimonial-card {
-                min-width: 300px;
-                flex-shrink: 0;
-                scroll-snap-align: start;
-                padding: 30px 20px;
-            }
-            
-            /* Indicador visual de scroll */
-            .testimonials-grid::-webkit-scrollbar {
-                height: 8px;
-            }
-            
-            .testimonials-grid::-webkit-scrollbar-track {
-                background: rgba(255, 255, 255, 0.1);
-                border-radius: 4px;
-            }
-            
-            .testimonials-grid::-webkit-scrollbar-thumb {
-                background: var(--verde-mint);
-                border-radius: 4px;
-            }
-        }
-
-        /* ================= */
         /* RESPONSIVE        */
         /* ================= */
         @media (max-width: 1024px) {
@@ -1908,31 +1481,12 @@
             }
 
             .hero-metrics {
-                display: grid;
-                grid-template-columns: 1fr 1fr;
-                gap: 10px;
-                margin-top: 20px;
-                max-width: 350px;
-                margin-left: auto;
-                margin-right: auto;
+                gap: 30px;
+                flex-direction: column;
             }
-            
-            .metric-value {
-                font-size: 18px;
-            }
-            
-            .metric-label {
-                font-size: 10px;
-                line-height: 1.2;
-            }
-            
-            /* Terceira métrica centralizada */
-            .metric:nth-child(3) {
-                grid-column: 1 / -1;
-                margin-top: 8px;
-                max-width: 180px;
-                margin-left: auto;
-                margin-right: auto;
+
+            .metric {
+                padding: 0 20px;
             }
 
             .cta-hero-box {
@@ -2080,6 +1634,15 @@
                 font-size: 14px;
             }
 
+            /* Testimonials mobile */
+            .testimonials-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .testimonial-card {
+                padding: 30px 20px;
+            }
+
             /* Social proof mobile */
             .logos-slider {
                 gap: 40px;
@@ -2174,62 +1737,9 @@
 
             .solution-module,
             .problem-card,
-            .benefit-card {
-                padding: 20px 12px;
-            }
-            
-            /* Ajustes para carousels em telas muito pequenas */
-            .solution-module {
-                margin: 0 4px;
-                padding: 16px 8px;
-            }
-            
-            .benefit-card {
-                margin: 0 4px;
-                padding: 16px 8px;
-            }
-            
-            .pricing-card {
-                margin: 0 4px;
-                padding: 16px 12px;
-            }
-            
-            .solution-module h3,
-            .benefit-card h3 {
-                font-size: 14px;
-                margin-bottom: 6px;
-            }
-            
-            .pricing-card h3 {
-                font-size: 13px;
-                margin-bottom: 4px;
-            }
-            
-            .solution-module p,
-            .benefit-card p {
-                font-size: 11px;
-                line-height: 1.3;
-            }
-            
-            .pricing-subtitle {
-                font-size: 10px;
-                margin-bottom: 8px;
-            }
-            
-            .module-benefits li,
-            .features-list li {
-                font-size: 10px;
-                margin-bottom: 3px;
-            }
-            
-            .btn {
-                padding: 6px 12px;
-                font-size: 10px;
-            }
-            
-            .roi-highlight {
-                font-size: 9px;
-                padding: 4px 8px;
+            .benefit-card,
+            .testimonial-card {
+                padding: 24px 16px;
             }
 
             .modal-content {
@@ -2329,7 +1839,7 @@
                         </div>
                     </div>
                     <a href="#precos" class="nav-link">Preços</a>
-                    <a href="#solucao" class="nav-link">Demonstração</a>
+                    <a href="#cases" class="nav-link">Cases</a>
                     <a href="#" class="btn btn-primary" onclick="openContactModal()">
                         Conectar meus dados
                         <i class="bi bi-database-check"></i>
@@ -2346,7 +1856,7 @@
             <nav class="mobile-nav" id="mobileNav">
                 <a href="#modulos" class="mobile-nav-link" onclick="toggleMobileMenu()">Módulos de IA</a>
                 <a href="#precos" class="mobile-nav-link" onclick="toggleMobileMenu()">Preços</a>
-                <a href="#solucao" class="mobile-nav-link" onclick="toggleMobileMenu()">Demonstração</a>
+                <a href="#cases" class="mobile-nav-link" onclick="toggleMobileMenu()">Cases</a>
                 <a href="#" class="btn btn-primary" onclick="openContactModal(); toggleMobileMenu();" style="margin-top: 16px;">
                     Conectar meus dados
                     <i class="bi bi-database-check"></i>
@@ -2378,8 +1888,8 @@
                         <span class="metric-label">Redução no tempo de análise</span>
                     </div>
                     <div class="metric reveal-up delay-2">
-                        <span class="metric-value">8 horas</span>
-                        <span class="metric-label">Tempo médio semanal economizado</span>
+                        <span class="metric-value">54 seg</span>
+                        <span class="metric-label">Tempo médio de resposta</span>
                     </div>
                     <div class="metric reveal-up delay-3">
                         <span class="metric-value">+30%</span>
@@ -2505,7 +2015,7 @@
         </div>
     </section>
 
-    <!-- Problem Section - OCULTADA NO MOBILE -->
+    <!-- Problem Section -->
     <section class="problem-section">
         <div class="container">
             <h2 class="section-title reveal-up">O custo da análise manual está matando seu crescimento</h2>
@@ -2564,7 +2074,7 @@
         </div>
     </section>
 
-    <!-- CTA Analyst Section - OCULTADA NO MOBILE -->
+    <!-- CTA Analyst Section -->
     <section class="cta-analyst-section">
         <div class="container">
             <div class="cta-analyst-content reveal-up">
@@ -2599,6 +2109,12 @@
                     </button>
                     <button class="question-btn" data-answer="clientes">
                         "Quais clientes têm risco de churn este mês?"
+                    </button>
+                    <button class="question-btn" data-answer="previsao">
+                        "Qual a previsão de faturamento para Q1?"
+                    </button>
+                    <button class="question-btn" data-answer="oportunidade">
+                        "Onde estou perdendo receita sem perceber?"
                     </button>
                 </div>
                 <div class="demo-chat reveal-up delay-1">
@@ -2683,6 +2199,7 @@
                 </div>
 
                 <div class="pricing-card popular reveal-up delay-1">
+                    <span class="popular-badge">Mais escolhido</span>
                     <h3>Business Intelligence</h3>
                     <p class="pricing-subtitle">Solução completa para empresas que querem decisões estratégicas baseadas em dados com dashboard executivo.</p>
                     <div class="price-container custom-value">
@@ -2720,13 +2237,6 @@
                     <a href="#" class="btn btn-ghost" onclick="openContactModal()">Falar com especialista sênior</a>
                 </div>
             </div>
-            
-            <!-- Indicadores apenas no mobile -->
-            <div class="pricing-indicators">
-                <div class="pricing-dot active"></div>
-                <div class="pricing-dot"></div>
-                <div class="pricing-dot"></div>
-            </div>
         </div>
 
         <div id="implementation-pricing" class="pricing-content">
@@ -2750,7 +2260,77 @@
     </div>
 </section>
 
-    <!-- FAQ Section -->
+    <!-- Testimonials Section -->
+    <section class="testimonials-section" id="cases">
+        <div class="container">
+            <h2 class="section-title section-title-white reveal-up">Cases reais de transformação com dados</h2>
+            <p class="section-subtitle section-subtitle-white reveal-up">Empresas brasileiras que saíram do "achismo" e entraram na era da decisão baseada em dados.</p>
+            <div class="testimonials-grid">
+                <div class="testimonial-card reveal-up">
+                    <p>"A CICI3 identificou que nossos clientes da região Sul compravam 40% mais no inverno, mas estávamos enviando estoque igual o ano todo. Ajustamos a distribuição e otimizamos nossa operação."</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">RC</div>
+                        <div>
+                            <div style="font-weight: 600;">Roberto Azevedo</div>
+                            <div style="color: var(--cinza-claro); font-size: 14px;">CEO, Distribuidora Campos Verdes</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card reveal-up delay-1">
+                    <p>"Descobrimos que nossos clientes com maior lifetime value vinham de um canal específico que representava pouco do marketing budget. Realocamos investimento e melhoramos significativamente o ROI."</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">MS</div>
+                        <div>
+                            <div style="font-weight: 600;">Mariana Silva</div>
+                            <div style="color: var(--cinza-claro); font-size: 14px;">Diretora Comercial, TechParts</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card reveal-up delay-2">
+                    <p>"O módulo operacional da CICI3 previu com antecedência que faltaria matéria-prima na nossa linha principal. Evitamos uma parada que custaria caro em vendas perdidas."</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">TS</div>
+                        <div>
+                            <div style="font-weight: 600;">Tiago Salvador</div>
+                            <div style="color: var(--cinza-claro); font-size: 14px;">COO, Total Ingredientes</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card reveal-up delay-3">
+                    <p>"Identificamos produtos que vendiam bem juntos mas não tínhamos no mesmo mix. Criamos combos estratégicos e aumentamos o ticket médio sem aumentar custo de aquisição."</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">EJ</div>
+                        <div>
+                            <div style="font-weight: 600;">Eleutério Joaquim</div>
+                            <div style="color: var(--cinza-claro); font-size: 14px;">Head Comercial, Tero Imports</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card reveal-up delay-4">
+                    <p>"A CICI3 mostrou que nossos melhores vendedores tinham sazonalidades específicas. Mapeamos os dados de toda equipe com base nesses insights e as vendas melhoraram significativamente."</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">PS</div>
+                        <div>
+                            <div style="font-weight: 600;">Paulo Santos</div>
+                            <div style="color: var(--cinza-claro); font-size: 14px;">Diretor de Vendas, Pez</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card reveal-up delay-5">
+                    <p>"Pensávamos que março era nosso mês mais fraco. A CICI3 mostrou que era porque não fazíamos promoções adequadas. Mudamos a estratégia e março virou nosso segundo melhor mês."</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">FR</div>
+                        <div>
+                            <div style="font-weight: 600;">Francisco Reus</div>
+                            <div style="color: var(--cinza-claro); font-size: 14px;">CEO, R&F Distribuição</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+        <!-- FAQ Section -->
     <section class="faq-section">
         <div class="container">
             <h2 class="section-title reveal-up">Perguntas que recebemos de empresários</h2>
@@ -2807,7 +2387,6 @@
                     </div>
                     <div class="faq-answer">
                         Suporte completo via WhatsApp, chat e email. Além do suporte técnico, temos um time de consultores de negócio que te ajudam a interpretar insights e transformar em ações práticas. Clientes Business e Enterprise têm acesso a sessões diretas de consultoria estratégica onde analisamos os dados juntos e definimos próximos passos.
-                    </div>
                 </div>
                 <div class="faq-item reveal-up delay-6">
                     <div class="faq-question">
@@ -2823,7 +2402,7 @@
     </section>
 
 
-    <!-- Final CTA Section - OCULTADA NO MOBILE -->
+    <!-- Final CTA Section -->
     <section class="cta-section">
         <div class="container">
             <h2 class="section-title section-title-white reveal-up">Conecte seus dados e comece a descobrir oportunidades hoje</h2>
@@ -2873,7 +2452,7 @@
                     <h4 style="color: var(--branco-puro); margin-bottom: 20px;">Suporte</h4>
                     <ul class="footer-links">
                         <li><a href="#" onclick="openContactModal()">Conectar dados</a></li>
-                        <li><a href="#solucao">Demonstração</a></li>
+                        <li><a href="#cases">Cases de sucesso</a></li>
                         <li><a href="#precos">Ver preços</a></li>
                         <li><a href="#solucao">Demonstração</a></li>
                         <li><a href="#termos">Termos de Uso</a></li>
@@ -3278,63 +2857,10 @@
             });
         });
 
-        // Touch improvements for mobile and carousel pause
+        // Touch improvements for mobile
         if ('ontouchstart' in window) {
             document.body.classList.add('touch-device');
-            
-            // Pause carousel animations on touch
-            document.addEventListener('DOMContentLoaded', function() {
-                const carousels = document.querySelectorAll('.solutions-grid, .benefits-grid, .pricing-grid');
-                
-                carousels.forEach(carousel => {
-                    carousel.addEventListener('touchstart', function() {
-                        this.style.animationPlayState = 'paused';
-                    });
-                    
-                    carousel.addEventListener('touchend', function() {
-                        // Resume after 1 second
-                        setTimeout(() => {
-                            this.style.animationPlayState = 'running';
-                        }, 1000);
-                    });
-                });
-            });
         }
-
-        // Animate pricing indicators (mobile only)
-        document.addEventListener('DOMContentLoaded', function() {
-            if (window.innerWidth <= 768) {
-                const indicators = document.querySelectorAll('.pricing-dot');
-                const pricingGrid = document.querySelector('.pricing-grid');
-                let currentIndex = 0;
-                
-                function updateIndicators() {
-                    indicators.forEach((dot, index) => {
-                        dot.classList.toggle('active', index === currentIndex);
-                    });
-                    currentIndex = (currentIndex + 1) % indicators.length;
-                }
-                
-                // Start with first indicator active
-                if (indicators.length > 0) {
-                    indicators[0].classList.add('active');
-                }
-                
-                // Update indicators every 4 seconds to match pricing carousel timing
-                setInterval(updateIndicators, 4000);
-                
-                // Pause indicators when carousel is paused
-                if (pricingGrid) {
-                    pricingGrid.addEventListener('mouseover', function() {
-                        this.style.animationPlayState = 'paused';
-                    });
-                    
-                    pricingGrid.addEventListener('mouseout', function() {
-                        this.style.animationPlayState = 'running';
-                    });
-                }
-            }
-        });
 
         // Handle orientation change
         window.addEventListener('orientationchange', function() {
