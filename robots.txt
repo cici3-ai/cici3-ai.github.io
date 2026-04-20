@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://cicitech.com.br/sitemap.xml
